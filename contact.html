@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Enviar</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html">Enviar</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="fonctionnement.html">Fonctionnement</a></li>
+                <li><a href="tarifs.html">Tarifs</a></li>
+                <li><a href="a-propos.html">À propos</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="https://wa.me/33123456789" class="btn-whatsapp" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    Nous contacter
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Contactez-nous</h1>
+                <p>Notre équipe est à votre disposition pour répondre à toutes vos questions</p>
+            </div>
+        </section>
+
+        <section class="contact-info">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-form">
+                        <h2>Envoyez-nous un message</h2>
+                        <form id="contact-form">
+                            <div class="form-group">
+                                <label for="nom">Nom complet</label>
+                                <input type="text" id="nom" name="nom" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="sujet">Sujet</label>
+                                <select id="sujet" name="sujet" required>
+                                    <option value="">Sélectionnez un sujet</option>
+                                    <option value="general">Question générale</option>
+                                    <option value="transfert">Question sur un transfert</option>
+                                    <option value="compte">Question sur mon compte</option>
+                                    <option value="autre">Autre</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="cta-button">Envoyer</button>
+                        </form>
+                    </div>
+                    <div class="contact-details">
+                        <h2>Informations de contact</h2>
+                        <div class="contact-card">
+                            <h3>Adresse</h3>
+                            <p>123 Avenue des Champs-Élysées<br>75008 Paris, France</p>
+                        </div>
+                        <div class="contact-card">
+                            <h3>Téléphone</h3>
+                            <p>+33 1 23 45 67 89</p>
+                            <p>Lun-Ven: 9h-18h</p>
+                        </div>
+                        <div class="contact-card">
+                            <h3>Email</h3>
+                            <p>contact@enviar.com</p>
+                            <p>support@enviar.com</p>
+                        </div>
+                        <div class="contact-card">
+                            <h3>Suivez-nous</h3>
+                            <div class="social-links">
+                                <a href="#" class="social-link">Facebook</a>
+                                <a href="#" class="social-link">Twitter</a>
+                                <a href="#" class="social-link">LinkedIn</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-contact">
+            <div class="container">
+                <h2>Questions fréquentes</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h3>Quels sont vos horaires d'ouverture ?</h3>
+                        <p>Notre service client est disponible du lundi au vendredi de 9h à 18h. Pour les transferts, notre plateforme est accessible 24h/24 et 7j/7.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Comment puis-je signaler un problème ?</h3>
+                        <p>Vous pouvez nous contacter via le formulaire ci-dessus ou appeler directement notre service client. Nous vous répondrons dans les plus brefs délais.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Quel est le délai de réponse ?</h3>
+                        <p>Nous nous efforçons de répondre à toutes les demandes dans un délai de 24 heures ouvrables.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Enviar</h3>
+                <p>Votre partenaire de confiance pour les transferts d'argent vers l'Afrique</p>
+            </div>
+            <div class="footer-section">
+                <h3>Liens rapides</h3>
+                <ul>
+                    <li><a href="fonctionnement.html">Fonctionnement</a></li>
+                    <li><a href="tarifs.html">Tarifs</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: contact@enviar.com</p>
+                <p>Tél: +33 1 23 45 67 89</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Enviar. Tous droits réservés.</p>
+        </div>
+    </footer>
+</body>
+</html> 

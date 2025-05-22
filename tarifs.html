@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar - Tarifs de transfert</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html">Enviar</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="fonctionnement.html">Fonctionnement</a></li>
+                <li><a href="tarifs.html" class="active">Tarifs</a></li>
+                <li><a href="a-propos.html">À propos</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="https://wa.me/33123456789" class="btn-whatsapp" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    Nous contacter
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Nos tarifs de transfert</h1>
+                <p>Des frais transparents et compétitifs pour vos transferts d'argent</p>
+            </div>
+        </section>
+
+        <section class="tarifs-calculator">
+            <div class="container">
+                <h2>Calculez vos frais</h2>
+                <div class="calculator-container">
+                    <form id="calculator-form">
+                        <div class="form-group">
+                            <label for="montant">Montant à envoyer (EUR)</label>
+                            <input type="number" id="montant" name="montant" min="1" step="1" required placeholder="Ex: 100">
+                        </div>
+                        <div class="form-group">
+                            <label for="pays">Pays de destination</label>
+                            <select id="pays" name="pays" required>
+                                <option value="">Sélectionnez un pays</option>
+                                <option value="guinee">Guinée Conakry</option>
+                                <option value="senegal">Sénégal</option>
+                                <option value="mali">Mali</option>
+                                <option value="cote-ivoire">Côte d'Ivoire</option>
+                                <option value="cameroun">Cameroun</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="cta-button">Calculer</button>
+                    </form>
+                    <div class="resultat-calcul">
+                        <div class="resultat-item">
+                            <span>Frais de transfert:</span>
+                            <span id="frais">--</span>
+                        </div>
+                        <div class="resultat-item">
+                            <span>Montant reçu:</span>
+                            <span id="montant-recu">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tableau-tarifs">
+            <div class="container">
+                <h2>Tableau des tarifs par pays</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Pays</th>
+                                <th>Frais de transfert</th>
+                                <th>Devise</th>
+                                <th>Taux de change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Guinée Conakry</td>
+                                <td>2,99€</td>
+                                <td>GNF</td>
+                                <td>1 EUR = 655,957 GNF</td>
+                            </tr>
+                            <tr>
+                                <td>Sénégal</td>
+                                <td>2,99€</td>
+                                <td>XOF</td>
+                                <td>1 EUR = 655,957 XOF</td>
+                            </tr>
+                            <tr>
+                                <td>Mali</td>
+                                <td>2,99€</td>
+                                <td>XOF</td>
+                                <td>1 EUR = 655,957 XOF</td>
+                            </tr>
+                            <tr>
+                                <td>Côte d'Ivoire</td>
+                                <td>2,99€</td>
+                                <td>XOF</td>
+                                <td>1 EUR = 655,957 XOF</td>
+                            </tr>
+                            <tr>
+                                <td>Cameroun</td>
+                                <td>3,99€</td>
+                                <td>XAF</td>
+                                <td>1 EUR = 655,957 XAF</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Enviar</h3>
+                <p>Votre partenaire de confiance pour les transferts d'argent vers l'Afrique</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Liens rapides</h3>
+                <ul>
+                    <li><a href="fonctionnement.html">Fonctionnement</a></li>
+                    <li><a href="tarifs.html">Tarifs</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p><i class="fas fa-envelope"></i> contact@enviar.com</p>
+                <p><i class="fas fa-phone"></i> +33 1 23 45 67 89</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Enviar. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('calculator-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const montant = parseFloat(document.getElementById('montant').value);
+            const pays = document.getElementById('pays').value;
+            
+            let frais = 0;
+            let taux = 0;
+            
+            switch(pays) {
+                case 'guinee':
+                    frais = 2.99;
+                    taux = 655.957; // 1 EUR = 655.957 GNF
+                    break;
+                case 'senegal':
+                    frais = 2.99;
+                    taux = 655.957; // 1 EUR = 655.957 XOF
+                    break;
+                case 'mali':
+                    frais = 2.99;
+                    taux = 655.957; // 1 EUR = 655.957 XOF
+                    break;
+                case 'cote-ivoire':
+                    frais = 2.99;
+                    taux = 655.957; // 1 EUR = 655.957 XOF
+                    break;
+                case 'cameroun':
+                    frais = 3.99;
+                    taux = 655.957; // 1 EUR = 655.957 XAF
+                    break;
+            }
+            
+            const montantTotal = montant + frais;
+            const montantRecu = montant * taux;
+            
+            document.getElementById('frais').textContent = frais.toFixed(2) + '€';
+            document.getElementById('montant-total').textContent = montantTotal.toFixed(2) + '€';
+            document.getElementById('montant-recu').textContent = montantRecu.toFixed(2) + ' ' + (pays === 'guinee' ? 'GNF' : pays === 'cameroun' ? 'XAF' : 'XOF');
+            
+            document.getElementById('resultat').style.display = 'block';
+            document.getElementById('whatsapp-contact').style.display = 'block';
+        });
+    </script>
+</body>
+</html> 
