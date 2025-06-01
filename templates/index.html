@@ -4,24 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enviar - Transfert d'argent vers l'Afrique</title>
-    <link rel="stylesheet" href="assets/css/style.css?v=1.1">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/calculator.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header class="header">
         <div class="header-container">
-            <a href="index.html" class="logo">
-                <img src="images/Logo1.png" alt="Enviar Logo" style="height: 80px;">
+            <a href="/" class="logo">
+                <img src="/images/Logo1.png" alt="Enviar Logo" style="height: 80px;">
             </a>
             <nav class="nav-menu">
                 <ul class="nav-links">
-                    <li><a href="index.html" class="active">Accueil</a></li>
-                    <li><a href="fonctionnement.html">Fonctionnement</a></li>
-                    <li><a href="a-propos.html">À propos</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="/" class="active">Accueil</a></li>
+                    <li><a href="/fonctionnement">Fonctionnement</a></li>
+                    <li><a href="/a-propos">À propos</a></li>
+                    <li><a href="/contact">Contact</a></li>
                 </ul>
                 <div class="nav-buttons">
-                    <a href="https://wa.me/33123456789" class="btn-whatsapp" target="_blank">
+                    <a href="https://wa.me/15142295522" class="btn-whatsapp" target="_blank">
                         <i class="fab fa-whatsapp"></i>
                         Nous contacter
                     </a>
@@ -96,38 +97,99 @@
                             </div>
                             <button type="submit" class="cta-button">Calculer</button>
                         </form>
-                        <div class="resultat-calcul" style="display: none;">
-                            <div class="resultat-item">
-                                <span>Taux du jour :</span>
-                                <span id="taux-jour">--</span>
-                            </div>
-                            <div class="resultat-item">
-                                <span>Montant à envoyer :</span>
-                                <span id="montant-envoyer">--</span>
-                            </div>
-                            <div class="resultat-item">
-                                <span>Frais à payer :</span>
-                                <span id="frais">--</span>
-                            </div>
-                            <div class="resultat-item">
-                                <span>Total à payer :</span>
-                                <span id="total-payer">--</span>
-                            </div>
-                            <div class="resultat-item">
-                                <span>Total à recevoir :</span>
-                                <span id="montant-recu">--</span>
-                            </div>
-                            <div class="whatsapp-contact" style="display: none;">
-                                <a href="https://wa.me/33123456789" class="btn-whatsapp" target="_blank">
-                                    <i class="fab fa-whatsapp"></i>
-                                    Envoyer par WhatsApp
-                                </a>
-                            </div>
-                        </div>
+                    
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- Modal pour les résultats -->
+        <div id="resultat-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Résultat du calcul</h2>
+                <div class="resultat-calcul">
+                    <div class="resultat-item">
+                        <span id="taux-jour">Taux du jour : --</span>
+                    </div>
+                    <div class="resultat-item">
+                        <span>Montant à envoyer :</span>
+                        <span id="montant-envoyer">--</span>
+                    </div>
+                    <div class="resultat-item">
+                        <span>Frais à payer :</span>
+                        <span id="frais">--</span>
+                    </div>
+                    <div class="resultat-item">
+                        <span>Total à payer :</span>
+                        <span id="total-payer">--</span>
+                    </div>
+                    <div class="resultat-item">
+                        <span>Total à recevoir :</span>
+                        <span id="montant-recu">--</span>
+                    </div>
+                    <div class="contact-button">
+                        <button onclick="showContactForm()" class="cta-button" style="display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                            C'est parti&nbsp;<span style="font-size:1.2em;">&#8594;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulaire de contact (initialement caché) -->
+        <div id="contact-form-container" style="display: none;">
+            <div class="calculator-container">
+                <h2>Contactez-nous pour finaliser votre transfert</h2>
+                <form id="contact-form">
+                    <h3>Vos informations</h3>
+                    <div class="form-group">
+                        <label for="nom">Nom complet</label>
+                        <input type="text" id="nom" name="nom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telephone">Téléphone</label>
+                        <input type="tel" id="telephone" name="telephone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <h3>Informations du bénéficiaire</h3>
+                    <div class="form-group">
+                        <label for="beneficiaire-nom">Nom complet du bénéficiaire</label>
+                        <input type="text" id="beneficiaire-nom" name="beneficiaire-nom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="beneficiaire-telephone">Téléphone du bénéficiaire</label>
+                        <input type="tel" id="beneficiaire-telephone" name="beneficiaire-telephone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="beneficiaire-adresse">Adresse du bénéficiaire</label>
+                        <input type="text" id="beneficiaire-adresse" name="beneficiaire-adresse" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message (optionnel)</label>
+                        <textarea id="message" name="message" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="cta-button">Envoyer la demande</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Bouton WhatsApp (initialement caché) -->
+        <div id="whatsapp-button-container" style="display: none;">
+            <div class="calculator-container">
+                <h2>Votre demande a été enregistrée</h2>
+                <p>Cliquez sur le bouton ci-dessous pour nous contacter sur WhatsApp avec les détails de votre transfert</p>
+                <a href="#" id="whatsapp-link" class="btn-whatsapp" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    Envoyer par WhatsApp
+                </a>
+            </div>
+        </div>
 
         <section class="avantages">
             <div class="container">
@@ -275,9 +337,9 @@
             <div class="footer-section">
                 <h3>Liens rapides</h3>
                 <ul>
-                    <li><a href="fonctionnement.html">Fonctionnement</a></li>
-                    <li><a href="a-propos.html">À propos</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="/fonctionnement">Fonctionnement</a></li>
+                    <li><a href="/a-propos">À propos</a></li>
+                    <li><a href="/contact">Contact</a></li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -291,144 +353,6 @@
         </div>
     </footer>
 
-    <script>
-        // Menu mobile
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navMenu = document.querySelector('.nav-menu');
-
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            menuToggle.querySelector('i').classList.toggle('fa-bars');
-            menuToggle.querySelector('i').classList.toggle('fa-times');
-        });
-
-        // Fermer le menu quand on clique sur un lien
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                menuToggle.querySelector('i').classList.add('fa-bars');
-                menuToggle.querySelector('i').classList.remove('fa-times');
-            });
-        });
-
-        // Fermer le menu quand on clique en dehors
-        document.addEventListener('click', (e) => {
-            if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
-                navMenu.classList.remove('active');
-                menuToggle.querySelector('i').classList.add('fa-bars');
-                menuToggle.querySelector('i').classList.remove('fa-times');
-            }
-        });
-
-        // Fonction pour mettre à jour le taux de change
-        function updateTauxChange() {
-            fetch('/')
-                .then(response => response.text())
-                .then(html => {
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(html, 'text/html');
-                    const newTaux = doc.getElementById('taux-gnf-xof').textContent;
-                    const currentTaux = document.getElementById('taux-gnf-xof').textContent;
-                    
-                    if (newTaux !== currentTaux) {
-                        document.getElementById('taux-gnf-xof').textContent = newTaux;
-                        // Si des résultats sont affichés, recalculer avec le nouveau taux
-                        if (document.querySelector('.resultat-calcul').style.display === 'block') {
-                            document.getElementById('calculator-form').dispatchEvent(new Event('submit'));
-                        }
-                    }
-                })
-                .catch(error => console.error('Erreur lors de la mise à jour du taux:', error));
-        }
-
-        // Vérifier les mises à jour du taux toutes les 30 secondes
-        setInterval(updateTauxChange, 30000);
-
-        // Mise à jour des pays de destination en fonction du pays de départ
-        function updatePaysDestination() {
-            const paysDepart = document.getElementById('pays-depart').value;
-            const paysDestination = document.getElementById('pays-destination');
-            const deviseMontant = document.getElementById('devise-montant');
-            const tauxDisplay = document.getElementById('taux-change-display');
-            const taux = parseFloat(document.getElementById('taux-gnf-xof').textContent);
-            
-            // Réinitialiser les options
-            paysDestination.innerHTML = '<option value="">Sélectionnez un pays</option>';
-            
-            // Mettre à jour la devise du montant et sélectionner automatiquement le pays de destination
-            if (paysDepart === 'guinee') {
-                deviseMontant.textContent = 'GNF';
-                paysDestination.innerHTML = '<option value="senegal">Sénégal (XOF)</option>';
-                paysDestination.value = 'senegal';
-                tauxDisplay.innerHTML = `1 GNF = <span id="taux-gnf-xof">${taux}</span> XOF`;
-            } else if (paysDepart === 'senegal') {
-                deviseMontant.textContent = 'XOF';
-                paysDestination.innerHTML = '<option value="guinee">Guinée (GNF)</option>';
-                paysDestination.value = 'guinee';
-                tauxDisplay.innerHTML = `1 XOF = <span id="taux-gnf-xof">${(1/taux).toFixed(4)}</span> GNF`;
-            } else {
-                deviseMontant.textContent = '';
-            }
-            
-            // Cacher les résultats
-            document.querySelector('.resultat-calcul').style.display = 'none';
-            document.querySelector('.whatsapp-contact').style.display = 'none';
-        }
-
-        // Calcul du transfert
-        document.getElementById('calculator-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const montant = parseFloat(document.getElementById('montant').value);
-            const paysDepart = document.getElementById('pays-depart').value;
-            const paysDestination = document.getElementById('pays-destination').value;
-            
-            // Calcul des frais (exemple : 2% du montant)
-            const frais = montant * 0.02;
-            const totalPayer = montant + frais;
-            
-            // Récupérer le taux de change
-            const taux = parseFloat(document.getElementById('taux-gnf-xof').textContent);
-            
-            // Calcul du montant reçu en fonction des pays
-            let montantRecu;
-            if (paysDepart === 'guinee' && paysDestination === 'senegal') {
-                // Conversion GNF vers XOF
-                montantRecu = (montant - frais) * taux;
-            } else if (paysDepart === 'senegal' && paysDestination === 'guinee') {
-                // Conversion XOF vers GNF
-                montantRecu = (montant - frais) / taux;
-            }
-            
-            // Mettre à jour l'affichage du taux de change en fonction du pays de départ
-            const tauxDisplay = document.getElementById('taux-change-display');
-            if (paysDepart === 'guinee') {
-                tauxDisplay.innerHTML = `1 GNF = <span id="taux-gnf-xof">${taux}</span> XOF`;
-            } else {
-                tauxDisplay.innerHTML = `1 XOF = <span id="taux-gnf-xof">${(1/taux).toFixed(4)}</span> GNF`;
-            }
-            
-            // Affichage des résultats
-            document.getElementById('taux-jour').textContent = `1 ${paysDepart === 'guinee' ? 'GNF' : 'XOF'} = ${paysDepart === 'guinee' ? taux.toFixed(4) : (1/taux).toFixed(4)} ${paysDepart === 'guinee' ? 'XOF' : 'GNF'}`;
-            document.getElementById('montant-envoyer').textContent = montant.toLocaleString() + ' ' + (paysDepart === 'guinee' ? 'GNF' : 'XOF');
-            document.getElementById('frais').textContent = frais.toLocaleString() + ' ' + (paysDepart === 'guinee' ? 'GNF' : 'XOF');
-            document.getElementById('total-payer').textContent = totalPayer.toLocaleString() + ' ' + (paysDepart === 'guinee' ? 'GNF' : 'XOF');
-            document.getElementById('montant-recu').textContent = Math.round(montantRecu).toLocaleString() + ' ' + (paysDestination === 'guinee' ? 'GNF' : 'XOF');
-            
-            // Afficher la section des résultats et le bouton WhatsApp
-            document.querySelector('.resultat-calcul').style.display = 'block';
-            document.querySelector('.whatsapp-contact').style.display = 'block';
-        });
-
-        // Réinitialiser les résultats quand on change les sélections
-        document.getElementById('pays-depart').addEventListener('change', function() {
-            document.querySelector('.resultat-calcul').style.display = 'none';
-            document.querySelector('.whatsapp-contact').style.display = 'none';
-        });
-        
-        document.getElementById('montant').addEventListener('input', function() {
-            document.querySelector('.resultat-calcul').style.display = 'none';
-            document.querySelector('.whatsapp-contact').style.display = 'none';
-        });
-    </script>
+    <script src="/static/js/calculator.js"></script>
 </body>
 </html> 

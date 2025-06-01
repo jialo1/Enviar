@@ -1,19 +1,27 @@
-from flask import Flask, render_template, send_from_directory, request, redirect, url_for, session
+from flask import Flask, render_template, send_from_directory, request, redirect, url_for, session, jsonify
 import json
 import os
 from functools import wraps
+import secrets
 
-app = Flask(__name__)
-app.secret_key = 'super secret key' # Remplacez ceci par une vraie clé secrète complexe
+# Configuration de l'application Flask
+app = Flask(__name__,
+    static_folder='static',  # Dossier pour les fichiers statiques
+    static_url_path='/static',  # Les fichiers statiques seront servis depuis /static
+    template_folder='templates'  # Dossier pour les templates
+)
 
-# Identifiants d'administration (EXEMPLE - À NE PAS UTILISER EN PRODUCTION)
-ADMIN_USERNAME = 'admin'
-ADMIN_PASSWORD = 'password123' # À changer !
+# Configuration de sécurité
+app.secret_key = secrets.token_hex(32)
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_HTTPONLY'] = True
 
-# Chemin vers le dossier des fichiers statiques (votre dossier actuel)
+# Identifiants d'administration
+ADMIN_USERNAME = os.getenv('ADMIN_USERNAME', 'admin')
+ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD', 'password123')
+
+# Chemins des fichiers
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_FOLDER = os.path.join(BASE_DIR, '') # Serve from the root directory
-
 TAUX_FILE = os.path.join(BASE_DIR, 'taux.json')
 
 # Charger le taux actuel
@@ -44,7 +52,7 @@ def login_required(f):
 # Route pour la page d'accueil
 @app.route('/')
 @app.route('/index.html')
-def index():
+def home():
     taux = load_taux()
     return render_template('index.html', taux_gnf_xof=taux)
 
@@ -91,15 +99,66 @@ def update_taux():
         except ValueError:
             return redirect(url_for('admin'))
 
-# Route pour servir les fichiers statiques (CSS, JS, images, etc.)
-@app.route('/<path:filename>')
-def static_files(filename):
+# Route pour servir les images
+@app.route('/images/<path:filename>')
+def serve_images(filename):
     try:
-        return send_from_directory(STATIC_FOLDER, filename)
+        return send_from_directory(os.path.join(BASE_DIR, 'images'), filename)
     except FileNotFoundError:
         return "", 404
 
-if __name__ == '__main__':
-    # Changer le port si nécessaire (ici, 8000 comme avant)
-    # debug=True permet le rechargement automatique pendant le développement
-    app.run(debug=True, port=8000, host='0.0.0.0') 
+# Route pour servir les fichiers HTML statiques
+@app.route('/<path:filename>')
+def serve_html(filename):
+    if filename.endswith('.html') and not filename.startswith('static/'):
+        try:
+            return send_from_directory(BASE_DIR, filename)
+        except FileNotFoundError:
+            return "", 404
+    return "", 404
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+@app.route('/a-propos')
+def a_propos():
+    return render_template('a-propos.html')
+
+@app.route('/fonctionnement')
+def fonctionnement():
+    return render_template('fonctionnement.html')
+
+@app.route('/transfert')
+def transfert():
+    return render_template('transfert.html')
+
+@app.route('/submit-transfer', methods=['POST'])
+def submit_transfer():
+    try:
+        # Récupérer les données du formulaire
+        data = {
+            'pays_depart': request.form.get('paysDepart'),
+            'pays_destination': request.form.get('paysDestination'),
+            'montant': request.form.get('montant'),
+            'montant_recu': request.form.get('montantRecu'),
+            'frais': request.form.get('frais'),
+            'total': request.form.get('total'),
+            'nom': request.form.get('nom'),
+            'telephone': request.form.get('telephone'),
+            'email': request.form.get('email'),
+            'beneficiaire_nom': request.form.get('beneficiaire-nom'),
+            'beneficiaire_telephone': request.form.get('beneficiaire-telephone'),
+            'beneficiaire_adresse': request.form.get('beneficiaire-adresse'),
+            'message': request.form.get('message')
+        }
+        
+        # Ici, vous pouvez ajouter le code pour sauvegarder les données dans une base de données
+        # ou envoyer un email de confirmation
+        
+        return jsonify({'success': True})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)})
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000, debug=True) 

@@ -1,0 +1,538 @@
+.calculator-container {
+    background: white;
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.taux-change {
+    background: #f8f9fa;
+    padding: 1em;
+    border-radius: 5px;
+    margin-bottom: 1.5em;
+    text-align: center;
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 1.5em;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.cta-button {
+    background: #25D366;
+    color: white;
+    padding: 1em 2em;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background: #128C7E;
+}
+
+.resultat-calcul {
+    margin-top: 2em;
+    padding: 2em;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.resultat-calcul h3 {
+    margin-bottom: 1.5em;
+    color: #333;
+    text-align: center;
+    font-size: 1.4em;
+}
+
+.resultat-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1em;
+    padding: 1em;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.resultat-item span:first-child {
+    font-weight: 500;
+    color: #666;
+}
+
+.resultat-item span:last-child {
+    font-weight: bold;
+    color: #333;
+}
+
+.contact-button {
+    margin-top: 2em;
+    text-align: center;
+}
+
+.contact-button .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 1em 2em;
+    font-size: 1.1em;
+}
+
+#contact-form-container {
+    margin-top: 2em;
+}
+
+#contact-form-container h2 {
+    text-align: center;
+    margin-bottom: 1.5em;
+}
+
+#contact-form-container h3 {
+    margin: 1.5em 0 1em;
+    color: #333;
+}
+
+#whatsapp-button-container {
+    text-align: center;
+    margin-top: 2em;
+}
+
+#whatsapp-button-container h2 {
+    margin-bottom: 1em;
+}
+
+#whatsapp-button-container p {
+    margin-bottom: 2em;
+    color: #666;
+}
+
+.btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    background: #25D366;
+    color: white;
+    padding: 1em 2em;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.1em;
+    transition: background-color 0.3s;
+}
+
+.btn-whatsapp:hover {
+    background: #128C7E;
+}
+
+@media (max-width: 768px) {
+    .calculator-container {
+        padding: 1.5em;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 0.6em;
+    }
+    
+    .cta-button {
+        padding: 0.8em 1.5em;
+    }
+}
+
+/* Styles pour la fenêtre modale */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+.close-modal {
+    position: absolute;
+    right: 1.5rem;
+    top: 1rem;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-modal:hover {
+    color: #333;
+}
+
+.modal h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.modal .resultat-calcul {
+    margin-top: 1rem;
+}
+
+.modal .resultat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    background: #f8f9fa;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.modal .resultat-item:hover {
+    background: #f0f0f0;
+}
+
+.modal .resultat-item span:first-child {
+    font-weight: 500;
+    color: #666;
+}
+
+.modal .resultat-item span:last-child {
+    font-weight: bold;
+    color: #333;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.5px;
+}
+
+/* Style spécial pour le taux de change */
+.modal .resultat-item:first-child span:last-child {
+    color: #25D366;
+    font-size: 1.1em;
+}
+
+/* Style spécial pour le montant à recevoir */
+.modal .resultat-item:nth-last-child(2) span:last-child {
+    color: #128C7E;
+    font-size: 1.1em;
+}
+
+.modal .contact-button {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.modal .contact-button .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+}
+
+.modal .contact-button .cta-button:hover {
+    transform: translateY(-2px);
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Styles responsifs pour la modal */
+@media (max-width: 768px) {
+    .modal-content {
+        margin: 10% auto;
+        padding: 1.5rem;
+        width: 95%;
+    }
+
+    .close-modal {
+        right: 1rem;
+        top: 0.5rem;
+        font-size: 1.8rem;
+    }
+
+    .modal h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+
+    .modal .resultat-item {
+        padding: 0.8rem;
+    }
+}
+
+/* Styles pour le formulaire de transfert */
+.transfert-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.steps-progress {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.steps-progress::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #e0e0e0;
+    z-index: 1;
+}
+
+.step {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    flex: 1;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background: #e0e0e0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0.5rem;
+    color: #666;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.step.active .step-number {
+    background: #4CAF50;
+    color: white;
+}
+
+.step-title {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.step.active .step-title {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.form-step {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.form-step.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    gap: 1rem;
+}
+
+.form-buttons .prev-step,
+.form-buttons .next-step {
+    flex: 1 1 0;
+    padding: 1em 2em;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+
+.form-buttons .prev-step {
+    background: #f5f5f5;
+    color: #333;
+}
+
+.form-buttons .prev-step:hover {
+    background: #e0e0e0;
+}
+
+.form-buttons button[type="submit"].cta-button {
+    flex: 1 1 0;
+    padding: 1em 2em;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    background: #25D366;
+    color: white;
+    transition: background 0.3s, color 0.3s;
+}
+
+.form-buttons button[type="submit"].cta-button:hover {
+    background: #128C7E;
+}
+
+.confirmation-summary {
+    background: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 5px;
+    margin-bottom: 2rem;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1em;
+    padding: 1em;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.summary-item span:first-child {
+    font-weight: 500;
+    color: #666;
+}
+
+.summary-item span:last-child {
+    font-weight: bold;
+    color: #333;
+    font-size: 1.1em;
+}
+
+/* Style pour les montants importants */
+#summary-total span:last-child,
+#summary-montant-envoyer span:last-child,
+#summary-montant-recu span:last-child {
+    color: #25D366;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+/* Style pour les champs en lecture seule */
+input[readonly] {
+    background-color: #f8f9fa;
+    font-weight: 500;
+    color: #333;
+}
+
+#montant-display,
+#montant-recu-display,
+#total-display {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #25D366;
+}
+
+input.error {
+    border-color: #ff4444;
+}
+
+/* Styles responsifs */
+@media (max-width: 768px) {
+    .transfert-container {
+        margin: 1rem;
+        padding: 1rem;
+    }
+
+    .steps-progress {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 2rem;
+    }
+
+    .steps-progress::before {
+        display: none;
+    }
+
+    .step {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+
+    .step-number {
+        margin: 0 1rem 0 0;
+    }
+
+    .step-title {
+        text-align: left;
+    }
+}
+
+.modal #taux-jour {
+    display: block;
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #25D366;
+    margin-bottom: 0.5em;
+} 
