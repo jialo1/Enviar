@@ -12,7 +12,7 @@
     <header class="header">
         <div class="header-container">
             <a href="/" class="logo">
-                <img src="/images/Logo1.png" alt="Enviar Logo" style="height: 80px;">
+                <img src="/images/Logo1.png" alt="Enviar Logo" style="height: 60px;">
             </a>
             <button class="menu-toggle" aria-label="Menu">
                 <i class="fas fa-bars"></i>
@@ -192,8 +192,8 @@
             <div class="footer-section">
                 <h3>Contact</h3>
                 <ul>
-                    <li><i class="fas fa-phone"></i> +33 7 74 06 21 02</li>
-                    <li><i class="fab fa-whatsapp"></i> +33 7 74 06 21 02</li>
+                    <li><i class="fas fa-phone"></i> +1 (514) 229-5522</li>
+                    <li><i class="fab fa-whatsapp"></i> +1 (514) 229-5522</li>
                     <li><i class="fas fa-envelope"></i> contact@enviartransfert.com</li>
                 </ul>
             </div>
@@ -235,5 +235,38 @@
             </div>
         </div>
     </div>
+
+    <!-- Script pour le menu mobile -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            const menuIcon = menuToggle.querySelector('i');
+
+            menuToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                menuIcon.classList.toggle('fa-bars');
+                menuIcon.classList.toggle('fa-times');
+            });
+
+            // Fermer le menu quand on clique sur un lien
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    menuIcon.classList.add('fa-bars');
+                    menuIcon.classList.remove('fa-times');
+                });
+            });
+
+            // Fermer le menu quand on clique en dehors
+            document.addEventListener('click', (e) => {
+                if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                    menuIcon.classList.add('fa-bars');
+                    menuIcon.classList.remove('fa-times');
+                }
+            });
+        });
+    </script>
 </body>
 </html> 
