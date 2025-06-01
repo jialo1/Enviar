@@ -3,37 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fonctionnement - Enviar</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Comment ça marche - Enviar</title>
+    <link rel="stylesheet" href="assets/css/style.css?v=1.1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <a href="index.html">Enviar</a>
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="images/Logo1.png" alt="Enviar Logo" style="height: 80px;">
+            </a>
+            <nav class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="fonctionnement.html" class="active">Fonctionnement</a></li>
+                    <li><a href="a-propos.html">À propos</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <a href="https://wa.me/33123456789" class="btn-whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                        Nous contacter
+                    </a>
+                </div>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
             </div>
-            <ul class="nav-links">
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="fonctionnement.html" class="active">Fonctionnement</a></li>
-                <li><a href="tarifs.html">Tarifs</a></li>
-                <li><a href="a-propos.html">À propos</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <div class="nav-buttons">
-                <a href="https://wa.me/33123456789" class="btn-whatsapp" target="_blank">
-                    <i class="fab fa-whatsapp"></i>
-                    Nous contacter
-                </a>
-            </div>
-        </nav>
+        </div>
     </header>
 
     <main>
-        <section class="hero">
+        <section class="page-header">
             <div class="container">
                 <h1>Comment ça marche</h1>
-                <p>Un processus simple en 3 étapes pour envoyer de l'argent</p>
+                <p>Découvrez notre processus simple et sécurisé</p>
             </div>
         </section>
 
@@ -41,18 +45,18 @@
             <div class="process-steps">
                 <div class="step">
                     <div class="step-number">1</div>
-                    <h3>Créez votre compte</h3>
-                    <p>Inscrivez-vous gratuitement en quelques minutes. Vérifiez votre identité pour commencer à envoyer de l'argent.</p>
+                    <h3>Calculez votre transfert</h3>
+                    <p>Utilisez notre calculateur pour connaître le montant exact que votre bénéficiaire recevra en XOF.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
-                    <h3>Choisissez votre transfert</h3>
-                    <p>Sélectionnez le pays de destination, le montant et le mode de réception. Consultez les frais en temps réel.</p>
+                    <h3>Contactez-nous sur WhatsApp</h3>
+                    <p>Envoyez-nous un message sur WhatsApp avec le montant calculé pour finaliser votre transfert.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
-                    <h3>Envoyez et suivez</h3>
-                    <p>Effectuez votre paiement et suivez votre transfert en temps réel. Votre bénéficiaire reçoit l'argent instantanément.</p>
+                    <h3>Recevez votre argent</h3>
+                    <p>Votre bénéficiaire reçoit l'argent instantanément après la confirmation du transfert.</p>
                 </div>
             </div>
         </section>
@@ -61,30 +65,15 @@
             <h2>Pays desservis</h2>
             <div class="pays-grid">
                 <div class="pays-card">
-                    <h3>Afrique de l'Ouest</h3>
+                    <h3>Envoi depuis :</h3>
+                    <ul>
+                        <li>Guinée</li>
+                    </ul>
+                </div>
+                <div class="pays-card">
+                    <h3>Réception en :</h3>
                     <ul>
                         <li>Sénégal</li>
-                        <li>Mali</li>
-                        <li>Côte d'Ivoire</li>
-                        <li>Burkina Faso</li>
-                    </ul>
-                </div>
-                <div class="pays-card">
-                    <h3>Afrique Centrale</h3>
-                    <ul>
-                        <li>Cameroun</li>
-                        <li>Gabon</li>
-                        <li>Congo</li>
-                        <li>Tchad</li>
-                    </ul>
-                </div>
-                <div class="pays-card">
-                    <h3>Afrique de l'Est</h3>
-                    <ul>
-                        <li>Kenya</li>
-                        <li>Tanzanie</li>
-                        <li>Ouganda</li>
-                        <li>Rwanda</li>
                     </ul>
                 </div>
             </div>
@@ -133,5 +122,34 @@
             <p>&copy; 2024 Enviar. Tous droits réservés.</p>
         </div>
     </footer>
+    <script>
+        // Menu mobile
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            menuToggle.querySelector('i').classList.toggle('fa-bars');
+            menuToggle.querySelector('i').classList.toggle('fa-times');
+        });
+
+        // Fermer le menu quand on clique sur un lien
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                menuToggle.querySelector('i').classList.add('fa-bars');
+                menuToggle.querySelector('i').classList.remove('fa-times');
+            });
+        });
+
+        // Fermer le menu quand on clique en dehors
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                navMenu.classList.remove('active');
+                menuToggle.querySelector('i').classList.add('fa-bars');
+                menuToggle.querySelector('i').classList.remove('fa-times');
+            }
+        });
+    </script>
 </body>
 </html> 

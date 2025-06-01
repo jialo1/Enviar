@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Enviar</title>
+    <link rel="stylesheet" href="assets/css/style.css?v=1.1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--gray-color);
+            padding-top: 80px; /* Ajustement pour le header fixe */
+        }
+
+        .admin-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: var(--light-color);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        .admin-container h1 {
+            text-align: center;
+            color: var(--dark-color);
+            margin-bottom: 2rem;
+        }
+
+        .taux-actuel {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: var(--primary-light);
+            color: var(--light-color);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .taux-actuel span {
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .error-message {
+            color: #e74c3c;
+            margin-bottom: 1rem;
+            text-align: center;
+            min-height: 1.2em; /* Reserve space */
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
+        }
+
+        .btn-logout {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background-color: #e74c3c;
+            color: var(--light-color);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            margin-left: 1rem;
+        }
+
+        .btn-logout:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">Enviar</a>
+            <nav class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="fonctionnement.html">Fonctionnement</a></li>
+                    <li><a href="tarifs.html">Tarifs</a></li>
+                    <li><a href="a-propos.html">À propos</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                 <div class="nav-buttons">
+                    <a href="https://wa.me/33123456789" class="btn-whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                        Nous contacter
+                    </a>
+                    <a href="/logout" class="btn-logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Déconnexion
+                    </a>
+                </div>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="admin-container">
+            <h1>Administration du Taux de Change</h1>
+            
+            <div class="taux-actuel">
+                <div class="taux-item">
+                    <h3>Taux de Change GNF vers XOF</h3>
+                    <p>1 GNF = <span id="taux-gnf-xof">{{ taux_gnf_xof }}</span> XOF</p>
+                </div>
+            </div>
+
+            <form id="taux-form" method="POST" action="/update_taux">
+                <div class="form-group">
+                    <label for="nouveau-taux">Nouveau taux (1 GNF = ? XOF)</label>
+                    <input type="number" id="nouveau-taux" name="nouveau-taux" step="0.00001" required value="{{ taux_gnf_xof }}">
+                </div>
+                <button type="submit">Mettre à jour le taux</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        // Menu mobile (Copie du script de navigation des autres pages)
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            menuToggle.querySelector('i').classList.toggle('fa-bars');
+            menuToggle.querySelector('i').classList.toggle('fa-times');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                menuToggle.querySelector('i').classList.add('fa-bars');
+                menuToggle.querySelector('i').classList.remove('fa-times');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                navMenu.classList.remove('active');
+                menuToggle.querySelector('i').classList.add('fa-bars');
+                menuToggle.querySelector('i').classList.remove('fa-times');
+            }
+        });
+
+        // Le script d'administration côté client pour charger le taux est supprimé
+        // car le taux est maintenant passé par le backend via Jinja.
+        // Le formulaire soumet directement au backend.
+    </script>
+</body>
+</html> 

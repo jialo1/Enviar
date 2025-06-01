@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar - Transfert d'argent vers l'Afrique</title>
+    <link rel="stylesheet" href="assets/css/style.css?v=1.1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="images/Logo1.png" alt="Enviar Logo" style="height: 80px;">
+            </a>
+            <nav class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Accueil</a></li>
+                    <li><a href="fonctionnement.html">Fonctionnement</a></li>
+                    <li><a href="a-propos.html">À propos</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <a href="https://wa.me/33123456789" class="btn-whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                        Nous contacter
+                    </a>
+                </div>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-left">
+                    <h1>Envoyez de l'argent en Afrique en toute simplicité</h1>
+                    <p>Transferts rapides, sécurisés et économiques vers vos proches</p>
+                    <div class="hero-features">
+                        <div class="feature-item">
+                            <i class="fas fa-bolt"></i>
+                            <span>Transferts instantanés</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>100% sécurisé</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-euro-sign"></i>
+                            <span>Frais réduits</span>
+                        </div>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">1M+</span>
+                            <span class="stat-label">Transferts</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">1</span>
+                            <span class="stat-label">Pays de réception</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">Support</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-right">
+                    <div class="calculator-container">
+                        <div class="taux-change">
+                            <div>Taux de change actuel :</div>
+                            <div id="taux-change-display">1 GNF = <span id="taux-gnf-xof">{{ taux_gnf_xof }}</span> XOF</div>
+                        </div>
+                        <form id="calculator-form">
+                            <div class="form-group">
+                                <label for="pays-depart">Pays de départ</label>
+                                <select id="pays-depart" name="pays-depart" required onchange="updatePaysDestination()">
+                                    <option value="">Sélectionnez un pays</option>
+                                    <option value="guinee">Guinée (GNF)</option>
+                                    <option value="senegal">Sénégal (XOF)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="montant">Montant à envoyer</label>
+                                <input type="number" id="montant" name="montant" min="1" step="1" required placeholder="Ex: 100000">
+                                <span id="devise-montant"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="pays-destination">Pays de destination</label>
+                                <select id="pays-destination" name="pays-destination" required>
+                                    <option value="">Sélectionnez d'abord le pays de départ</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="cta-button">Calculer</button>
+                        </form>
+                        <div class="resultat-calcul" style="display: none;">
+                            <div class="resultat-item">
+                                <span>Taux du jour :</span>
+                                <span id="taux-jour">--</span>
+                            </div>
+                            <div class="resultat-item">
+                                <span>Montant à envoyer :</span>
+                                <span id="montant-envoyer">--</span>
+                            </div>
+                            <div class="resultat-item">
+                                <span>Frais à payer :</span>
+                                <span id="frais">--</span>
+                            </div>
+                            <div class="resultat-item">
+                                <span>Total à payer :</span>
+                                <span id="total-payer">--</span>
+                            </div>
+                            <div class="resultat-item">
+                                <span>Total à recevoir :</span>
+                                <span id="montant-recu">--</span>
+                            </div>
+                            <div class="whatsapp-contact" style="display: none;">
+                                <a href="https://wa.me/33123456789" class="btn-whatsapp" target="_blank">
+                                    <i class="fab fa-whatsapp"></i>
+                                    Envoyer par WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="avantages">
+            <div class="container">
+                <h2>Pourquoi choisir Enviar ?</h2>
+                <div class="avantages-grid">
+                    <div class="avantage-card">
+                        <i class="fas fa-bolt fa-2x"></i>
+                        <h3>Rapide</h3>
+                        <p>Transferts instantanés vers vos proches</p>
+                    </div>
+                    <div class="avantage-card">
+                        <i class="fas fa-euro-sign fa-2x"></i>
+                        <h3>Économique</h3>
+                        <p>Frais réduits et taux de change avantageux</p>
+                    </div>
+                    <div class="avantage-card">
+                        <i class="fas fa-shield-alt fa-2x"></i>
+                        <h3>Sécurisé</h3>
+                        <p>Protection de vos transactions</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <h3>98%</h3>
+                        <p>Satisfaction client</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>24/7</h3>
+                        <p>Support client</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>15+</h3>
+                        <p>Pays desservis</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>1M+</h3>
+                        <p>Transferts effectués</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="temoignages">
+            <div class="container">
+                <h2>Ce que disent nos clients</h2>
+                <div class="temoignages-grid">
+                    <div class="temoignage-card">
+                        <div class="temoignage-content">
+                            <p>"Service rapide et fiable. J'envoie de l'argent régulièrement à ma famille au Sénégal et je suis toujours satisfait."</p>
+                        </div>
+                        <div class="temoignage-author">
+                            <img src="https://i.pravatar.cc/100?img=1" alt="Photo de client">
+                            <div class="author-info">
+                                <h4>Mamadou D.</h4>
+                                <p>Paris, France</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="temoignage-card">
+                        <div class="temoignage-content">
+                            <p>"Les frais sont vraiment compétitifs et le service client est excellent. Je recommande vivement pour les envois au Sénégal !"</p>
+                        </div>
+                        <div class="temoignage-author">
+                            <img src="https://i.pravatar.cc/100?img=2" alt="Photo de client">
+                            <div class="author-info">
+                                <h4>Fatou S.</h4>
+                                <p>Lyon, France</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="temoignage-card">
+                        <div class="temoignage-content">
+                            <p>"Application simple à utiliser et transferts instantanés. Parfait pour envoyer de l'argent à mes parents au Sénégal !"</p>
+                        </div>
+                        <div class="temoignage-author">
+                            <img src="https://i.pravatar.cc/100?img=3" alt="Photo de client">
+                            <div class="author-info">
+                                <h4>Ibrahim K.</h4>
+                                <p>Marseille, France</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pays-desservis">
+            <div class="container">
+                <h2>Pays Desservis</h2>
+                <div class="pays-grid">
+                    <div class="pays-card">
+                        <h3>Envoi depuis :</h3>
+                        <ul>
+                            <li>Guinée</li>
+                        </ul>
+                    </div>
+                     <div class="pays-card">
+                        <h3>Réception en :</h3>
+                        <ul>
+                            <li>Sénégal</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq">
+            <div class="container">
+                <h2>FAQ</h2>
+                <div class="faq-grid">
+                    <div class="faq-card">
+                        <h3>Comment faire un transfert ?</h3>
+                        <p>Pour effectuer un transfert, connectez-vous à votre compte, sélectionnez le montant à envoyer, le pays de destination et suivez les étapes de paiement.</p>
+                    </div>
+                    <div class="faq-card">
+                        <h3>Quels sont les frais de transfert ?</h3>
+                        <p>Les frais de transfert varient en fonction du montant et de la destination. Vous pouvez les calculer en utilisant notre outil de calcul sur la page d'accueil.</p>
+                    </div>
+                    <div class="faq-card">
+                        <h3>Quel est le délai de réception ?</h3>
+                        <p>Le délai de réception peut varier en fonction de la destination. Nous vous informerons généralement du délai de traitement de votre transfert.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Enviar</h3>
+                <p>Votre partenaire de confiance pour les transferts d'argent vers l'Afrique</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Liens rapides</h3>
+                <ul>
+                    <li><a href="fonctionnement.html">Fonctionnement</a></li>
+                    <li><a href="a-propos.html">À propos</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p><i class="fas fa-envelope"></i> contact@enviar.com</p>
+                <p><i class="fas fa-phone"></i> +33 1 23 45 67 89</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Enviar. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menu mobile
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            menuToggle.querySelector('i').classList.toggle('fa-bars');
+            menuToggle.querySelector('i').classList.toggle('fa-times');
+        });
+
+        // Fermer le menu quand on clique sur un lien
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                menuToggle.querySelector('i').classList.add('fa-bars');
+                menuToggle.querySelector('i').classList.remove('fa-times');
+            });
+        });
+
+        // Fermer le menu quand on clique en dehors
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                navMenu.classList.remove('active');
+                menuToggle.querySelector('i').classList.add('fa-bars');
+                menuToggle.querySelector('i').classList.remove('fa-times');
+            }
+        });
+
+        // Fonction pour mettre à jour le taux de change
+        function updateTauxChange() {
+            fetch('/')
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const newTaux = doc.getElementById('taux-gnf-xof').textContent;
+                    const currentTaux = document.getElementById('taux-gnf-xof').textContent;
+                    
+                    if (newTaux !== currentTaux) {
+                        document.getElementById('taux-gnf-xof').textContent = newTaux;
+                        // Si des résultats sont affichés, recalculer avec le nouveau taux
+                        if (document.querySelector('.resultat-calcul').style.display === 'block') {
+                            document.getElementById('calculator-form').dispatchEvent(new Event('submit'));
+                        }
+                    }
+                })
+                .catch(error => console.error('Erreur lors de la mise à jour du taux:', error));
+        }
+
+        // Vérifier les mises à jour du taux toutes les 30 secondes
+        setInterval(updateTauxChange, 30000);
+
+        // Mise à jour des pays de destination en fonction du pays de départ
+        function updatePaysDestination() {
+            const paysDepart = document.getElementById('pays-depart').value;
+            const paysDestination = document.getElementById('pays-destination');
+            const deviseMontant = document.getElementById('devise-montant');
+            const tauxDisplay = document.getElementById('taux-change-display');
+            const taux = parseFloat(document.getElementById('taux-gnf-xof').textContent);
+            
+            // Réinitialiser les options
+            paysDestination.innerHTML = '<option value="">Sélectionnez un pays</option>';
+            
+            // Mettre à jour la devise du montant et sélectionner automatiquement le pays de destination
+            if (paysDepart === 'guinee') {
+                deviseMontant.textContent = 'GNF';
+                paysDestination.innerHTML = '<option value="senegal">Sénégal (XOF)</option>';
+                paysDestination.value = 'senegal';
+                tauxDisplay.innerHTML = `1 GNF = <span id="taux-gnf-xof">${taux}</span> XOF`;
+            } else if (paysDepart === 'senegal') {
+                deviseMontant.textContent = 'XOF';
+                paysDestination.innerHTML = '<option value="guinee">Guinée (GNF)</option>';
+                paysDestination.value = 'guinee';
+                tauxDisplay.innerHTML = `1 XOF = <span id="taux-gnf-xof">${(1/taux).toFixed(4)}</span> GNF`;
+            } else {
+                deviseMontant.textContent = '';
+            }
+            
+            // Cacher les résultats
+            document.querySelector('.resultat-calcul').style.display = 'none';
+            document.querySelector('.whatsapp-contact').style.display = 'none';
+        }
+
+        // Calcul du transfert
+        document.getElementById('calculator-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const montant = parseFloat(document.getElementById('montant').value);
+            const paysDepart = document.getElementById('pays-depart').value;
+            const paysDestination = document.getElementById('pays-destination').value;
+            
+            // Calcul des frais (exemple : 2% du montant)
+            const frais = montant * 0.02;
+            const totalPayer = montant + frais;
+            
+            // Récupérer le taux de change
+            const taux = parseFloat(document.getElementById('taux-gnf-xof').textContent);
+            
+            // Calcul du montant reçu en fonction des pays
+            let montantRecu;
+            if (paysDepart === 'guinee' && paysDestination === 'senegal') {
+                // Conversion GNF vers XOF
+                montantRecu = (montant - frais) * taux;
+            } else if (paysDepart === 'senegal' && paysDestination === 'guinee') {
+                // Conversion XOF vers GNF
+                montantRecu = (montant - frais) / taux;
+            }
+            
+            // Mettre à jour l'affichage du taux de change en fonction du pays de départ
+            const tauxDisplay = document.getElementById('taux-change-display');
+            if (paysDepart === 'guinee') {
+                tauxDisplay.innerHTML = `1 GNF = <span id="taux-gnf-xof">${taux}</span> XOF`;
+            } else {
+                tauxDisplay.innerHTML = `1 XOF = <span id="taux-gnf-xof">${(1/taux).toFixed(4)}</span> GNF`;
+            }
+            
+            // Affichage des résultats
+            document.getElementById('taux-jour').textContent = `1 ${paysDepart === 'guinee' ? 'GNF' : 'XOF'} = ${paysDepart === 'guinee' ? taux.toFixed(4) : (1/taux).toFixed(4)} ${paysDepart === 'guinee' ? 'XOF' : 'GNF'}`;
+            document.getElementById('montant-envoyer').textContent = montant.toLocaleString() + ' ' + (paysDepart === 'guinee' ? 'GNF' : 'XOF');
+            document.getElementById('frais').textContent = frais.toLocaleString() + ' ' + (paysDepart === 'guinee' ? 'GNF' : 'XOF');
+            document.getElementById('total-payer').textContent = totalPayer.toLocaleString() + ' ' + (paysDepart === 'guinee' ? 'GNF' : 'XOF');
+            document.getElementById('montant-recu').textContent = Math.round(montantRecu).toLocaleString() + ' ' + (paysDestination === 'guinee' ? 'GNF' : 'XOF');
+            
+            // Afficher la section des résultats et le bouton WhatsApp
+            document.querySelector('.resultat-calcul').style.display = 'block';
+            document.querySelector('.whatsapp-contact').style.display = 'block';
+        });
+
+        // Réinitialiser les résultats quand on change les sélections
+        document.getElementById('pays-depart').addEventListener('change', function() {
+            document.querySelector('.resultat-calcul').style.display = 'none';
+            document.querySelector('.whatsapp-contact').style.display = 'none';
+        });
+        
+        document.getElementById('montant').addEventListener('input', function() {
+            document.querySelector('.resultat-calcul').style.display = 'none';
+            document.querySelector('.whatsapp-contact').style.display = 'none';
+        });
+    </script>
+</body>
+</html> 

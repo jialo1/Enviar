@@ -4,60 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - Enviar</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=1.1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <a href="index.html">Enviar</a>
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="images/Logo1.png" alt="Enviar Logo" style="height: 80px;">
+            </a>
+            <nav class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="fonctionnement.html">Fonctionnement</a></li>
+                    <li><a href="a-propos.html">À propos</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <a href="https://wa.me/15142295522" class="btn-whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                        Nous contacter
+                    </a>
+                </div>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
             </div>
-            <ul class="nav-links">
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="fonctionnement.html">Fonctionnement</a></li>
-                <li><a href="tarifs.html">Tarifs</a></li>
-                <li><a href="a-propos.html">À propos</a></li>
-                <li><a href="contact.html" class="active">Contact</a></li>
-            </ul>
-            <div class="nav-buttons">
-                <a href="https://wa.me/33123456789" class="btn-whatsapp" target="_blank">
-                    <i class="fab fa-whatsapp"></i>
-                    Nous contacter
-                </a>
-            </div>
-        </nav>
+        </div>
     </header>
 
     <main>
-        <section class="hero">
+        <section class="page-header">
             <div class="container">
                 <h1>Contactez-nous</h1>
-                <p>Notre équipe est à votre disposition pour répondre à toutes vos questions</p>
+                <p>Notre équipe est à votre disposition</p>
             </div>
         </section>
 
         <section class="contact-info">
             <div class="container">
                 <div class="contact-grid">
+                    <!-- Formulaire de contact -->
                     <div class="contact-form">
                         <h2>Envoyez-nous un message</h2>
-                        <form id="contact-form">
+                        <form id="contactForm">
                             <div class="form-group">
-                                <label for="nom">Nom complet</label>
-                                <input type="text" id="nom" name="nom" required>
+                                <label for="name">Nom complet</label>
+                                <input type="text" id="name" name="name" required>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <input type="email" id="email" name="email" required>
                             </div>
                             <div class="form-group">
-                                <label for="sujet">Sujet</label>
-                                <select id="sujet" name="sujet" required>
-                                    <option value="">Sélectionnez un sujet</option>
-                                    <option value="general">Question générale</option>
+                                <label for="phone">Téléphone</label>
+                                <input type="tel" id="phone" name="phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Sujet</label>
+                                <select id="subject" name="subject" required>
+                                    <option value="">Choisir un sujet</option>
                                     <option value="transfert">Question sur un transfert</option>
                                     <option value="compte">Question sur mon compte</option>
+                                    <option value="tarifs">Information sur les tarifs</option>
                                     <option value="autre">Autre</option>
                                 </select>
                             </div>
@@ -65,32 +74,38 @@
                                 <label for="message">Message</label>
                                 <textarea id="message" name="message" rows="5" required></textarea>
                             </div>
-                            <button type="submit" class="cta-button">Envoyer</button>
+                            <button type="submit" class="cta-button">Envoyer le message</button>
                         </form>
                     </div>
+
+                    <!-- Informations de contact -->
                     <div class="contact-details">
-                        <h2>Informations de contact</h2>
                         <div class="contact-card">
-                            <h3>Adresse</h3>
-                            <p>123 Avenue des Champs-Élysées<br>75008 Paris, France</p>
+                            <h3><i class="fas fa-phone"></i> Téléphone</h3>
+                            <p>Service client : +1 (514) 229-5522</p>
+                            <p>Support technique : +1 (514) 229-5522</p>
+                            <p class="hours">Lun-Sam : 9h-20h</p>
                         </div>
+
                         <div class="contact-card">
-                            <h3>Téléphone</h3>
-                            <p>+33 1 23 45 67 89</p>
-                            <p>Lun-Ven: 9h-18h</p>
+                            <h3><i class="fas fa-envelope"></i> Email</h3>
+                            <p>Service client : contact@enviartransfert.com</p>
+                            <p>Support : contact@enviartransfert.com</p>
+                            <p class="hours">Réponse sous 24h</p>
                         </div>
+
                         <div class="contact-card">
-                            <h3>Email</h3>
-                            <p>contact@enviar.com</p>
-                            <p>support@enviar.com</p>
+                            <h3><i class="fab fa-whatsapp"></i> WhatsApp</h3>
+                            <p>Service client : +1 (514) 229-5522</p>
+                            <p>Support : +1 (514) 229-5522</p>
+                            <p class="hours">7j/7, 9h-20h</p>
                         </div>
+
                         <div class="contact-card">
-                            <h3>Suivez-nous</h3>
-                            <div class="social-links">
-                                <a href="#" class="social-link">Facebook</a>
-                                <a href="#" class="social-link">Twitter</a>
-                                <a href="#" class="social-link">LinkedIn</a>
-                            </div>
+                            <h3><i class="fas fa-map-marker-alt"></i> Adresse</h3>
+                            <p>123 Avenue de la République</p>
+                            <p>75011 Paris, France</p>
+                            <p class="hours">Lun-Ven : 9h-18h</p>
                         </div>
                     </div>
                 </div>
@@ -102,16 +117,20 @@
                 <h2>Questions fréquentes</h2>
                 <div class="faq-grid">
                     <div class="faq-item">
-                        <h3>Quels sont vos horaires d'ouverture ?</h3>
-                        <p>Notre service client est disponible du lundi au vendredi de 9h à 18h. Pour les transferts, notre plateforme est accessible 24h/24 et 7j/7.</p>
+                        <h3>Comment puis-je suivre mon transfert ?</h3>
+                        <p>Vous pouvez suivre votre transfert en temps réel depuis votre espace client ou en nous contactant directement.</p>
                     </div>
                     <div class="faq-item">
-                        <h3>Comment puis-je signaler un problème ?</h3>
-                        <p>Vous pouvez nous contacter via le formulaire ci-dessus ou appeler directement notre service client. Nous vous répondrons dans les plus brefs délais.</p>
+                        <h3>Quels sont les délais de traitement ?</h3>
+                        <p>Les transferts sont généralement traités dans les 24 heures ouvrables suivant la réception de votre paiement.</p>
                     </div>
                     <div class="faq-item">
-                        <h3>Quel est le délai de réponse ?</h3>
-                        <p>Nous nous efforçons de répondre à toutes les demandes dans un délai de 24 heures ouvrables.</p>
+                        <h3>Comment modifier ou annuler un transfert ?</h3>
+                        <p>Vous pouvez modifier ou annuler votre transfert depuis votre espace client, tant qu'il n'a pas été traité.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Quels documents sont nécessaires ?</h3>
+                        <p>Une pièce d'identité valide et un justificatif de domicile sont requis pour effectuer un transfert.</p>
                     </div>
                 </div>
             </div>
@@ -134,13 +153,43 @@
             </div>
             <div class="footer-section">
                 <h3>Contact</h3>
-                <p>Email: contact@enviar.com</p>
-                <p>Tél: +33 1 23 45 67 89</p>
+                <p>Email: contact@enviartransfert.com</p>
+                <p>Tél: +1 (514) 229-5522</p>
             </div>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2024 Enviar. Tous droits réservés.</p>
         </div>
     </footer>
+
+    <script>
+        // Menu mobile
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            menuToggle.querySelector('i').classList.toggle('fa-bars');
+            menuToggle.querySelector('i').classList.toggle('fa-times');
+        });
+
+        // Fermer le menu quand on clique sur un lien
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                menuToggle.querySelector('i').classList.add('fa-bars');
+                menuToggle.querySelector('i').classList.remove('fa-times');
+            });
+        });
+
+        // Fermer le menu quand on clique en dehors
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                navMenu.classList.remove('active');
+                menuToggle.querySelector('i').classList.add('fa-bars');
+                menuToggle.querySelector('i').classList.remove('fa-times');
+            }
+        });
+    </script>
 </body>
 </html> 
