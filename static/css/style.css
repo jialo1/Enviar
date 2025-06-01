@@ -180,52 +180,60 @@ main {
     .nav-menu {
         position: fixed;
         top: 0;
-        right: -100%;
+        left: 0;
         width: 100%;
         height: 100vh;
-        background-color: var(--light-color);
-        flex-direction: column;
-        padding: 6rem 2rem 2rem;
-        transition: right 0.3s ease;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        display: none;
         z-index: 1000;
-        align-items: center;
+        padding: 80px 20px 20px;
     }
+
     .nav-menu.active {
-        right: 0;
+        display: block;
     }
+
     .nav-links {
         flex-direction: column;
         align-items: center;
         gap: 2rem;
-        margin-bottom: 2rem;
-    }
-    .nav-links a {
-        font-size: 1.5rem;
-        padding: 1rem 0;
-    }
-    .nav-buttons {
-        flex-direction: column;
-        gap: 1.5rem;
-        width: 80%; /* Ajustement pour mobile */
-        max-width: 300px; /* Limite de largeur */
-    }
-    .btn-whatsapp {
-        width: 100%;
-        justify-content: center;
-        border-radius: 100px;
-    }
-    .menu-toggle {
-        display: block;
-        position: absolute;
-        right: 2rem;
-        top: 50%;
-        transform: translateY(-50%);
     }
 
-    /* Cacher le menu desktop sur mobile */
-    .nav-menu:not(.active) .nav-links,
-    .nav-menu:not(.active) .nav-buttons {
-        display: none;
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links a {
+        font-size: 1.2rem;
+        padding: 1rem;
+        display: block;
+        width: 100%;
+    }
+
+    .menu-toggle {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        cursor: pointer;
+        z-index: 1001;
+    }
+
+    .nav-buttons {
+        margin-top: 2rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .btn-whatsapp {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
     }
 }
 
