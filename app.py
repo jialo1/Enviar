@@ -30,15 +30,15 @@ def load_taux():
         with open(TAUX_FILE, 'r') as f:
             try:
                 data = json.load(f)
-                return data.get('taux_gnf_xof', 0.07288)
+                return data.get('taux_cad_gnf', 6500)
             except (json.JSONDecodeError, AttributeError):
-                return 0.07288
-    return 0.07288
+                return 6500
+    return 6500
 
 # Sauvegarder le nouveau taux
 def save_taux(new_taux):
     with open(TAUX_FILE, 'w') as f:
-        json.dump({'taux_gnf_xof': new_taux}, f, indent=4)
+        json.dump({'taux_cad_gnf': new_taux}, f, indent=4)
 
 # Décorateur pour vérifier si l'utilisateur est connecté
 def login_required(f):
@@ -54,7 +54,7 @@ def login_required(f):
 @app.route('/index.html')
 def home():
     taux = load_taux()
-    return render_template('index.html', taux_gnf_xof=taux)
+    return render_template('index.html', taux_cad_gnf=taux)
 
 # Route pour la page de connexion
 @app.route('/login', methods=['GET', 'POST'])
@@ -76,7 +76,7 @@ def login():
 @login_required
 def admin():
     taux = load_taux()
-    return render_template('admin.html', taux_gnf_xof=taux)
+    return render_template('admin.html', taux_cad_gnf=taux)
 
 # Route pour la déconnexion
 @app.route('/logout')

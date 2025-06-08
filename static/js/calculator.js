@@ -7,51 +7,11 @@ function updateDevise() {
         deviseMontant.textContent = 'GNF';
     } else if (paysDepart === 'senegal') {
         deviseMontant.textContent = 'XOF';
+    } else if (paysDepart === 'canada') {
+        deviseMontant.textContent = 'CAD';
     } else {
         deviseMontant.textContent = '';
     }
-}
-
-// Fonction pour mettre à jour le pays de destination en fonction du pays de départ
-function updatePaysDestination() {
-    const paysDepart = document.getElementById('pays-depart');
-    const paysDestination = document.getElementById('pays-destination');
-    
-    if (!paysDepart || !paysDestination) {
-        console.error('Éléments de sélection non trouvés');
-        return;
-    }
-    
-    // Réinitialiser les options
-    paysDestination.innerHTML = '';
-    
-    const selectedValue = paysDepart.value;
-    console.log('Pays de départ sélectionné:', selectedValue);
-    
-    if (selectedValue === 'guinee') {
-        const option = document.createElement('option');
-        option.value = 'senegal';
-        option.text = 'Sénégal (XOF)';
-        paysDestination.appendChild(option);
-        paysDestination.value = 'senegal';
-        console.log('Sénégal sélectionné comme destination');
-    } else if (selectedValue === 'senegal') {
-        const option = document.createElement('option');
-        option.value = 'guinee';
-        option.text = 'Guinée (GNF)';
-        paysDestination.appendChild(option);
-        paysDestination.value = 'guinee';
-        console.log('Guinée sélectionnée comme destination');
-    } else {
-        const option = document.createElement('option');
-        option.value = '';
-        option.text = 'Sélectionnez d\'abord le pays de départ';
-        paysDestination.appendChild(option);
-        console.log('Aucun pays de départ sélectionné');
-    }
-    
-    // Mettre à jour la devise affichée
-    updateDevise();
 }
 
 // Fonction pour formater les montants
@@ -68,7 +28,7 @@ function calculerTransfert(event) {
     
     const paysDepart = document.getElementById('pays-depart').value;
     const montant = parseFloat(document.getElementById('montant').value);
-    const tauxGnfXof = parseFloat(document.getElementById('taux-gnf-xof').textContent);
+    const tauxGnfXof = parseFloat(document.getElementById('taux-cad-gnf').textContent);
     
     if (isNaN(montant) || montant <= 0) {
         alert("Veuillez entrer un montant valide.");
@@ -81,18 +41,20 @@ function calculerTransfert(event) {
     
     // Calculer le montant à recevoir
     let montantRecu;
-    if (paysDepart === 'guinee') {
+    if (paysDepart === 'canada') {
         montantRecu = montant * tauxGnfXof;
+    } else if (paysDepart === 'guinee') {
+        montantRecu = montant / tauxGnfXof;
     } else {
         montantRecu = montant / tauxGnfXof;
     }
     
     // Formater les montants avec les devises appropriées
-    const deviseDepart = paysDepart === 'guinee' ? 'GNF' : 'XOF';
-    const deviseDestination = paysDepart === 'guinee' ? 'XOF' : 'GNF';
+    const deviseDepart = paysDepart === 'guinee' ? 'GNF' : paysDepart === 'senegal' ? 'XOF' : paysDepart === 'canada' ? 'CAD' : '';
+    const deviseDestination = paysDepart === 'guinee' ? 'XOF' : paysDepart === 'senegal' ? 'GNF' : paysDepart === 'canada' ? 'CAD' : '';
     
     // Afficher les résultats dans la modal
-    document.getElementById('taux-jour').textContent = `1 GNF = ${tauxGnfXof.toFixed(5)} XOF`;
+    document.getElementById('taux-jour').textContent = `1 ${deviseDepart} = ${tauxGnfXof.toFixed(5)} ${deviseDestination}`;
     document.getElementById('montant-envoyer').textContent = formatMontant(montant, deviseDepart);
     document.getElementById('frais').textContent = formatMontant(frais, deviseDepart);
     document.getElementById('total-payer').textContent = formatMontant(totalPayer, deviseDepart);
@@ -124,14 +86,35 @@ function showContactForm() {
     const frais = document.getElementById('frais').textContent.replace(/\s+/g, '');
     const total = document.getElementById('total-payer').textContent.replace(/\s+/g, '');
 
+    // Déduire les noms et devises
+    const paysLabels = {
+        'canada': 'Canada (CAD)',
+        'guinee': 'Guinée Conakry (GNF)',
+        'senegal': 'Sénégal (XOF)'
+    };
+    const deviseLabels = {
+        'canada': 'CAD',
+        'guinee': 'GNF',
+        'senegal': 'XOF'
+    };
+
+    const paysDepartLabel = paysLabels[paysDepart] || paysDepart;
+    const paysDestinationLabel = paysLabels[paysDestination] || paysDestination;
+    const deviseDepart = deviseLabels[paysDepart] || '';
+    const deviseDestination = deviseLabels[paysDestination] || '';
+
     // Construire l'URL avec les paramètres
     const params = new URLSearchParams({
         paysDepart: paysDepart,
+        paysDepartLabel: paysDepartLabel,
         paysDestination: paysDestination,
+        paysDestinationLabel: paysDestinationLabel,
         montant: montant,
         montantRecu: montantRecu,
         frais: frais,
-        total: total
+        total: total,
+        deviseDepart: deviseDepart,
+        deviseDestination: deviseDestination
     });
 
     // Rediriger vers la page de transfert
@@ -198,10 +181,10 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Écouteur ajouté pour le changement de pays de départ');
         paysDepart.addEventListener('change', function() {
             console.log('Changement de pays de départ détecté');
-            updatePaysDestination();
+            updateDevise();
         });
-        // Appeler updatePaysDestination au chargement pour initialiser le pays de destination
-        updatePaysDestination();
+        // Appeler updateDevise au chargement pour initialiser la devise
+        updateDevise();
     } else {
         console.error('Élément pays-depart non trouvé');
     }

@@ -152,15 +152,15 @@
             
             <div class="taux-actuel">
                 <div class="taux-item">
-                    <h3>Taux de Change GNF vers XOF</h3>
-                    <p>1 GNF = <span id="taux-gnf-xof">{{ taux_gnf_xof }}</span> XOF</p>
+                    <h3>Taux de Change CAD vers GNF</h3>
+                    <p>1 CAD = <span id="taux-cad-gnf">{{ taux_cad_gnf }}</span> GNF</p>
                 </div>
             </div>
 
             <form id="taux-form" method="POST" action="/update_taux">
                 <div class="form-group">
-                    <label for="nouveau-taux">Nouveau taux (1 GNF = ? XOF)</label>
-                    <input type="number" id="nouveau-taux" name="nouveau-taux" step="0.00001" required value="{{ taux_gnf_xof }}">
+                    <label for="nouveau-taux">Nouveau taux (1 CAD = ? GNF)</label>
+                    <input type="number" id="nouveau-taux" name="nouveau-taux" step="0.01" required value="{{ taux_cad_gnf }}">
                 </div>
                 <button type="submit">Mettre à jour le taux</button>
             </form>

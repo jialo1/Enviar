@@ -37,9 +37,64 @@
     <main>
         <section class="hero">
             <div class="hero-content">
-                <div class="hero-left">
-                    <h1>Envoyez de l'argent en Afrique en toute simplicité</h1>
-                    <p>Transferts rapides, sécurisés et économiques vers vos proches</p>
+                <div class="hero-title">
+                    <h1>Envoyez de l'argent vers la Guinée en toute simplicité</h1>
+                    <p>Transferts rapides, sécurisés et économiques vers vos proches en Guinée</p>
+                </div>
+                <div class="hero-right">
+                    <div class="calculator-container">
+                        <div class="taux-change">
+                            <div>Taux de change actuel :</div>
+                            <div id="taux-change-display">1 CAD = <span id="taux-cad-gnf">{{ taux_cad_gnf }}</span> GNF</div>
+                        </div>
+                        <form id="calculator-form">
+                            <div class="form-group">
+                                <label for="pays-depart">Pays d'envoi</label>
+                                <div class="custom-select" id="custom-pays-depart">
+                                    <div class="selected-option" data-value="canada">
+                                        <img src="/static/images/flags/canada.png" alt="Canada" class="flag-icon"> Canada (CAD)
+                                    </div>
+                                    <div class="options-list">
+                                        <div class="option" data-value="canada">
+                                            <img src="/static/images/flags/canada.png" alt="Canada" class="flag-icon"> Canada (CAD)
+                                        </div>
+                                        <div class="option" data-value="guinee">
+                                            <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> Guinée Conakry (GNF)
+                                        </div>
+                                        <div class="option" data-value="senegal">
+                                            <img src="/static/images/flags/senegal.png" alt="Sénégal" class="flag-icon"> Sénégal (XOF)
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="pays-depart" id="pays-depart" value="canada">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="montant">Montant à envoyer</label>
+                                <input type="number" id="montant" name="montant" min="1" step="1" required placeholder="Ex: 100000">
+                                <span id="devise-montant"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="pays-destination">Pays de réception</label>
+                                <div class="custom-select" id="custom-pays-destination">
+                                    <div class="selected-option" data-value="guinee">
+                                        <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> Guinée Conakry (GNF)
+                                    </div>
+                                    <div class="options-list">
+                                        <div class="option" data-value="guinee">
+                                            <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> Guinée Conakry (GNF)
+                                        </div>
+                                        <div class="option" data-value="senegal">
+                                            <img src="/static/images/flags/senegal.png" alt="Sénégal" class="flag-icon"> Sénégal (XOF)
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="pays-destination" id="pays-destination" value="guinee">
+                                </div>
+                            </div>
+                            <button type="submit" class="cta-button">Calculer</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="hero-infos">
                     <div class="hero-features">
                         <div class="feature-item">
                             <i class="fas fa-bolt"></i>
@@ -67,37 +122,6 @@
                             <span class="stat-number">24/7</span>
                             <span class="stat-label">Support</span>
                         </div>
-                    </div>
-                </div>
-                <div class="hero-right">
-                    <div class="calculator-container">
-                        <div class="taux-change">
-                            <div>Taux de change actuel :</div>
-                            <div id="taux-change-display">1 GNF = <span id="taux-gnf-xof">{{ taux_gnf_xof }}</span> XOF</div>
-                        </div>
-                        <form id="calculator-form">
-                            <div class="form-group">
-                                <label for="pays-depart">Pays de départ</label>
-                                <select id="pays-depart" name="pays-depart" required onchange="updatePaysDestination()">
-                                    <option value="">Sélectionnez un pays</option>
-                                    <option value="guinee">Guinée (GNF)</option>
-                                    <option value="senegal">Sénégal (XOF)</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="montant">Montant à envoyer</label>
-                                <input type="number" id="montant" name="montant" min="1" step="1" required placeholder="Ex: 100000">
-                                <span id="devise-montant"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="pays-destination">Pays de destination</label>
-                                <select id="pays-destination" name="pays-destination" required>
-                                    <option value="">Sélectionnez d'abord le pays de départ</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="cta-button">Calculer</button>
-                        </form>
-                    
                     </div>
                 </div>
             </div>
@@ -386,6 +410,45 @@
                 }
             });
         });
+    </script>
+
+    <script>
+    // Custom select with flags
+    function setupCustomSelect(selectId) {
+        const customSelect = document.getElementById(selectId);
+        const selected = customSelect.querySelector('.selected-option');
+        const optionsList = customSelect.querySelector('.options-list');
+        const options = optionsList.querySelectorAll('.option');
+        const hiddenInput = customSelect.querySelector('input[type="hidden"]');
+
+        // Ouvre/ferme le menu
+        selected.addEventListener('click', function(e) {
+            e.stopPropagation();
+            customSelect.classList.toggle('open');
+        });
+
+        // Sélection d'une option
+        options.forEach(option => {
+            option.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Met à jour l'affichage
+                selected.innerHTML = option.innerHTML;
+                selected.setAttribute('data-value', option.getAttribute('data-value'));
+                // Met à jour la valeur cachée
+                hiddenInput.value = option.getAttribute('data-value');
+                // Ferme le menu
+                customSelect.classList.remove('open');
+            });
+        });
+
+        // Ferme le menu si clic en dehors
+        document.addEventListener('click', function(e) {
+            customSelect.classList.remove('open');
+        });
+    }
+
+    setupCustomSelect('custom-pays-depart');
+    setupCustomSelect('custom-pays-destination');
     </script>
 </body>
 </html> 

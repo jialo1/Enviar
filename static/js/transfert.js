@@ -38,19 +38,37 @@ document.addEventListener('DOMContentLoaded', function() {
         return new Intl.NumberFormat('fr-FR', {
             minimumFractionDigits: 0,
             maximumFractionDigits: 2
-        }).format(nombre) + ' ' + devise;
+        }).format(nombre) + ' ' + (devise || '');
     }
 
     // Récupérer les données du transfert depuis l'URL
     const urlParams = new URLSearchParams(window.location.search);
     const transfertData = {
         paysDepart: urlParams.get('paysDepart'),
+        paysDepartLabel: urlParams.get('paysDepartLabel'),
         paysDestination: urlParams.get('paysDestination'),
+        paysDestinationLabel: urlParams.get('paysDestinationLabel'),
         montant: urlParams.get('montant'),
         montantRecu: urlParams.get('montantRecu'),
         frais: urlParams.get('frais'),
-        total: urlParams.get('total')
+        total: urlParams.get('total'),
+        deviseDepart: urlParams.get('deviseDepart'),
+        deviseDestination: urlParams.get('deviseDestination')
     };
+
+    // Valeurs de secours si la devise n'est pas transmise
+    const fallbackDevises = {
+        'canada': 'CAD',
+        'guinee': 'GNF',
+        'senegal': 'XOF'
+    };
+    const fallbackFlags = {
+        'canada': '/static/images/flags/canada.png',
+        'guinee': '/static/images/flags/guinee.png',
+        'senegal': '/static/images/flags/senegal.png'
+    };
+    transfertData.deviseDepart = transfertData.deviseDepart || fallbackDevises[transfertData.paysDepart] || '';
+    transfertData.deviseDestination = transfertData.deviseDestination || fallbackDevises[transfertData.paysDestination] || '';
 
     // Formater les noms des pays
     const paysNames = {
@@ -58,19 +76,34 @@ document.addEventListener('DOMContentLoaded', function() {
         'senegal': 'Sénégal (XOF)'
     };
 
-    // Remplir les champs de la première étape avec les montants formatés
-    document.getElementById('pays-depart-display').value = paysNames[transfertData.paysDepart] || transfertData.paysDepart;
-    document.getElementById('pays-destination-display').value = paysNames[transfertData.paysDestination] || transfertData.paysDestination;
-    document.getElementById('montant-display').value = formatMontant(transfertData.montant, transfertData.paysDepart === 'guinee' ? 'GNF' : 'XOF');
-    document.getElementById('montant-recu-display').value = formatMontant(transfertData.montantRecu, transfertData.paysDestination === 'guinee' ? 'GNF' : 'XOF');
-    document.getElementById('frais-display').value = formatMontant(transfertData.frais, transfertData.paysDepart === 'guinee' ? 'GNF' : 'XOF');
-    document.getElementById('total-display').value = formatMontant(transfertData.total, transfertData.paysDepart === 'guinee' ? 'GNF' : 'XOF');
+    // Remplir les champs de la première étape avec les montants formatés et les drapeaux
+    const paysDepartDiv = document.getElementById('pays-depart-display');
+    paysDepartDiv.innerHTML = '';
+    const flagDepart = document.createElement('img');
+    flagDepart.src = fallbackFlags[transfertData.paysDepart];
+    flagDepart.alt = transfertData.paysDepart;
+    flagDepart.className = 'flag-icon';
+    paysDepartDiv.appendChild(flagDepart);
+    paysDepartDiv.append(' ' + (transfertData.paysDepartLabel || transfertData.paysDepart));
+
+    const paysDestinationDiv = document.getElementById('pays-destination-display');
+    paysDestinationDiv.innerHTML = '';
+    const flagDest = document.createElement('img');
+    flagDest.src = fallbackFlags[transfertData.paysDestination];
+    flagDest.alt = transfertData.paysDestination;
+    flagDest.className = 'flag-icon';
+    paysDestinationDiv.appendChild(flagDest);
+    paysDestinationDiv.append(' ' + (transfertData.paysDestinationLabel || transfertData.paysDestination));
+    document.getElementById('montant-display').value = formatMontant(transfertData.montant, transfertData.deviseDepart);
+    document.getElementById('montant-recu-display').value = formatMontant(transfertData.montantRecu, transfertData.deviseDestination);
+    document.getElementById('frais-display').value = formatMontant(transfertData.frais, transfertData.deviseDepart);
+    document.getElementById('total-display').value = formatMontant(transfertData.total, transfertData.deviseDepart);
 
     // Remplir le récapitulatif de la dernière étape avec les montants formatés
-    document.getElementById('summary-montant-envoyer').textContent = formatMontant(transfertData.montant, transfertData.paysDepart === 'guinee' ? 'GNF' : 'XOF');
-    document.getElementById('summary-montant-recu').textContent = formatMontant(transfertData.montantRecu, transfertData.paysDestination === 'guinee' ? 'GNF' : 'XOF');
-    document.getElementById('summary-frais').textContent = formatMontant(transfertData.frais, transfertData.paysDepart === 'guinee' ? 'GNF' : 'XOF');
-    document.getElementById('summary-total').textContent = formatMontant(transfertData.total, transfertData.paysDepart === 'guinee' ? 'GNF' : 'XOF');
+    document.getElementById('summary-montant-envoyer').textContent = formatMontant(transfertData.montant, transfertData.deviseDepart);
+    document.getElementById('summary-montant-recu').textContent = formatMontant(transfertData.montantRecu, transfertData.deviseDestination);
+    document.getElementById('summary-frais').textContent = formatMontant(transfertData.frais, transfertData.deviseDepart);
+    document.getElementById('summary-total').textContent = formatMontant(transfertData.total, transfertData.deviseDepart);
 
     // Gestion des étapes
     const form = document.getElementById('transfert-form');
@@ -155,10 +188,12 @@ document.addEventListener('DOMContentLoaded', function() {
             `- Téléphone : ${beneficiaireTelephone}\n` +
             `- Adresse : ${beneficiaireAdresse}\n\n` +
             `Détails du transfert :\n` +
-            `- Montant à envoyer : ${formatMontant(transfertData.montant, transfertData.paysDepart === 'guinee' ? 'GNF' : 'XOF')}\n` +
-            `- Frais : ${formatMontant(transfertData.frais, transfertData.paysDepart === 'guinee' ? 'GNF' : 'XOF')}\n` +
-            `- Total à payer : ${formatMontant(transfertData.total, transfertData.paysDepart === 'guinee' ? 'GNF' : 'XOF')}\n` +
-            `- Montant à recevoir : ${formatMontant(transfertData.montantRecu, transfertData.paysDestination === 'guinee' ? 'GNF' : 'XOF')}\n\n` +
+            `- Pays d'envoi : ${transfertData.paysDepartLabel || transfertData.paysDepart}\n` +
+            `- Pays de réception : ${transfertData.paysDestinationLabel || transfertData.paysDestination}\n` +
+            `- Montant à envoyer : ${formatMontant(transfertData.montant, transfertData.deviseDepart)}\n` +
+            `- Frais : ${formatMontant(transfertData.frais, transfertData.deviseDepart)}\n` +
+            `- Total à payer : ${formatMontant(transfertData.total, transfertData.deviseDepart)}\n` +
+            `- Montant à recevoir : ${formatMontant(transfertData.montantRecu, transfertData.deviseDestination)}\n\n` +
             `Message : ${message}`;
     }
 
