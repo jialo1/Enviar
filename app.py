@@ -82,7 +82,7 @@ def admin():
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)
-    return redirect(url_for('index'))
+    return redirect(url_for('home'))
 
 # Route pour mettre à jour le taux (protégée)
 @app.route('/update_taux', methods=['POST'])
@@ -134,6 +134,7 @@ def transfert():
     return render_template('transfert.html')
 
 @app.route('/submit-transfer', methods=['POST'])
+@login_required
 def submit_transfer():
     try:
         # Récupérer les données du formulaire

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Enviar</title>
-    <link rel="stylesheet" href="assets/css/style.css?v=1.1">
+    <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
@@ -115,6 +115,69 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(231, 76, 60, 0.2);
         }
+
+        /* Styles pour le popup de déconnexion */
+        .logout-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logout-popup.active {
+            display: flex;
+        }
+
+        .logout-popup-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .logout-popup h3 {
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .logout-popup-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .logout-popup-buttons button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .logout-popup-buttons .btn-confirm {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .logout-popup-buttons .btn-cancel {
+            background-color: #95a5a6;
+            color: white;
+        }
+
+        .logout-popup-buttons button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>
@@ -145,6 +208,17 @@
             </div>
         </div>
     </header>
+
+    <!-- Popup de déconnexion -->
+    <div class="logout-popup" id="logoutPopup">
+        <div class="logout-popup-content">
+            <h3>Voulez-vous vraiment vous déconnecter ?</h3>
+            <div class="logout-popup-buttons">
+                <button class="btn-cancel" onclick="closeLogoutPopup()">Annuler</button>
+                <button class="btn-confirm" onclick="confirmLogout()">Se déconnecter</button>
+            </div>
+        </div>
+    </div>
 
     <main>
         <section class="admin-container">
@@ -178,19 +252,56 @@
             menuToggle.querySelector('i').classList.toggle('fa-times');
         });
 
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                menuToggle.querySelector('i').classList.add('fa-bars');
-                menuToggle.querySelector('i').classList.remove('fa-times');
+        // Gestion du popup de déconnexion
+        const logoutPopup = document.getElementById('logoutPopup');
+        const logoutLink = document.querySelector('.btn-logout');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const logoLink = document.querySelector('.logo');
+
+        // Empêcher le comportement par défaut du lien de déconnexion
+        logoutLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            showLogoutPopup();
+        });
+
+        // Empêcher la navigation directe pour tous les liens du menu
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                showLogoutPopup();
             });
         });
 
-        document.addEventListener('click', (e) => {
-            if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
-                navMenu.classList.remove('active');
-                menuToggle.querySelector('i').classList.add('fa-bars');
-                menuToggle.querySelector('i').classList.remove('fa-times');
+        // Empêcher la navigation directe pour le logo
+        logoLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            showLogoutPopup();
+        });
+
+        function showLogoutPopup() {
+            logoutPopup.classList.add('active');
+        }
+
+        function closeLogoutPopup() {
+            logoutPopup.classList.remove('active');
+        }
+
+        function confirmLogout() {
+            window.location.href = '/logout';
+            // La redirection vers la page d'accueil est gérée par le backend
+        }
+
+        // Fermer le popup si on clique en dehors
+        logoutPopup.addEventListener('click', function(e) {
+            if (e.target === logoutPopup) {
+                closeLogoutPopup();
+            }
+        });
+
+        // Fermer le popup avec la touche Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && logoutPopup.classList.contains('active')) {
+                closeLogoutPopup();
             }
         });
 
