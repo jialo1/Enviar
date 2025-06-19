@@ -89,6 +89,17 @@
             min-height: 1.2em; /* Reserve space */
         }
 
+        .success-message {
+            color: #27ae60;
+            margin-bottom: 1rem;
+            text-align: center;
+            min-height: 1.2em;
+            padding: 1rem;
+            background-color: #e8f8f5;
+            border-radius: 5px;
+            display: none;
+        }
+
         .btn-whatsapp:hover {
             background-color: #128C7E;
             transform: translateY(-2px);
@@ -222,92 +233,113 @@
 
     <main>
         <section class="admin-container">
-            <h1>Administration du Taux de Change</h1>
+            <h1>Administration des Taux de Change</h1>
             
             <div class="taux-actuel">
                 <div class="taux-item">
                     <h3>Taux de Change CAD vers GNF</h3>
                     <p>1 CAD = <span id="taux-cad-gnf">{{ taux_cad_gnf }}</span> GNF</p>
                 </div>
+                <div class="taux-item" style="margin-top: 1rem;">
+                    <h3>Taux de Change GNF vers XOF</h3>
+                    <p>1 GNF = <span id="taux-xof-gnf">{{ "%.5f"|format(1/taux_xof_gnf) }}</span> XOF</p>
+                </div>
+            </div>
+
+            <div id="successMessage" class="success-message">
+                Les taux ont été mis à jour avec succès !
             </div>
 
             <form id="taux-form" method="POST" action="/update_taux">
                 <div class="form-group">
-                    <label for="nouveau-taux">Nouveau taux (1 CAD = ? GNF)</label>
-                    <input type="number" id="nouveau-taux" name="nouveau-taux" step="0.01" required value="{{ taux_cad_gnf }}">
+                    <label for="nouveau-taux-cad">Nouveau taux (1 CAD = ? GNF)</label>
+                    <input type="number" id="nouveau-taux-cad" name="nouveau-taux-cad" step="0.01" required>
                 </div>
-                <button type="submit">Mettre à jour le taux</button>
+                <div class="form-group">
+                    <label for="nouveau-taux-xof">Nouveau taux (1 GNF = ? XOF)</label>
+                    <input type="number" id="nouveau-taux-xof" name="nouveau-taux-xof" step="0.000001" required>
+                </div>
+                <div id="errorMessage" class="error-message"></div>
+                <button type="submit">Mettre à jour les taux</button>
             </form>
         </section>
     </main>
 
     <script>
-        // Menu mobile (Copie du script de navigation des autres pages)
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navMenu = document.querySelector('.nav-menu');
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('taux-form');
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
 
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            menuToggle.querySelector('i').classList.toggle('fa-bars');
-            menuToggle.querySelector('i').classList.toggle('fa-times');
-        });
-
-        // Gestion du popup de déconnexion
-        const logoutPopup = document.getElementById('logoutPopup');
-        const logoutLink = document.querySelector('.btn-logout');
-        const navLinks = document.querySelectorAll('.nav-links a');
-        const logoLink = document.querySelector('.logo');
-
-        // Empêcher le comportement par défaut du lien de déconnexion
-        logoutLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            showLogoutPopup();
-        });
-
-        // Empêcher la navigation directe pour tous les liens du menu
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
+            form.addEventListener('submit', function(e) {
                 e.preventDefault();
-                showLogoutPopup();
+                
+                const nouveauTauxCad = parseFloat(document.getElementById('nouveau-taux-cad').value);
+                const nouveauTauxGnfXof = parseFloat(document.getElementById('nouveau-taux-xof').value); // Taux 1 GNF = X XOF
+                
+                if (isNaN(nouveauTauxCad) || nouveauTauxCad <= 0 || isNaN(nouveauTauxGnfXof) || nouveauTauxGnfXof <= 0) {
+                    errorMessage.textContent = 'Veuillez entrer des taux valides (supérieurs à 0)';
+                    return;
+                }
+
+                // Convertir le taux GNF/XOF en XOF/GNF pour le backend
+                const nouveauTauxXofGnf = 1 / nouveauTauxGnfXof;
+
+                const formData = new FormData();
+                formData.append('nouveau-taux-cad', nouveauTauxCad);
+                formData.append('nouveau-taux-xof', nouveauTauxXofGnf);
+
+                fetch('/update_taux', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Mettre à jour l'affichage des taux
+                        document.getElementById('taux-cad-gnf').textContent = data.new_taux_cad;
+                        // Convertir le taux XOF/GNF en GNF/XOF pour l'affichage
+                        document.getElementById('taux-xof-gnf').textContent = (1 / data.new_taux_xof).toFixed(5);
+                        
+                        // Afficher le message de succès
+                        successMessage.style.display = 'block';
+                        errorMessage.textContent = '';
+                        
+                        // Cacher le message après 3 secondes
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                        }, 3000);
+                    } else {
+                        errorMessage.textContent = data.error || 'Une erreur est survenue';
+                    }
+                })
+                .catch(error => {
+                    errorMessage.textContent = 'Une erreur est survenue lors de la mise à jour';
+                    console.error('Erreur:', error);
+                });
             });
         });
 
-        // Empêcher la navigation directe pour le logo
-        logoLink.addEventListener('click', function(e) {
+        // Fonction pour afficher le popup de déconnexion
+        function showLogoutPopup() {
+            document.getElementById('logoutPopup').classList.add('active');
+        }
+
+        // Fonction pour fermer le popup de déconnexion
+        function closeLogoutPopup() {
+            document.getElementById('logoutPopup').classList.remove('active');
+        }
+
+        // Fonction pour confirmer la déconnexion
+        function confirmLogout() {
+            window.location.href = '/logout';
+        }
+
+        // Ajouter l'événement click sur le bouton de déconnexion
+        document.querySelector('.btn-logout').addEventListener('click', function(e) {
             e.preventDefault();
             showLogoutPopup();
         });
-
-        function showLogoutPopup() {
-            logoutPopup.classList.add('active');
-        }
-
-        function closeLogoutPopup() {
-            logoutPopup.classList.remove('active');
-        }
-
-        function confirmLogout() {
-            window.location.href = '/logout';
-            // La redirection vers la page d'accueil est gérée par le backend
-        }
-
-        // Fermer le popup si on clique en dehors
-        logoutPopup.addEventListener('click', function(e) {
-            if (e.target === logoutPopup) {
-                closeLogoutPopup();
-            }
-        });
-
-        // Fermer le popup avec la touche Escape
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && logoutPopup.classList.contains('active')) {
-                closeLogoutPopup();
-            }
-        });
-
-        // Le script d'administration côté client pour charger le taux est supprimé
-        // car le taux est maintenant passé par le backend via Jinja.
-        // Le formulaire soumet directement au backend.
     </script>
 </body>
 </html> 

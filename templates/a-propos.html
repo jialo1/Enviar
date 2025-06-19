@@ -5,7 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>À propos - Enviar</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/whatsapp-buttons.css?v=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', {
+            'analytics_storage': 'denied' // Par défaut, les cookies sont désactivés
+        });
+    </script>
 </head>
 <body>
     <header class="header">
@@ -130,29 +141,9 @@
         </section>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Enviar</h3>
-                <p>Votre partenaire de confiance pour les transferts d'argent vers l'Afrique</p>
-            </div>
-            <div class="footer-section">
-                <h3>Liens rapides</h3>
-                <ul>
-                    <li><a href="/fonctionnement">Fonctionnement</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <p>Email: contact@enviartransfert.com</p>
-                <p>Tél: +1 (514) 229-5522</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Enviar. Tous droits réservés.</p>
-        </div>
-    </footer>
+    {% include 'cookie-banner.html' %}
+    {% include 'footer.html' %}
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const menuToggle = document.querySelector('.menu-toggle');
@@ -184,5 +175,6 @@
             });
         });
     </script>
+    <script src="/static/js/cookies.js"></script>
 </body>
 </html> 

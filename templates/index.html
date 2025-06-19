@@ -4,9 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enviar - Transfert d'argent vers l'Afrique</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/style.css?v=1">
     <link rel="stylesheet" href="/static/css/calculator.css">
+    <link rel="stylesheet" href="/static/css/whatsapp-buttons.css?v=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', {
+            'analytics_storage': 'denied' // Par défaut, les cookies sont désactivés
+        });
+    </script>
 </head>
 <body>
     <header class="header">
@@ -44,8 +55,11 @@
                 <div class="hero-right">
                     <div class="calculator-container">
                         <div class="taux-change">
-                            <div>Taux de change actuel :</div>
-                            <div id="taux-change-display">1 CAD = <span id="taux-cad-gnf">{{ taux_cad_gnf }}</span> GNF</div>
+                            <div>Taux de change actuels :</div>
+                            <div id="taux-change-display">
+                                1 CAD = <span id="taux-cad-gnf">{{ taux_cad_gnf }}</span> GNF<br>
+                                1 GNF = <span id="taux-xof-gnf">{{ "%.5f"|format(1/taux_xof_gnf) }}</span> XOF
+                            </div>
                         </div>
                         <form id="calculator-form">
                             <div class="form-group">
@@ -207,10 +221,10 @@
         <div id="whatsapp-button-container" style="display: none;">
             <div class="calculator-container">
                 <h2>Votre demande a été enregistrée</h2>
-                <p>Cliquez sur le bouton ci-dessous pour nous contacter sur WhatsApp avec les détails de votre transfert</p>
+                <p>Cliquez sur le bouton ci-dessous pour finaliser votre transfert sur WhatsApp</p>
                 <a href="#" id="whatsapp-link" class="btn-whatsapp" target="_blank">
                     <i class="fab fa-whatsapp"></i>
-                    Envoyer par WhatsApp
+                    Finaliser sur WhatsApp
                 </a>
             </div>
         </div>
@@ -346,38 +360,12 @@
         </section>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Enviar</h3>
-                <p>Votre partenaire de confiance pour les transferts d'argent vers l'Afrique</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h3>Liens rapides</h3>
-                <ul>
-                    <li><a href="/fonctionnement">Fonctionnement</a></li>
-                    <li><a href="/a-propos">À propos</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <p><i class="fas fa-envelope"></i> contact@enviartransfert.com</p>
-                <p><i class="fas fa-phone"></i> +1 (514) 229-5522</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Enviar. Tous droits réservés.</p>
-        </div>
-    </footer>
+    {% include 'cookie-banner.html' %}
+    {% include 'footer.html' %}
 
     <script src="/static/js/calculator.js"></script>
+    <script src="/static/js/transfert.js"></script>
+    <script src="/static/js/cookies.js"></script>
 
     <!-- Script pour le menu mobile -->
     <script>

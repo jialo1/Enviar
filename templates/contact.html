@@ -5,17 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - Enviar</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/whatsapp-buttons.css?v=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', {
+            'analytics_storage': 'denied'
+        });
+    </script>
 </head>
 <body>
     <header class="header">
         <div class="header-container">
-            <a href="index.html" class="logo">
-                <img src="images/Logo1.png" alt="Enviar Logo" style="height: 60px;">
+            <a href="/" class="logo">
+                <img src="/images/Logo1.png" alt="Enviar Logo" style="height: 60px;">
             </a>
             <nav class="nav-menu">
                 <ul class="nav-links">
-                    <li><a href="/" >Accueil</a></li>
+                    <li><a href="/">Accueil</a></li>
                     <li><a href="/fonctionnement">Fonctionnement</a></li>
                     <li><a href="/a-propos">À propos</a></li>
                     <li><a href="/contact" class="active">Contact</a></li>
@@ -37,11 +48,38 @@
         <section class="page-header">
             <div class="container">
                 <h1>Contactez-nous</h1>
-                <p>Notre équipe est à votre disposition</p>
+                <p>Notre équipe est disponible 24/7 pour vous aider</p>
             </div>
         </section>
 
-        <section class="contact-info">
+        <!-- Informations de contact principales -->
+        <section class="contact-info-section">
+            <div class="container">
+                <div class="contact-info-grid">
+                    <div class="contact-info-card">
+                        <i class="fas fa-phone"></i>
+                        <h3>Par téléphone</h3>
+                        <p>+1 514-229-5522</p>
+                        <span>24/7</span>
+                    </div>
+                    <div class="contact-info-card">
+                        <i class="fab fa-whatsapp"></i>
+                        <h3>Par WhatsApp</h3>
+                        <p>+1 514-229-5522</p>
+                        <span>Réponse rapide</span>
+                    </div>
+                    <div class="contact-info-card">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Par email</h3>
+                        <p>contact@enviartransfert.com</p>
+                        <span>Réponse sous 24h</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Formulaire et FAQ -->
+        <section class="contact-content">
             <div class="container">
                 <div class="contact-grid">
                     <!-- Formulaire de contact -->
@@ -78,89 +116,35 @@
                         </form>
                     </div>
 
-                    <!-- Informations de contact -->
-                    <div class="contact-details">
-                        <div class="contact-card">
-                            <h3><i class="fas fa-phone"></i> Téléphone</h3>
-                            <p>Service client : +1 (514) 229-5522</p>
-                            <p>Support technique : +1 (514) 229-5522</p>
-                            <p class="hours">Lun-Sam : 9h-20h</p>
+                    <!-- FAQ -->
+                    <div class="contact-faq">
+                        <h2>Questions fréquentes</h2>
+                        <div class="faq-list">
+                            <div class="faq-item">
+                                <h3>Comment suivre mon transfert ?</h3>
+                                <p>Suivez votre transfert en temps réel depuis votre espace client ou contactez-nous directement.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h3>Quels sont les délais ?</h3>
+                                <p>Les transferts sont traités dans les 24h ouvrables après réception du paiement.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h3>Comment modifier un transfert ?</h3>
+                                <p>Modifiez ou annulez votre transfert depuis votre espace client avant son traitement.</p>
+                            </div>
+                            <div class="faq-item">
+                                <h3>Documents requis ?</h3>
+                                <p>Une pièce d'identité valide et un justificatif de domicile sont nécessaires.</p>
+                            </div>
                         </div>
-
-                        <div class="contact-card">
-                            <h3><i class="fas fa-envelope"></i> Email</h3>
-                            <p>Service client : contact@enviartransfert.com</p>
-                            <p>Support : contact@enviartransfert.com</p>
-                            <p class="hours">Réponse sous 24h</p>
-                        </div>
-
-                        <div class="contact-card">
-                            <h3><i class="fab fa-whatsapp"></i> WhatsApp</h3>
-                            <p>Service client : +1 (514) 229-5522</p>
-                            <p>Support : +1 (514) 229-5522</p>
-                            <p class="hours">7j/7, 9h-20h</p>
-                        </div>
-
-                        <div class="contact-card">
-                            <h3><i class="fas fa-map-marker-alt"></i> Adresse</h3>
-                            <p>123 Avenue de la République</p>
-                            <p>75011 Paris, France</p>
-                            <p class="hours">Lun-Ven : 9h-18h</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="faq-contact">
-            <div class="container">
-                <h2>Questions fréquentes</h2>
-                <div class="faq-grid">
-                    <div class="faq-item">
-                        <h3>Comment puis-je suivre mon transfert ?</h3>
-                        <p>Vous pouvez suivre votre transfert en temps réel depuis votre espace client ou en nous contactant directement.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3>Quels sont les délais de traitement ?</h3>
-                        <p>Les transferts sont généralement traités dans les 24 heures ouvrables suivant la réception de votre paiement.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3>Comment modifier ou annuler un transfert ?</h3>
-                        <p>Vous pouvez modifier ou annuler votre transfert depuis votre espace client, tant qu'il n'a pas été traité.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3>Quels documents sont nécessaires ?</h3>
-                        <p>Une pièce d'identité valide et un justificatif de domicile sont requis pour effectuer un transfert.</p>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Enviar</h3>
-                <p>Votre partenaire de confiance pour les transferts d'argent vers l'Afrique</p>
-            </div>
-            <div class="footer-section">
-                <h3>Liens rapides</h3>
-                <ul>
-                    <li><a href="/fonctionnement">Fonctionnement</a></li>
-                    <li><a href="/tarifs">Tarifs</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <p>Email: contact@enviartransfert.com</p>
-                <p>Tél: +1 (514) 229-5522</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Enviar. Tous droits réservés.</p>
-        </div>
-    </footer>
+    {% include 'cookie-banner.html' %}
+    {% include 'footer.html' %}
 
     <script>
         // Menu mobile
@@ -173,7 +157,6 @@
             menuToggle.querySelector('i').classList.toggle('fa-times');
         });
 
-        // Fermer le menu quand on clique sur un lien
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
@@ -182,7 +165,6 @@
             });
         });
 
-        // Fermer le menu quand on clique en dehors
         document.addEventListener('click', (e) => {
             if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
                 navMenu.classList.remove('active');
@@ -191,5 +173,6 @@
             }
         });
     </script>
+    <script src="/static/js/cookies.js"></script>
 </body>
 </html> 

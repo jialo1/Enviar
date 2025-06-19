@@ -28,7 +28,8 @@ function calculerTransfert(event) {
     
     const paysDepart = document.getElementById('pays-depart').value;
     const montant = parseFloat(document.getElementById('montant').value);
-    const tauxGnfXof = parseFloat(document.getElementById('taux-cad-gnf').textContent);
+    const tauxCadGnf = parseFloat(document.getElementById('taux-cad-gnf').textContent);
+    const tauxXofGnf = parseFloat(document.getElementById('taux-xof-gnf').textContent);
     
     if (isNaN(montant) || montant <= 0) {
         alert("Veuillez entrer un montant valide.");
@@ -39,14 +40,17 @@ function calculerTransfert(event) {
     const frais = montant * 0.03;
     const totalPayer = montant + frais;
     
-    // Calculer le montant à recevoir
+    // Calculer le montant à recevoir selon le pays de départ
     let montantRecu;
     if (paysDepart === 'canada') {
-        montantRecu = montant * tauxGnfXof;
+        // Du Canada vers un autre pays
+        montantRecu = montant * tauxCadGnf;
     } else if (paysDepart === 'guinee') {
-        montantRecu = montant / tauxGnfXof;
-    } else {
-        montantRecu = montant / tauxGnfXof;
+        // De la Guinée vers le Sénégal
+        montantRecu = montant / tauxXofGnf;
+    } else if (paysDepart === 'senegal') {
+        // Du Sénégal vers la Guinée
+        montantRecu = montant * tauxXofGnf;
     }
     
     // Formater les montants avec les devises appropriées
@@ -54,7 +58,18 @@ function calculerTransfert(event) {
     const deviseDestination = paysDepart === 'guinee' ? 'XOF' : paysDepart === 'senegal' ? 'GNF' : paysDepart === 'canada' ? 'CAD' : '';
     
     // Afficher les résultats dans la modal
-    document.getElementById('taux-jour').textContent = `1 ${deviseDepart} = ${tauxGnfXof.toFixed(5)} ${deviseDestination}`;
+    let tauxAffiche;
+    if (paysDepart === 'canada') {
+        tauxAffiche = `1 ${deviseDepart} = ${tauxCadGnf.toFixed(5)} ${deviseDestination}`;
+    } else if (paysDepart === 'guinee') {
+        // Pour la Guinée, on affiche 1 GNF = X XOF
+        tauxAffiche = `1 GNF = ${(1/tauxXofGnf).toFixed(5)} XOF`;
+    } else if (paysDepart === 'senegal') {
+        // Pour le Sénégal, on affiche 1 XOF = X GNF
+        tauxAffiche = `1 XOF = ${tauxXofGnf.toFixed(5)} GNF`;
+    }
+    
+    document.getElementById('taux-jour').textContent = tauxAffiche;
     document.getElementById('montant-envoyer').textContent = formatMontant(montant, deviseDepart);
     document.getElementById('frais').textContent = formatMontant(frais, deviseDepart);
     document.getElementById('total-payer').textContent = formatMontant(totalPayer, deviseDepart);

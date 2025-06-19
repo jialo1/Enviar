@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory, request, redirect, url_for, session, jsonify
+from flask import Flask, render_template, send_from_directory, request, redirect, url_for, session, jsonify, make_response
 import json
 import os
 from functools import wraps
@@ -11,10 +11,18 @@ app = Flask(__name__,
     template_folder='templates'  # Dossier pour les templates
 )
 
+# Désactiver la mise en cache des fichiers statiques
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+
 # Configuration de sécurité
 app.secret_key = secrets.token_hex(32)
 app.config['SESSION_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+
+# Configuration des cookies
+COOKIE_CONSENT_NAME = 'cookie_consent'
+COOKIE_CONSENT_MAX_AGE = 365 * 24 * 60 * 60  # 1 an en secondes
 
 # Identifiants d'administration
 ADMIN_USERNAME = os.getenv('ADMIN_USERNAME', 'admin')
@@ -24,21 +32,33 @@ ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD', 'password123')
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TAUX_FILE = os.path.join(BASE_DIR, 'taux.json')
 
-# Charger le taux actuel
+# Charger les taux actuels
 def load_taux():
     if os.path.exists(TAUX_FILE):
         with open(TAUX_FILE, 'r') as f:
             try:
                 data = json.load(f)
-                return data.get('taux_cad_gnf', 6500)
+                return {
+                    'taux_cad_gnf': data.get('taux_cad_gnf', 6700.0),
+                    'taux_xof_gnf': data.get('taux_xof_gnf', 8.0)
+                }
             except (json.JSONDecodeError, AttributeError):
-                return 6500
-    return 6500
+                return {
+                    'taux_cad_gnf': 6700.0,
+                    'taux_xof_gnf': 8.0
+                }
+    return {
+        'taux_cad_gnf': 6700.0,
+        'taux_xof_gnf': 8.0
+    }
 
-# Sauvegarder le nouveau taux
-def save_taux(new_taux):
+# Sauvegarder les nouveaux taux
+def save_taux(taux_cad_gnf, taux_xof_gnf):
     with open(TAUX_FILE, 'w') as f:
-        json.dump({'taux_cad_gnf': new_taux}, f, indent=4)
+        json.dump({
+            'taux_cad_gnf': taux_cad_gnf,
+            'taux_xof_gnf': taux_xof_gnf
+        }, f, indent=4)
 
 # Décorateur pour vérifier si l'utilisateur est connecté
 def login_required(f):
@@ -54,7 +74,9 @@ def login_required(f):
 @app.route('/index.html')
 def home():
     taux = load_taux()
-    return render_template('index.html', taux_cad_gnf=taux)
+    return render_template('index.html', 
+                         taux_cad_gnf=taux['taux_cad_gnf'],
+                         taux_xof_gnf=taux['taux_xof_gnf'])
 
 # Route pour la page de connexion
 @app.route('/login', methods=['GET', 'POST'])
@@ -76,7 +98,9 @@ def login():
 @login_required
 def admin():
     taux = load_taux()
-    return render_template('admin.html', taux_cad_gnf=taux)
+    return render_template('admin.html', 
+                         taux_cad_gnf=taux['taux_cad_gnf'],
+                         taux_xof_gnf=taux['taux_xof_gnf'])
 
 # Route pour la déconnexion
 @app.route('/logout')
@@ -90,14 +114,25 @@ def logout():
 def update_taux():
     if request.method == 'POST':
         try:
-            nouveau_taux = float(request.form['nouveau-taux'])
-            if nouveau_taux > 0:
-                save_taux(nouveau_taux)
-                return redirect(url_for('admin'))
+            nouveau_taux_cad = float(request.form['nouveau-taux-cad'])
+            nouveau_taux_xof = float(request.form['nouveau-taux-xof'])
+            if nouveau_taux_cad > 0 and nouveau_taux_xof > 0:
+                save_taux(nouveau_taux_cad, nouveau_taux_xof)
+                return jsonify({
+                    'success': True,
+                    'new_taux_cad': nouveau_taux_cad,
+                    'new_taux_xof': nouveau_taux_xof
+                })
             else:
-                return redirect(url_for('admin'))
+                return jsonify({
+                    'success': False,
+                    'error': 'Les taux doivent être supérieurs à 0'
+                })
         except ValueError:
-            return redirect(url_for('admin'))
+            return jsonify({
+                'success': False,
+                'error': 'Valeur invalide'
+            })
 
 # Route pour servir les images
 @app.route('/images/<path:filename>')
@@ -133,6 +168,18 @@ def fonctionnement():
 def transfert():
     return render_template('transfert.html')
 
+@app.route('/conditions')
+def conditions():
+    return render_template('conditions.html')
+
+@app.route('/confidentialite')
+def confidentialite():
+    return render_template('confidentialite.html')
+
+@app.route('/cookies')
+def cookies():
+    return render_template('cookies.html')
+
 @app.route('/submit-transfer', methods=['POST'])
 @login_required
 def submit_transfer():
@@ -160,6 +207,35 @@ def submit_transfer():
         return jsonify({'success': True})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
+
+@app.route('/set-cookie-consent', methods=['POST'])
+def set_cookie_consent():
+    try:
+        consent = request.json.get('consent')
+        response = make_response(jsonify({'success': True}))
+        
+        if consent == 'accepted':
+            response.set_cookie(
+                COOKIE_CONSENT_NAME,
+                'accepted',
+                max_age=COOKIE_CONSENT_MAX_AGE,
+                secure=True,
+                httponly=True,
+                samesite='Lax'
+            )
+        else:
+            response.set_cookie(
+                COOKIE_CONSENT_NAME,
+                'rejected',
+                max_age=COOKIE_CONSENT_MAX_AGE,
+                secure=True,
+                httponly=True,
+                samesite='Lax'
+            )
+        
+        return response
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 400
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True) 

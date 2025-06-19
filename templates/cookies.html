@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politique de Cookies - Enviar</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/whatsapp-buttons.css?v=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', {
+            'analytics_storage': 'denied' // Par défaut, les cookies sont désactivés
+        });
+    </script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="images/Logo1.png" alt="Enviar Logo" style="height: 60px;">
+            </a>
+            <nav class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="/">Accueil</a></li>
+                    <li><a href="/fonctionnement">Fonctionnement</a></li>
+                    <li><a href="/a-propos">À propos</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <a href="https://wa.me/15142295522" class="btn-whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                        Nous contacter
+                    </a>
+                </div>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Politique de Cookies</h1>
+                <p>Dernière mise à jour : 17 Juin 2025</p>
+            </div>
+        </section>
+
+        <section class="cookies-content">
+            <div class="container">
+                <div class="cookies-section">
+                    <h2>1. Qu'est-ce qu'un cookie ?</h2>
+                    <p>Un cookie est un petit fichier texte enregistré sur votre appareil (téléphone, tablette) lorsque vous utilisez notre application. Il permet de collecter des informations sur votre navigation, afin de garantir la sécurité de nos services, d'en améliorer le fonctionnement et de mieux comprendre l'utilisation de l'application.</p>
+                </div>
+
+                <div class="cookies-section">
+                    <h2>2. Pourquoi utilisons-nous des cookies ?</h2>
+                    <p>Nous utilisons les cookies suivants :</p>
+                    
+                    <div class="cookie-type">
+                        <h3><i class="fas fa-shield-alt"></i> Cookies strictement nécessaires</h3>
+                        <p>Essentiels au bon fonctionnement de l'application. Ils permettent, par exemple, l'authentification sécurisée de votre session ou la détection des tentatives frauduleuses.</p>
+                    </div>
+
+                    <div class="cookie-type">
+                        <h3><i class="fas fa-chart-line"></i> Cookies d'analyse (mesure d'audience)</h3>
+                        <p>Nous utilisons Google Analytics pour collecter des données anonymes sur la manière dont l'application est utilisée (fréquence d'utilisation, parcours utilisateur, performances techniques). Ces données nous aident à améliorer l'expérience utilisateur.</p>
+                    </div>
+
+                    <div class="cookie-type">
+                        <h3><i class="fas fa-headset"></i> Cookies liés au support client</h3>
+                        <p>Zendesk utilise des cookies pour fournir un service d'assistance intégré à l'application, mémoriser vos échanges avec notre équipe, et assurer la continuité du support.</p>
+                    </div>
+
+                    <div class="cookie-type">
+                        <h3><i class="fas fa-ad"></i> Cookies publicitaires</h3>
+                        <p>Bien que nous utilisions Google Ads et Facebook pour faire connaître notre application, nous ne collectons pas de données à des fins publicitaires personnalisées au sein de l'application elle-même.</p>
+                    </div>
+                </div>
+
+                <div class="cookies-section">
+                    <h2>3. Consentement</h2>
+                    <p>En utilisant l'application Enviar Transfert, vous acceptez l'utilisation des cookies décrits ci-dessus. Nous ne proposons pas encore de module de gestion des préférences dans l'application, mais nous nous engageons à vous fournir toutes les informations nécessaires sur les cookies utilisés.</p>
+                </div>
+
+                <div class="cookies-section">
+                    <h2>4. Conservation des cookies</h2>
+                    <p>Les cookies sont conservés pour une durée maximale de 13 mois, conformément aux réglementations en vigueur au Canada et aux bonnes pratiques internationales.</p>
+                </div>
+
+                <div class="cookies-section">
+                    <h2>5. Vos droits</h2>
+                    <p>Selon votre lieu de résidence, vous pouvez avoir des droits concernant vos données personnelles, y compris :</p>
+                    <ul>
+                        <li>Le droit d'accès à vos données</li>
+                        <li>Le droit de rectification ou de suppression</li>
+                        <li>Le droit de retirer votre consentement à tout moment</li>
+                        <li>Le droit de porter plainte auprès d'une autorité compétente</li>
+                    </ul>
+                    <p>Pour exercer vos droits ou poser une question concernant vos données, contactez-nous à l'adresse suivante:</p>
+                    <p><i class="fas fa-envelope"></i> <a href="mailto:contact@enviartransfert.com">contact@enviartransfert.com</a></p>
+                </div>
+
+                <div class="cookies-section">
+                    <h2>6. Contact</h2>
+                    <p>Enviar Transfert</p>
+                    <p><i class="fas fa-envelope"></i> <a href="mailto:contact@enviartransfert.com">contact@enviartransfert.com</a></p>
+                    <p><i class="fas fa-map-marker-alt"></i> Basée au Canada et en Guinée</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    {% include 'cookie-banner.html' %}
+    {% include 'footer.html' %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            const menuIcon = menuToggle.querySelector('i');
+
+            menuToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                menuIcon.classList.toggle('fa-bars');
+                menuIcon.classList.toggle('fa-times');
+            });
+
+            // Fermer le menu quand on clique sur un lien
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    menuIcon.classList.add('fa-bars');
+                    menuIcon.classList.remove('fa-times');
+                });
+            });
+        });
+    </script>
+    <script src="/static/js/cookies.js"></script>
+</body>
+</html> 
