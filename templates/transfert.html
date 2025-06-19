@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/calculator.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', {
+            'analytics_storage': 'denied' // Par défaut, les cookies sont désactivés
+        });
+    </script>
 </head>
 <body>
     <header class="header">
@@ -165,45 +175,12 @@
         </div>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Enviar</h3>
-                <p>Votre partenaire de confiance pour les transferts d'argent vers l'Afrique</p>
-            </div>
-            <div class="footer-section">
-                <h3>Liens Rapides</h3>
-                <ul>
-                    <li><a href="/">Accueil</a></li>
-                    <li><a href="/fonctionnement">Fonctionnement</a></li>
-                    <li><a href="/a-propos">À propos</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Nos Services</h3>
-                <ul>
-                    <li>Transferts d'argent</li>
-                    <li>Paiements de factures</li>
-                    <li>Recharges mobiles</li>
-                    <li>Services bancaires</li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <ul>
-                    <li><i class="fas fa-phone"></i> +1 (514) 229-5522</li>
-                    <li><i class="fab fa-whatsapp"></i> +1 (514) 229-5522</li>
-                    <li><i class="fas fa-envelope"></i> contact@enviartransfert.com</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Enviar. Tous droits réservés.</p>
-        </div>
-    </footer>
+    {% include 'cookie-banner.html' %}
+    {% include 'footer.html' %}
 
+    <script src="/static/js/calculator.js"></script>
     <script src="/static/js/transfert.js"></script>
+    <script src="/static/js/cookies.js"></script>
 
     <!-- Modal de confirmation -->
     <div id="confirmation-modal" class="modal">
