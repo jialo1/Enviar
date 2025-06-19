@@ -22,7 +22,7 @@ app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
 # Configuration des cookies
 COOKIE_CONSENT_NAME = 'cookie_consent'
-COOKIE_CONSENT_MAX_AGE = 365 * 24 * 60 * 60  # 1 an en secondes
+COOKIE_CONSENT_MAX_AGE = 2 * 365 * 24 * 60 * 60  # 2 ans en secondes
 
 # Identifiants d'administration
 ADMIN_USERNAME = os.getenv('ADMIN_USERNAME', 'admin')
@@ -220,7 +220,7 @@ def set_cookie_consent():
                 'accepted',
                 max_age=COOKIE_CONSENT_MAX_AGE,
                 secure=True,
-                httponly=True,
+                httponly=False,  # Permettre à JavaScript de lire le cookie
                 samesite='Lax'
             )
         else:
@@ -229,7 +229,7 @@ def set_cookie_consent():
                 'rejected',
                 max_age=COOKIE_CONSENT_MAX_AGE,
                 secure=True,
-                httponly=True,
+                httponly=False,  # Permettre à JavaScript de lire le cookie
                 samesite='Lax'
             )
         
