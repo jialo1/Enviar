@@ -329,73 +329,53 @@
 .steps-progress {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 3rem;
     position: relative;
-    padding: 0 2rem;
-    max-width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
-    row-gap: 0.5em;
+    padding: 0 1rem;
 }
 
 .steps-progress::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
+    top: 20px;
+    left: calc(10% + 20px);
+    right: calc(10% + 20px);
     height: 2px;
     background: #e0e0e0;
     z-index: 1;
 }
 
 .step {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
-    z-index: 1;
-    flex: 1;
-    text-align: center;
-    margin-bottom: 0.5em;
-}
-
-.step:last-child {
-    margin-bottom: 0;
 }
 
 .step-number {
     width: 40px;
     height: 40px;
+    background-color: var(--primary-color);
+    color: var(--light-color);
     border-radius: 50%;
-    background: #f0f0f0;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
     font-weight: bold;
-    color: #666;
-    transition: all 0.3s ease;
-}
-
-.step.active .step-number {
-    background: var(--primary-color);
-    color: white;
+    margin: 0 auto 1rem;
+    box-shadow: 0 4px 10px rgba(0, 168, 89, 0.2);
 }
 
 .step-title {
-    margin-top: 0;
-    margin-bottom: 0.3em;
-    line-height: 1.2;
-    font-size: 1em;
-    font-weight: 500;
+    font-size: 1rem;
+    color: #666;
+    margin-top: 0.5rem;
     transition: color 0.3s ease;
-}
-
-.step.active .step-title {
-    color: var(--primary-color);
-    font-weight: 500;
 }
 
 .form-step {
@@ -537,23 +517,41 @@ input.error {
     }
     
     .steps-progress {
-        flex-direction: column;
-        align-items: flex-start;
-        margin-bottom: 2rem;
-        padding: 0 1rem;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 0;
+        margin: 0 -0.5rem 2rem -0.5rem;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    
+    .steps-progress::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .steps-progress::before {
+        left: 20px;
+        right: 20px;
     }
     
     .step {
-        width: 100%;
-        flex-direction: row;
-        align-items: center;
-        margin-bottom: 1rem;
-        text-align: left;
+        flex: 0 0 auto;
+        width: 80px;
+        margin: 0 0.25rem;
+        padding: 0.25rem;
     }
     
     .step-number {
-        margin-bottom: 0;
-        margin-right: 1rem;
+        width: 32px;
+        height: 32px;
+        font-size: 1.1rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .step-title {
+        font-size: 0.8rem;
+        white-space: nowrap;
+        margin-top: 0.25rem;
     }
     
     .form-step {
@@ -572,15 +570,6 @@ input.error {
     .confirmation-summary {
         max-width: 100%;
         padding: 1rem;
-    }
-
-    .steps-progress::before {
-        display: none;
-    }
-
-    .step-title {
-        text-align: left;
-        font-size: 0.9em;
     }
 
     .form-group {
@@ -647,14 +636,24 @@ input.error {
         padding: 0.8rem;
     }
 
+    .steps-progress {
+        margin: 0 -0.25rem 1.5rem -0.25rem;
+    }
+
+    .step {
+        width: 70px;
+        margin: 0 0.15rem;
+        padding: 0.15rem;
+    }
+
     .step-number {
-        width: 30px;
-        height: 30px;
-        font-size: 0.8em;
+        width: 28px;
+        height: 28px;
+        font-size: 1rem;
     }
 
     .step-title {
-        font-size: 0.85em;
+        font-size: 0.75rem;
     }
 
     .form-group input,
