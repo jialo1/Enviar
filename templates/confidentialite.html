@@ -163,28 +163,7 @@
     {% include 'cookie-banner.html' %}
     {% include 'footer.html' %}
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuToggle = document.querySelector('.menu-toggle');
-            const navMenu = document.querySelector('.nav-menu');
-            const menuIcon = menuToggle.querySelector('i');
-
-            menuToggle.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-                menuIcon.classList.toggle('fa-bars');
-                menuIcon.classList.toggle('fa-times');
-            });
-
-            // Fermer le menu quand on clique sur un lien
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navMenu.classList.remove('active');
-                    menuIcon.classList.add('fa-bars');
-                    menuIcon.classList.remove('fa-times');
-                });
-            });
-        });
-    </script>
+    <script src="/static/js/main.js"></script>
     <script src="/static/js/cookies.js"></script>
 </body>
 </html> 

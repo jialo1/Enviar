@@ -368,39 +368,7 @@
     <script src="/static/js/calculator.js"></script>
     <script src="/static/js/transfert.js"></script>
     <script src="/static/js/cookies.js"></script>
-
-    <!-- Script pour le menu mobile -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuToggle = document.querySelector('.menu-toggle');
-            const navMenu = document.querySelector('.nav-menu');
-            const menuIcon = menuToggle.querySelector('i');
-
-            menuToggle.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-                menuIcon.classList.toggle('fa-bars');
-                menuIcon.classList.toggle('fa-times');
-            });
-
-            // Fermer le menu quand on clique sur un lien
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navMenu.classList.remove('active');
-                    menuIcon.classList.add('fa-bars');
-                    menuIcon.classList.remove('fa-times');
-                });
-            });
-
-            // Fermer le menu quand on clique en dehors
-            document.addEventListener('click', (e) => {
-                if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
-                    navMenu.classList.remove('active');
-                    menuIcon.classList.add('fa-bars');
-                    menuIcon.classList.remove('fa-times');
-                }
-            });
-        });
-    </script>
+    <script src="/static/js/main.js"></script>
 
     <script>
     // Custom select with flags
