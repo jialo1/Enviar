@@ -63,7 +63,7 @@ function calculerTransfert(event) {
         tauxAffiche = `1 ${deviseDepart} = ${tauxCadGnf.toFixed(5)} ${deviseDestination}`;
     } else if (paysDepart === 'guinee') {
         // Pour la Guinée, on affiche 1 GNF = X XOF
-        tauxAffiche = `1 GNF = ${(1/tauxXofGnf).toFixed(5)} XOF`;
+        tauxAffiche = `5000 GNF = ${(5000/tauxXofGnf).toFixed(2)} XOF`;
     } else if (paysDepart === 'senegal') {
         // Pour le Sénégal, on affiche 1 XOF = X GNF
         tauxAffiche = `1 XOF = ${tauxXofGnf.toFixed(5)} GNF`;

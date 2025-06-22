@@ -750,6 +750,7 @@ main {
 .pays-desservis {
     padding: 4rem 2rem;
     background-color: #f9f9f9;
+    text-align: center;
 }
 
 .pays-desservis h2 {
@@ -759,9 +760,9 @@ main {
 
 .pays-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
-    max-width: 1200px;
+    max-width: 800px;
     margin: 0 auto;
 }
 
@@ -770,6 +771,7 @@ main {
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
 }
 
 .pays-card h3 {
@@ -781,11 +783,13 @@ main {
 .pays-card ul {
     list-style: none;
     padding: 0;
+    text-align: center;
 }
 
 .pays-card li {
     padding: 0.5rem 0;
     border-bottom: 1px solid #eee;
+    text-align: center;
 }
 
 .pays-card li:last-child {
@@ -999,6 +1003,78 @@ tr:hover {
     margin-bottom: 1.5rem;
     line-height: 1.8;
     color: #666;
+}
+
+/* Style for sections with side-by-side title and content */
+.side-by-side-section {
+    padding: 4rem 0;
+}
+
+.side-by-side-section .container {
+    display: flex;
+    align-items: flex-start;
+    gap: 4rem;
+}
+
+.side-by-side-section h2 {
+    flex-basis: 250px;
+    flex-shrink: 0;
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    text-align: left !important;
+}
+
+.histoire-content p,
+.pourquoi-content p {
+    margin: 0 0 1.5rem 0;
+    line-height: 1.8;
+    color: #666;
+    font-size: 1rem;
+}
+
+.pourquoi-nous-choisir {
+    background-color: #f9f9f9;
+}
+
+.pourquoi-content p:last-child {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 1.1rem;
+}
+
+/* Pourquoi Nous Choisir */
+.pourquoi-nous-choisir {
+    padding: 4rem 0;
+    background-color: #f9f9f9;
+}
+
+.pourquoi-nous-choisir h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #2c3e50;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.pourquoi-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.pourquoi-content p {
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.pourquoi-content p:last-child {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 1.2rem;
 }
 
 /* Mission et Valeurs */
@@ -2206,7 +2282,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
+   
     height: 50px;
     border-radius: 50%;
     background-color: var(--primary-color);
