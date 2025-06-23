@@ -142,6 +142,51 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Fonction pour générer le message WhatsApp lisible
     function getMessageWhatsAppLisible() {
+        const lang = document.documentElement.lang || 'fr';
+
+        const labels = {
+            fr: {
+                greeting: "Bonjour, je souhaite effectuer un transfert d'argent.",
+                myInfo: "Mes informations :",
+                name: "Nom",
+                phone: "Téléphone",
+                email: "Email",
+                beneficiaryInfo: "Informations du bénéficiaire :",
+                beneficiaryName: "Nom",
+                beneficiaryPhone: "Téléphone",
+                beneficiaryAddress: "Adresse",
+                transferDetails: "Détails du transfert :",
+                sendingCountry: "Pays d'envoi",
+                receivingCountry: "Pays de réception",
+                amountToSend: "Montant à envoyer",
+                fees: "Frais",
+                totalToPay: "Total à payer",
+                amountToReceive: "Montant à recevoir",
+                message: "Message"
+            },
+            en: {
+                greeting: "Hello, I would like to make a money transfer.",
+                myInfo: "My information:",
+                name: "Name",
+                phone: "Phone",
+                email: "Email",
+                beneficiaryInfo: "Beneficiary's information:",
+                beneficiaryName: "Name",
+                beneficiaryPhone: "Phone",
+                beneficiaryAddress: "Address",
+                transferDetails: "Transfer details:",
+                sendingCountry: "Sending country",
+                receivingCountry: "Receiving country",
+                amountToSend: "Amount to send",
+                fees: "Fees",
+                totalToPay: "Total to pay",
+                amountToReceive: "Amount to receive",
+                message: "Message"
+            }
+        };
+
+        const t = labels[lang];
+
         const nom = document.getElementById('nom').value;
         const telephone = document.getElementById('telephone').value;
         const email = document.getElementById('email').value;
@@ -149,23 +194,24 @@ document.addEventListener('DOMContentLoaded', function() {
         const beneficiaireTelephone = document.getElementById('beneficiaire-telephone').value;
         const beneficiaireAdresse = document.getElementById('beneficiaire-adresse').value;
         const message = document.getElementById('message').value;
-        return `Bonjour, je souhaite effectuer un transfert d'argent.\n\n` +
-            `Mes informations :\n` +
-            `- Nom : ${nom}\n` +
-            `- Téléphone : ${telephone}\n` +
-            `- Email : ${email}\n\n` +
-            `Informations du bénéficiaire :\n` +
-            `- Nom : ${beneficiaireNom}\n` +
-            `- Téléphone : ${beneficiaireTelephone}\n` +
-            `- Adresse : ${beneficiaireAdresse}\n\n` +
-            `Détails du transfert :\n` +
-            `- Pays d'envoi : ${transfertData.paysDepartLabel || transfertData.paysDepart}\n` +
-            `- Pays de réception : ${transfertData.paysDestinationLabel || transfertData.paysDestination}\n` +
-            `- Montant à envoyer : ${formatMontant(transfertData.montant, transfertData.deviseDepart)}\n` +
-            `- Frais : ${formatMontant(transfertData.frais, transfertData.deviseDepart)}\n` +
-            `- Total à payer : ${formatMontant(transfertData.total, transfertData.deviseDepart)}\n` +
-            `- Montant à recevoir : ${formatMontant(transfertData.montantRecu, transfertData.deviseDestination)}\n\n` +
-            `Message : ${message}`;
+        
+        return `${t.greeting}\n\n` +
+            `${t.myInfo}\n` +
+            `- ${t.name} : ${nom}\n` +
+            `- ${t.phone} : ${telephone}\n` +
+            `- ${t.email} : ${email}\n\n` +
+            `${t.beneficiaryInfo}\n` +
+            `- ${t.name} : ${beneficiaireNom}\n` +
+            `- ${t.phone} : ${beneficiaireTelephone}\n` +
+            `- ${t.address} : ${beneficiaireAdresse}\n\n` +
+            `${t.transferDetails}\n` +
+            `- ${t.sendingCountry} : ${transfertData.paysDepartLabel || transfertData.paysDepart}\n` +
+            `- ${t.receivingCountry} : ${transfertData.paysDestinationLabel || transfertData.paysDestination}\n` +
+            `- ${t.amountToSend} : ${formatMontant(transfertData.montant, transfertData.deviseDepart)}\n` +
+            `- ${t.fees} : ${formatMontant(transfertData.frais, transfertData.deviseDepart)}\n` +
+            `- ${t.totalToPay} : ${formatMontant(transfertData.total, transfertData.deviseDepart)}\n` +
+            `- ${t.amountToReceive} : ${formatMontant(transfertData.montantRecu, transfertData.deviseDestination)}\n\n` +
+            `${t.message} : ${message}`;
     }
 
     // Afficher l'aperçu à chaque fois qu'on arrive à l'étape 4 ou qu'on modifie un champ
@@ -200,9 +246,11 @@ document.addEventListener('DOMContentLoaded', function() {
         copyButton.addEventListener('click', () => {
             const message = getMessageWhatsAppLisible();
             navigator.clipboard.writeText(message).then(() => {
+                const lang = document.documentElement.lang || 'fr';
+                const buttonText = lang === 'en' ? 'Copied!' : 'Copié !';
                 // Changer temporairement le texte du bouton
                 const originalText = copyButton.innerHTML;
-                copyButton.innerHTML = '<i class="fas fa-check"></i> Copié !';
+                copyButton.innerHTML = `<i class="fas fa-check"></i> ${buttonText}`;
                 copyButton.style.background = '#128C7E';
                 
                 // Remettre le texte original après 2 secondes
@@ -212,7 +260,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, 2000);
             }).catch(err => {
                 console.error('Erreur lors de la copie :', err);
-                alert('Impossible de copier le message. Veuillez réessayer.');
+                const lang = document.documentElement.lang || 'fr';
+                const alertMessage = lang === 'en' ? 'Could not copy the message. Please try again.' : 'Impossible de copier le message. Veuillez réessayer.';
+                alert(alertMessage);
             });
         });
     }

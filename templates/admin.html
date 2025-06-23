@@ -233,34 +233,34 @@
 
     <main>
         <section class="admin-container">
-            <h1>Administration des Taux de Change</h1>
+            <h1 data-translate="admin-title">Administration des Taux de Change</h1>
             
             <div class="taux-actuel">
                 <div class="taux-item">
-                    <h3>Taux de Change CAD vers GNF</h3>
+                    <h3 data-translate="cad-gnf-rate">Taux de Change CAD vers GNF</h3>
                     <p>1 CAD = <span id="taux-cad-gnf">{{ taux_cad_gnf }}</span> GNF</p>
                 </div>
                 <div class="taux-item" style="margin-top: 1rem;">
-                    <h3>Taux de Change GNF vers XOF</h3>
+                    <h3 data-translate="gnf-xof-rate">Taux de Change GNF vers XOF</h3>
                     <p>1 GNF = <span id="taux-xof-gnf">{{ "%.5f"|format(1/taux_xof_gnf) }}</span> XOF</p>
                 </div>
             </div>
 
-            <div id="successMessage" class="success-message">
+            <div id="successMessage" class="success-message" data-translate="success-update">
                 Les taux ont été mis à jour avec succès !
             </div>
 
             <form id="taux-form" method="POST" action="/update_taux">
                 <div class="form-group">
-                    <label for="nouveau-taux-cad">Nouveau taux (1 CAD = ? GNF)</label>
+                    <label for="nouveau-taux-cad" data-translate="new-cad-rate">Nouveau taux (1 CAD = ? GNF)</label>
                     <input type="number" id="nouveau-taux-cad" name="nouveau-taux-cad" step="0.01" required>
                 </div>
                 <div class="form-group">
-                    <label for="nouveau-taux-xof">Nouveau taux (1 GNF = ? XOF)</label>
+                    <label for="nouveau-taux-xof" data-translate="new-xof-rate">Nouveau taux (1 GNF = ? XOF)</label>
                     <input type="number" id="nouveau-taux-xof" name="nouveau-taux-xof" step="0.000001" required>
                 </div>
                 <div id="errorMessage" class="error-message"></div>
-                <button type="submit">Mettre à jour les taux</button>
+                <button type="submit" data-translate="update-rates">Mettre à jour les taux</button>
             </form>
         </section>
     </main>

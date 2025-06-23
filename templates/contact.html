@@ -6,6 +6,7 @@
     <title>Contact - Enviar</title>
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/whatsapp-buttons.css?v=1">
+    <link rel="stylesheet" href="/static/css/whatsapp-floating.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -26,16 +27,16 @@
             </a>
             <nav class="nav-menu">
                 <ul class="nav-links">
-                    <li><a href="/">Accueil</a></li>
-                    <li><a href="/fonctionnement">Fonctionnement</a></li>
-                    <li><a href="/a-propos">À propos</a></li>
-                    <li><a href="/contact" class="active">Contact</a></li>
+                    <li><a href="/" data-translate="nav-home">Accueil</a></li>
+                    <li><a href="/fonctionnement" data-translate="nav-how-it-works">Fonctionnement</a></li>
+                    <li><a href="/a-propos" data-translate="nav-about">À propos</a></li>
+                    <li><a href="/contact" class="active" data-translate="nav-contact">Contact</a></li>
                 </ul>
                 <div class="nav-buttons">
-                    <a href="https://wa.me/15142295522" class="btn-whatsapp" target="_blank">
-                        <i class="fab fa-whatsapp"></i>
-                        Nous contacter
-                    </a>
+                    <select class="language-selector">
+                        <option value="fr">🇫🇷 FR</option>
+                        <option value="en">🇨🇦 EN</option>
+                    </select>
                 </div>
             </nav>
             <div class="menu-toggle">
@@ -44,11 +45,19 @@
         </div>
     </header>
 
+    <!-- Bouton WhatsApp flottant -->
+    <div class="whatsapp-floating">
+        <a href="https://wa.me/15142295522" target="_blank" title="Contactez-nous sur WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+            <div class="flag"></div>
+        </a>
+    </div>
+
     <main>
         <section class="page-header">
             <div class="container">
-                <h1>Contactez-nous</h1>
-                <p>Notre équipe est disponible 24/7 pour vous aider</p>
+                <h1 data-translate="contact-page-title">Contactez-nous</h1>
+                <p data-translate="contact-page-subtitle">Notre équipe est disponible 24/7 pour vous aider</p>
             </div>
         </section>
 
@@ -58,21 +67,21 @@
                 <div class="contact-info-grid">
                     <div class="contact-info-card">
                         <i class="fas fa-phone"></i>
-                        <h3>Par téléphone</h3>
+                        <h3 data-translate="by-phone">Par téléphone</h3>
                         <p>+1 514-229-5522</p>
                         <span>24/7</span>
                     </div>
                     <div class="contact-info-card">
                         <i class="fab fa-whatsapp"></i>
-                        <h3>Par WhatsApp</h3>
+                        <h3 data-translate="by-whatsapp">Par WhatsApp</h3>
                         <p>+1 514-229-5522</p>
-                        <span>Réponse rapide</span>
+                        <span data-translate="quick-response">Réponse rapide</span>
                     </div>
                     <div class="contact-info-card">
                         <i class="fas fa-envelope"></i>
-                        <h3>Par email</h3>
+                        <h3 data-translate="by-email">Par email</h3>
                         <p>contact@enviartransfert.com</p>
-                        <span>Réponse sous 24h</span>
+                        <span data-translate="response-24h">Réponse sous 24h</span>
                     </div>
                 </div>
             </div>
@@ -84,58 +93,58 @@
                 <div class="contact-grid">
                     <!-- Formulaire de contact -->
                     <div class="contact-form">
-                        <h2>Envoyez-nous un message</h2>
+                        <h2 data-translate="send-us-message">Envoyez-nous un message</h2>
                         <form id="contactForm">
                             <div class="form-group">
-                                <label for="name">Nom complet</label>
-                                <input type="text" id="name" name="name" required>
+                                <label for="name" data-translate="full-name">Nom complet</label>
+                                <input type="text" id="name" name="name" required data-translate-placeholder="full-name">
                             </div>
                             <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" name="email" required>
+                                <label for="email" data-translate="email">Email</label>
+                                <input type="email" id="email" name="email" required data-translate-placeholder="email">
                             </div>
                             <div class="form-group">
-                                <label for="phone">Téléphone</label>
-                                <input type="tel" id="phone" name="phone">
+                                <label for="phone" data-translate="phone">Téléphone</label>
+                                <input type="tel" id="phone" name="phone" data-translate-placeholder="phone">
                             </div>
                             <div class="form-group">
-                                <label for="subject">Sujet</label>
+                                <label for="subject" data-translate="subject">Sujet</label>
                                 <select id="subject" name="subject" required>
-                                    <option value="">Choisir un sujet</option>
-                                    <option value="transfert">Question sur un transfert</option>
-                                    <option value="compte">Question sur mon compte</option>
-                                    <option value="tarifs">Information sur les tarifs</option>
-                                    <option value="autre">Autre</option>
+                                    <option value="" data-translate="choose-subject">Choisir un sujet</option>
+                                    <option value="transfert" data-translate="transfer-question">Question sur un transfert</option>
+                                    <option value="compte" data-translate="account-question">Question sur mon compte</option>
+                                    <option value="tarifs" data-translate="rates-info">Information sur les tarifs</option>
+                                    <option value="autre" data-translate="other">Autre</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="message">Message</label>
-                                <textarea id="message" name="message" rows="5" required></textarea>
+                                <label for="message" data-translate="message">Message</label>
+                                <textarea id="message" name="message" rows="5" required data-translate-placeholder="message"></textarea>
                             </div>
-                            <button type="submit" class="cta-button">Envoyer le message</button>
+                            <button type="submit" class="cta-button" data-translate="send-message">Envoyer le message</button>
                         </form>
                     </div>
 
                     <!-- FAQ -->
                     <div class="contact-faq">
-                        <h2>Questions fréquentes</h2>
+                        <h2 data-translate="contact-faq-title">Questions fréquentes</h2>
                         <div class="faq-list">
                             <div class="faq-item">
-                                <h3>Comment suivre mon transfert ?</h3>
-                                <p>Suivez votre transfert en temps réel depuis votre espace client ou contactez-nous directement.</p>
+                                <h3 data-translate="faq-track-transfer">Comment suivre mon transfert ?</h3>
+                                <p data-translate="faq-track-answer">Suivez votre transfert en temps réel depuis votre espace client ou contactez-nous directement.</p>
                             </div>
                             <div class="faq-item">
-                                <h3>Quels sont les délais ?</h3>
-                                <p>Les transferts sont traités dans les 24h ouvrables après réception du paiement.</p>
-                            </div>
+                                <h3 data-translate="faq-delays">Quels sont les délais ?</h3>
+                                <p data-translate="faq-delays-answer">Les transferts sont traités dans les 24h ouvrables après réception du paiement.</p>
+                        </div>
                             <div class="faq-item">
-                                <h3>Comment modifier un transfert ?</h3>
-                                <p>Modifiez ou annulez votre transfert depuis votre espace client avant son traitement.</p>
-                            </div>
+                                <h3 data-translate="faq-modify">Comment modifier un transfert ?</h3>
+                                <p data-translate="faq-modify-answer">Modifiez ou annulez votre transfert depuis votre espace client avant son traitement.</p>
+                        </div>
                             <div class="faq-item">
-                                <h3>Documents requis ?</h3>
-                                <p>Une pièce d'identité valide et un justificatif de domicile sont nécessaires.</p>
-                            </div>
+                                <h3 data-translate="faq-documents">Documents requis ?</h3>
+                                <p data-translate="faq-documents-answer">Une pièce d'identité valide et un justificatif de domicile sont nécessaires.</p>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -148,5 +157,6 @@
 
     <script src="/static/js/main.js"></script>
     <script src="/static/js/cookies.js"></script>
+    <script src="/static/js/translator.js"></script>
 </body>
 </html> 

@@ -78,6 +78,11 @@ def home():
                          taux_cad_gnf=taux['taux_cad_gnf'],
                          taux_xof_gnf=taux['taux_xof_gnf'])
 
+# Route pour obtenir les taux actuels
+@app.route('/get_taux')
+def get_taux():
+    return jsonify(load_taux())
+
 # Route pour la page de connexion
 @app.route('/login', methods=['GET', 'POST'])
 def login():

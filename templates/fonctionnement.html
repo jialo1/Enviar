@@ -6,6 +6,7 @@
     <title>Comment ça marche - Enviar</title>
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/whatsapp-buttons.css?v=1">
+    <link rel="stylesheet" href="/static/css/whatsapp-floating.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -26,16 +27,16 @@
             </a>
             <nav class="nav-menu">
                 <ul class="nav-links">
-                    <li><a href="/" >Accueil</a></li>
-                    <li><a href="/fonctionnement" class="active">Fonctionnement</a></li>
-                    <li><a href="/a-propos">À propos</a></li>
-                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/" data-translate="nav-home">Accueil</a></li>
+                    <li><a href="/fonctionnement" class="active" data-translate="nav-how-it-works">Fonctionnement</a></li>
+                    <li><a href="/a-propos" data-translate="nav-about">À propos</a></li>
+                    <li><a href="/contact" data-translate="nav-contact">Contact</a></li>
                 </ul>
                 <div class="nav-buttons">
-                    <a href="https://wa.me/15142295522" class="btn-whatsapp" target="_blank">
-                        <i class="fab fa-whatsapp"></i>
-                        Nous contacter
-                    </a>
+                    <select id="language-selector" class="language-selector">
+                        <option value="fr">🇫🇷 FR</option>
+                        <option value="en">🇨🇦 EN</option>
+                    </select>
                 </div>
             </nav>
             <div class="menu-toggle">
@@ -44,11 +45,19 @@
         </div>
     </header>
 
+    <!-- Bouton WhatsApp flottant -->
+    <div class="whatsapp-floating">
+        <a href="https://wa.me/15142295522" target="_blank" title="Contactez-nous sur WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+            <div class="flag"></div>
+        </a>
+    </div>
+
     <main>
         <section class="page-header">
             <div class="container">
-                <h1>Comment ça marche</h1>
-                <p>Découvrez notre processus simple et sécurisé</p>
+                <h1 data-translate="how-it-works-title">Comment ça marche</h1>
+                <p data-translate="how-it-works-subtitle">Découvrez notre processus simple et sécurisé</p>
             </div>
         </section>
 
@@ -56,27 +65,27 @@
             <div class="process-steps">
                 <div class="step">
                     <div class="step-number">1</div>
-                    <h3>Calculez votre transfert</h3>
-                    <p>Utilisez notre calculateur pour connaître le montant exact que votre bénéficiaire recevra en XOF.</p>
+                    <h3 data-translate="step-1-title">Calculez votre transfert</h3>
+                    <p data-translate="step-1-desc">Utilisez notre calculateur pour connaître le montant exact que votre bénéficiaire recevra en XOF.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
-                    <h3>Contactez-nous sur WhatsApp</h3>
-                    <p>Envoyez-nous un message sur WhatsApp avec le montant calculé pour finaliser votre transfert.</p>
+                    <h3 data-translate="step-2-title">Contactez-nous sur WhatsApp</h3>
+                    <p data-translate="step-2-desc">Envoyez-nous un message sur WhatsApp avec le montant calculé pour finaliser votre transfert.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
-                    <h3>Recevez votre argent</h3>
-                    <p>Votre bénéficiaire reçoit l'argent instantanément après la confirmation du transfert.</p>
+                    <h3 data-translate="step-3-title">Recevez votre argent</h3>
+                    <p data-translate="step-3-desc">Votre bénéficiaire reçoit l'argent instantanément après la confirmation du transfert.</p>
                 </div>
             </div>
         </section>
 
         <section class="pays-desservis">
-            <h2>Pays desservis</h2>
+            <h2 data-translate="served-countries">Pays desservis</h2>
             <div class="pays-grid">
                 <div class="pays-card">
-                    <h3>Envoi depuis :</h3>
+                    <h3 data-translate="sending-from">Envoi depuis :</h3>
                     <ul>
                         <li>Guinée</li>
                         <li>Canada</li>
@@ -84,7 +93,7 @@
                     </ul>
                 </div>
                 <div class="pays-card">
-                    <h3>Réception en :</h3>
+                    <h3 data-translate="receiving-in">Réception en :</h3>
                     <ul>
                         <li>Guinée</li>
                         <li>Canada</li>
@@ -95,19 +104,19 @@
         </section>
 
         <section class="faq">
-            <h2>Questions fréquentes</h2>
+            <h2 data-translate="faq-title">Questions fréquentes</h2>
             <div class="faq-grid">
                 <div class="faq-item">
-                    <h3>Combien de temps prend un transfert ?</h3>
-                    <p>La plupart de nos transferts sont instantanés. Dans certains cas, le délai peut aller jusqu'à 24 heures selon le pays de destination.</p>
+                    <h3 data-translate="faq-1-question">Combien de temps prend un transfert ?</h3>
+                    <p data-translate="faq-1-answer">La plupart de nos transferts sont instantanés. Dans certains cas, le délai peut aller jusqu'à 24 heures selon le pays de destination.</p>
                 </div>
                 <div class="faq-item">
-                    <h3>Quels documents sont nécessaires ?</h3>
-                    <p>Une pièce d'identité valide (passeport ou carte d'identité) et un justificatif de domicile de moins de 3 mois.</p>
+                    <h3 data-translate="faq-2-question">Quels documents sont nécessaires ?</h3>
+                    <p data-translate="faq-2-answer">Une pièce d'identité valide (passeport ou carte d'identité) et un justificatif de domicile de moins de 3 mois.</p>
                 </div>
                 <div class="faq-item">
-                    <h3>Comment mon bénéficiaire reçoit-il l'argent ?</h3>
-                    <p>Votre bénéficiaire peut retirer l'argent dans l'un de nos points de retrait partenaires ou recevoir directement sur son compte bancaire.</p>
+                    <h3 data-translate="faq-3-question">Comment mon bénéficiaire reçoit-il l'argent ?</h3>
+                    <p data-translate="faq-3-answer">Votre bénéficiaire peut retirer l'argent dans l'un de nos points de retrait partenaires ou recevoir directement sur son compte bancaire.</p>
                 </div>
             </div>
         </section>
@@ -118,5 +127,6 @@
 
     <script src="/static/js/main.js"></script>
     <script src="/static/js/cookies.js"></script>
+    <script src="/static/js/translator.js"></script>
 </body>
 </html> 

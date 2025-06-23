@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enviar - Nouveau Transfert</title>
+    <title data-translate="transfer-page-title">Enviar - Nouveau Transfert</title>
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/calculator.css">
+    <link rel="stylesheet" href="/static/css/whatsapp-buttons.css?v=1">
+    <link rel="stylesheet" href="/static/css/whatsapp-floating.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -24,17 +26,23 @@
             <a href="/" class="logo">
                 <img src="/images/Logo1.png" alt="Enviar Logo" style="height: 60px;">
             </a>
-            <button class="menu-toggle" aria-label="Menu">
-                <i class="fas fa-bars"></i>
-            </button>
             <nav class="nav-menu">
                 <ul class="nav-links">
-                    <li><a href="/">Accueil</a></li>
-                    <li><a href="/fonctionnement">Fonctionnement</a></li>
-                    <li><a href="/a-propos">À propos</a></li>
-                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/" data-translate="nav-home">Accueil</a></li>
+                    <li><a href="/fonctionnement" data-translate="nav-how-it-works">Fonctionnement</a></li>
+                    <li><a href="/a-propos" data-translate="nav-about">À propos</a></li>
+                    <li><a href="/contact" data-translate="nav-contact">Contact</a></li>
                 </ul>
+                <div class="nav-buttons">
+                    <select class="language-selector">
+                        <option value="fr">🇫🇷 FR</option>
+                        <option value="en">🇨🇦 EN</option>
+                    </select>
+                </div>
             </nav>
+            <div class="menu-toggle" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
     </header>
 
@@ -43,131 +51,131 @@
             <div class="steps-progress">
                 <div class="step active" data-step="1">
                     <div class="step-number">1</div>
-                    <div class="step-title">Détails</div>
+                    <div class="step-title" data-translate="step-details">Détails</div>
                 </div>
                 <div class="step" data-step="2">
                     <div class="step-number">2</div>
-                    <div class="step-title">Vos Info</div>
+                    <div class="step-title" data-translate="step-your-info">Vos Info</div>
                 </div>
                 <div class="step" data-step="3">
                     <div class="step-number">3</div>
-                    <div class="step-title">Bénéficiaire</div>
+                    <div class="step-title" data-translate="step-beneficiary">Bénéficiaire</div>
                 </div>
                 <div class="step" data-step="4">
                     <div class="step-number">4</div>
-                    <div class="step-title">Confirmer</div>
+                    <div class="step-title" data-translate="step-confirm">Confirmer</div>
                 </div>
             </div>
 
             <form id="transfert-form" class="transfert-form">
                 <!-- Étape 1: Détails du transfert -->
                 <div class="form-step active" data-step="1">
-                    <h2>Détails du transfert</h2>
+                    <h2 data-translate="transfer-details">Détails du transfert</h2>
                     <div class="form-group">
-                        <label>Pays de départ</label>
+                        <label data-translate="sending-country">Pays de départ</label>
                         <div id="pays-depart-display" class="pays-display"></div>
                     </div>
                     <div class="form-group">
-                        <label>Pays de destination</label>
+                        <label data-translate="receiving-country">Pays de destination</label>
                         <div id="pays-destination-display" class="pays-display"></div>
                     </div>
                     <div class="form-group">
-                        <label>Montant à envoyer</label>
+                        <label data-translate="amount-to-send">Montant à envoyer</label>
                         <input type="text" id="montant-display" readonly>
                     </div>
                     <div class="form-group">
-                        <label>Montant à recevoir</label>
+                        <label data-translate="amount-to-receive">Montant à recevoir</label>
                         <input type="text" id="montant-recu-display" readonly>
                     </div>
                     <div class="form-group">
-                        <label>Frais de transfert</label>
+                        <label data-translate="transfer-fees">Frais de transfert</label>
                         <input type="text" id="frais-display" readonly>
                     </div>
                     <div class="form-group">
-                        <label>Total à payer</label>
+                        <label data-translate="total-to-pay">Total à payer</label>
                         <input type="text" id="total-display" readonly>
                     </div>
-                    <button type="button" class="next-step cta-button">Continuer</button>
+                    <button type="button" class="next-step cta-button" data-translate="continue">Continuer</button>
                 </div>
 
                 <!-- Étape 2: Vos informations -->
                 <div class="form-step" data-step="2">
-                    <h2>Vos informations</h2>
+                    <h2 data-translate="your-info">Vos informations</h2>
                     <div class="form-group">
-                        <label for="nom">Nom complet</label>
-                        <input type="text" id="nom" name="nom" required>
+                        <label for="nom" data-translate="full-name">Nom complet</label>
+                        <input type="text" id="nom" name="nom" required data-translate-placeholder="full-name">
                     </div>
                     <div class="form-group">
-                        <label for="telephone">Téléphone</label>
-                        <input type="tel" id="telephone" name="telephone" required>
+                        <label for="telephone" data-translate="phone">Téléphone</label>
+                        <input type="tel" id="telephone" name="telephone" required data-translate-placeholder="phone">
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
+                        <label for="email" data-translate="email">Email</label>
+                        <input type="email" id="email" name="email" required data-translate-placeholder="email">
                     </div>
                     <div class="form-buttons">
-                        <button type="button" class="prev-step">Retour</button>
-                        <button type="button" class="next-step cta-button">Continuer</button>
+                        <button type="button" class="prev-step" data-translate="back">Retour</button>
+                        <button type="button" class="next-step cta-button" data-translate="continue">Continuer</button>
                     </div>
                 </div>
 
                 <!-- Étape 3: Bénéficiaire -->
                 <div class="form-step" data-step="3">
-                    <h2>Informations du bénéficiaire</h2>
+                    <h2 data-translate="beneficiary-info">Informations du bénéficiaire</h2>
                     <div class="form-group">
-                        <label for="beneficiaire-nom">Nom complet du bénéficiaire</label>
-                        <input type="text" id="beneficiaire-nom" name="beneficiaire-nom" required>
+                        <label for="beneficiaire-nom" data-translate="beneficiary-name">Nom complet du bénéficiaire</label>
+                        <input type="text" id="beneficiaire-nom" name="beneficiaire-nom" required data-translate-placeholder="beneficiary-name">
                     </div>
                     <div class="form-group">
-                        <label for="beneficiaire-telephone">Téléphone du bénéficiaire</label>
-                        <input type="tel" id="beneficiaire-telephone" name="beneficiaire-telephone" required>
+                        <label for="beneficiaire-telephone" data-translate="beneficiary-phone">Téléphone du bénéficiaire</label>
+                        <input type="tel" id="beneficiaire-telephone" name="beneficiaire-telephone" required data-translate-placeholder="beneficiary-phone">
                     </div>
                     <div class="form-group">
-                        <label for="beneficiaire-adresse">Adresse du bénéficiaire</label>
-                        <input type="text" id="beneficiaire-adresse" name="beneficiaire-adresse" required>
+                        <label for="beneficiaire-adresse" data-translate="beneficiary-address">Adresse du bénéficiaire</label>
+                        <input type="text" id="beneficiaire-adresse" name="beneficiaire-adresse" required data-translate-placeholder="beneficiary-address">
                     </div>
                     <div class="form-buttons">
-                        <button type="button" class="prev-step">Retour</button>
-                        <button type="button" class="next-step cta-button">Continuer</button>
+                        <button type="button" class="prev-step" data-translate="back">Retour</button>
+                        <button type="button" class="next-step cta-button" data-translate="continue">Continuer</button>
                     </div>
                 </div>
 
                 <!-- Étape 4: Confirmation -->
                 <div class="form-step" data-step="4">
-                    <h2>Confirmation</h2>
+                    <h2 data-translate="confirmation">Confirmation</h2>
                     <div class="confirmation-summary">
-                        <h3>Récapitulatif de votre transfert</h3>
+                        <h3 data-translate="transfer-summary">Récapitulatif de votre transfert</h3>
                         <div class="resultat-item">
-                            <span>Envoi :</span>
+                            <span data-translate="sending">Envoi :</span>
                             <span id="summary-montant-envoyer"></span>
                         </div>
                         <div class="summary-item">
-                            <span>Montant à recevoir :</span>
+                            <span data-translate="amount-to-receive">Montant à recevoir :</span>
                             <span id="summary-montant-recu"></span>
                         </div>
                         <div class="summary-item">
-                            <span>Frais de transfert :</span>
+                            <span data-translate="transfer-fees">Frais de transfert :</span>
                             <span id="summary-frais"></span>
                         </div>
                         <div class="summary-item">
-                            <span>Total à payer :</span>
+                            <span data-translate="total-to-pay">Total à payer :</span>
                             <span id="summary-total"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="message">Informations complémentaires (optionnel)</label>
-                        <textarea id="message" name="message" rows="3"></textarea>
+                        <label for="message" data-translate="additional-info">Informations complémentaires (optionnel)</label>
+                        <textarea id="message" name="message" rows="3" data-translate-placeholder="message"></textarea>
                     </div>
                     <div class="form-buttons">
-                        <button type="button" class="prev-step">Retour</button>
+                        <button type="button" class="prev-step" data-translate="back">Retour</button>
                         <a id="whatsapp-continue" href="#" target="_blank" class="cta-button" style="flex:1 1 0; display:flex; align-items:center; justify-content:center; gap:0.5em; text-decoration:none;">
-                            <i class="fab fa-whatsapp"></i> Continuer sur WhatsApp
+                            <i class="fab fa-whatsapp"></i> <span data-translate="continue-whatsapp">Continuer sur WhatsApp</span>
                         </a>
                     </div>
                     <div style="position: relative; margin-top: 1em;">
                         <pre id="whatsapp-preview" style="background:#f8f9fa; border-radius:8px; padding:1em; font-size:1em; color:#222; white-space:pre-wrap; margin:0;"></pre>
                         <button type="button" id="copy-message" class="cta-button" style="position:absolute; top:0.5em; right:0.5em; padding:0.5em 1em; font-size:0.9em; background:#25D366;">
-                            <i class="fas fa-copy"></i> Copier
+                            <i class="fas fa-copy"></i> <span data-translate="copy-button">Copier</span>
                         </button>
                     </div>
                 </div>
@@ -179,6 +187,7 @@
     {% include 'footer.html' %}
 
     <script src="/static/js/calculator.js"></script>
+    <script src="/static/js/translator.js"></script>
     <script src="/static/js/transfert.js"></script>
     <script src="/static/js/main.js"></script>
     <script src="/static/js/cookies.js"></script>
@@ -187,28 +196,28 @@
     <div id="confirmation-modal" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
-            <h2>Confirmation de votre transfert</h2>
+            <h2 data-translate="transfer-confirmation-title">Confirmation de votre transfert</h2>
             <div class="resultat-calcul">
                 <div class="resultat-item">
-                    <span>Envoi :</span>
+                    <span data-translate="sending">Envoi :</span>
                     <span id="modal-montant-envoyer"></span>
                 </div>
                 <div class="resultat-item">
-                    <span>Montant à recevoir :</span>
+                    <span data-translate="amount-to-receive">Montant à recevoir :</span>
                     <span id="modal-montant-recu"></span>
                 </div>
                 <div class="resultat-item">
-                    <span>Frais de transfert :</span>
+                    <span data-translate="transfer-fees">Frais de transfert :</span>
                     <span id="modal-frais"></span>
                 </div>
                 <div class="resultat-item">
-                    <span>Total à payer :</span>
+                    <span data-translate="total-to-pay">Total à payer :</span>
                     <span id="modal-total"></span>
                 </div>
             </div>
             <div class="contact-button">
                 <a href="#" id="modal-whatsapp-link" class="cta-button">
-                    <i class="fab fa-whatsapp"></i> Continuer sur WhatsApp
+                    <i class="fab fa-whatsapp"></i> <span data-translate="continue-whatsapp">Continuer sur WhatsApp</span>
                 </a>
             </div>
         </div>

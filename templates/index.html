@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/static/css/style.css?v=1">
     <link rel="stylesheet" href="/static/css/calculator.css">
     <link rel="stylesheet" href="/static/css/whatsapp-buttons.css?v=1">
+    <link rel="stylesheet" href="/static/css/whatsapp-floating.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -27,16 +28,16 @@
             </a>
             <nav class="nav-menu">
                 <ul class="nav-links">
-                    <li><a href="/" class="active">Accueil</a></li>
-                    <li><a href="/fonctionnement">Fonctionnement</a></li>
-                    <li><a href="/a-propos">À propos</a></li>
-                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/" class="active" data-translate="nav-home">Accueil</a></li>
+                    <li><a href="/fonctionnement" data-translate="nav-how-it-works">Fonctionnement</a></li>
+                    <li><a href="/a-propos" data-translate="nav-about">À propos</a></li>
+                    <li><a href="/contact" data-translate="nav-contact">Contact</a></li>
                 </ul>
                 <div class="nav-buttons">
-                    <a href="https://wa.me/15142295522" class="btn-whatsapp" target="_blank">
-                        <i class="fab fa-whatsapp"></i>
-                        Nous contacter
-                    </a>
+                    <select class="language-selector">
+                        <option value="fr">🇫🇷 FR</option>
+                        <option value="en">🇨🇦 EN</option>
+                    </select>
                 </div>
             </nav>
             <div class="menu-toggle">
@@ -45,25 +46,32 @@
         </div>
     </header>
 
+    <!-- Bouton WhatsApp flottant -->
+    <div class="whatsapp-floating">
+        <a href="https://wa.me/15142295522" target="_blank" title="Contactez-nous sur WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+            <div class="flag"></div>
+        </a>
+    </div>
+
     <main>
         <section class="hero">
             <div class="hero-content">
                 <div class="hero-title">
-                    <h1>Envoyez de l'argent vers la Guinée en toute simplicité</h1>
-                    <p>Transferts rapides, sécurisés et économiques vers vos proches en Guinée</p>
+                    <h1 data-translate="hero-title">Envoyez de l'argent vers la Guinée en toute simplicité</h1>
+                    <p data-translate="hero-subtitle">Transferts rapides, sécurisés et économiques vers vos proches en Guinée</p>
                 </div>
                 <div class="hero-right">
                     <div class="calculator-container">
                         <div class="taux-change">
-                            <div>Taux de change actuels :</div>
+                            <div data-translate="current-rates">Taux de change actuels :</div>
                             <div id="taux-change-display">
-                                1 CAD = <span id="taux-cad-gnf">{{ taux_cad_gnf }}</span> GNF<br>
-                                1 GNF = <span id="taux-xof-gnf">{{ "%.5f"|format(1/taux_xof_gnf) }}</span> XOF
+                                1 CAD = <span id="taux-cad-gnf">{{ taux_cad_gnf }}</span> GNF
                             </div>
                         </div>
                         <form id="calculator-form">
                             <div class="form-group">
-                                <label for="pays-depart">Pays d'envoi</label>
+                                <label for="pays-depart" data-translate="send-country">Pays d'envoi</label>
                                 <div class="custom-select" id="custom-pays-depart">
                                     <div class="selected-option" data-value="canada">
                                         <img src="/static/images/flags/canada.png" alt="Canada" class="flag-icon"> Canada (CAD)
@@ -83,12 +91,12 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="montant">Montant à envoyer</label>
-                                <input type="number" id="montant" name="montant" min="1" step="1" required placeholder="Ex: 100000">
+                                <label for="montant" data-translate="amount">Montant à envoyer</label>
+                                <input type="number" id="montant" name="montant" min="1" step="1" required data-translate-placeholder="amount">
                                 <span id="devise-montant"></span>
                             </div>
                             <div class="form-group">
-                                <label for="pays-destination">Pays de réception</label>
+                                <label for="pays-destination" data-translate="receive-country">Pays de réception</label>
                                 <div class="custom-select" id="custom-pays-destination">
                                     <div class="selected-option" data-value="guinee">
                                         <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> Guinée Conakry (GNF)
@@ -104,7 +112,7 @@
                                     <input type="hidden" name="pays-destination" id="pays-destination" value="guinee">
                                 </div>
                             </div>
-                            <button type="submit" class="cta-button">Calculer</button>
+                            <button type="submit" class="cta-button" data-translate="calculate">Calculer</button>
                         </form>
                     </div>
                 </div>
@@ -112,29 +120,29 @@
                     <div class="hero-features">
                         <div class="feature-item">
                             <i class="fas fa-bolt"></i>
-                            <span>Transferts instantanés</span>
+                            <span data-translate="instant-transfers">Transferts instantanés</span>
                         </div>
                         <div class="feature-item">
                             <i class="fas fa-shield-alt"></i>
-                            <span>100% sécurisé</span>
+                            <span data-translate="secure">100% sécurisé</span>
                         </div>
                         <div class="feature-item">
                             <i class="fas fa-euro-sign"></i>
-                            <span>Frais réduits</span>
+                            <span data-translate="low-fees">Frais réduits</span>
                         </div>
                     </div>
                     <div class="hero-stats">
                         <div class="stat">
                             <span class="stat-number">1M+</span>
-                            <span class="stat-label">Transferts</span>
+                            <span class="stat-label" data-translate="transfers">Transferts</span>
                         </div>
                         <div class="stat">
                             <span class="stat-number">3</span>
-                            <span class="stat-label">Pays de réception</span>
+                            <span class="stat-label" data-translate="reception-countries">Pays de réception</span>
                         </div>
                         <div class="stat">
                             <span class="stat-number">24/7</span>
-                            <span class="stat-label">Support</span>
+                            <span class="stat-label" data-translate="support">Support</span>
                         </div>
                     </div>
                 </div>
@@ -145,29 +153,29 @@
         <div id="resultat-modal" class="modal" style="display: none;">
             <div class="modal-content">
                 <span class="close-modal">&times;</span>
-                <h2>Résultat du calcul</h2>
+                <h2 data-translate="result-title">Résultat du calcul</h2>
                 <div class="resultat-calcul">
                     <div class="resultat-item">
-                        <span id="taux-jour">Taux du jour : --</span>
+                        <span id="taux-jour" data-translate="day-rate">Taux du jour : --</span>
                     </div>
                     <div class="resultat-item">
-                        <span>Montant à envoyer :</span>
+                        <span data-translate="amount-to-send">Montant à envoyer :</span>
                         <span id="montant-envoyer">--</span>
                     </div>
                     <div class="resultat-item">
-                        <span>Frais à payer :</span>
+                        <span data-translate="fees">Frais à payer :</span>
                         <span id="frais">--</span>
                     </div>
                     <div class="resultat-item">
-                        <span>Total à payer :</span>
+                        <span data-translate="total-to-pay">Total à payer :</span>
                         <span id="total-payer">--</span>
                     </div>
                     <div class="resultat-item">
-                        <span>Total à recevoir :</span>
+                        <span data-translate="total-to-receive">Total à recevoir :</span>
                         <span id="montant-recu">--</span>
                     </div>
                     <div class="contact-button">
-                        <button onclick="showContactForm()" class="cta-button">C'est parti</button>
+                        <button onclick="showContactForm()" class="cta-button" data-translate="lets-go">C'est parti</button>
                     </div>
                 </div>
             </div>
@@ -176,165 +184,106 @@
         <!-- Formulaire de contact (initialement caché) -->
         <div id="contact-form-container" style="display: none;">
             <div class="calculator-container">
-                <h2>Contactez-nous pour finaliser votre transfert</h2>
+                <h2 data-translate="contact-title">Contactez-nous pour finaliser votre transfert</h2>
                 <form id="contact-form">
-                    <h3>Vos informations</h3>
+                    <h3 data-translate="your-info">Vos informations</h3>
                     <div class="form-group">
-                        <label for="nom">Nom complet</label>
-                        <input type="text" id="nom" name="nom" required>
+                        <label for="nom" data-translate="full-name">Nom complet</label>
+                        <input type="text" id="nom" name="nom" required data-translate-placeholder="full-name">
                     </div>
                     <div class="form-group">
-                        <label for="telephone">Téléphone</label>
-                        <input type="tel" id="telephone" name="telephone" required>
+                        <label for="telephone" data-translate="phone">Téléphone</label>
+                        <input type="tel" id="telephone" name="telephone" required data-translate-placeholder="phone">
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
+                        <label for="email" data-translate="email">Email</label>
+                        <input type="email" id="email" name="email" required data-translate-placeholder="email">
                     </div>
-
-                    <h3>Informations du bénéficiaire</h3>
+                    
+                    <h3 data-translate="beneficiary-info">Informations du bénéficiaire</h3>
                     <div class="form-group">
-                        <label for="beneficiaire-nom">Nom complet du bénéficiaire</label>
-                        <input type="text" id="beneficiaire-nom" name="beneficiaire-nom" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="beneficiaire-telephone">Téléphone du bénéficiaire</label>
-                        <input type="tel" id="beneficiaire-telephone" name="beneficiaire-telephone" required>
+                        <label for="beneficiaire-nom" data-translate="beneficiary-name">Nom complet du bénéficiaire</label>
+                        <input type="text" id="beneficiaire-nom" name="beneficiaire-nom" required data-translate-placeholder="beneficiary-name">
                     </div>
                     <div class="form-group">
-                        <label for="beneficiaire-adresse">Adresse du bénéficiaire</label>
-                        <input type="text" id="beneficiaire-adresse" name="beneficiaire-adresse" required>
+                        <label for="beneficiaire-telephone" data-translate="beneficiary-phone">Téléphone du bénéficiaire</label>
+                        <input type="tel" id="beneficiaire-telephone" name="beneficiaire-telephone" required data-translate-placeholder="beneficiary-phone">
                     </div>
-
                     <div class="form-group">
-                        <label for="message">Message (optionnel)</label>
-                        <textarea id="message" name="message" rows="3"></textarea>
+                        <label for="beneficiaire-adresse" data-translate="beneficiary-address">Adresse du bénéficiaire</label>
+                        <input type="text" id="beneficiaire-adresse" name="beneficiaire-adresse" required data-translate-placeholder="beneficiary-address">
                     </div>
-                    <button type="submit" class="cta-button">Envoyer la demande</button>
+                    <div class="form-group">
+                        <label for="message" data-translate="message">Message (optionnel)</label>
+                        <textarea id="message" name="message" rows="3" data-translate-placeholder="message"></textarea>
+                    </div>
+                    <button type="submit" class="cta-button" data-translate="send-request">Envoyer la demande</button>
                 </form>
-            </div>
-        </div>
-
-        <!-- Bouton WhatsApp (initialement caché) -->
-        <div id="whatsapp-button-container" style="display: none;">
-            <div class="calculator-container">
-                <h2>Votre demande a été enregistrée</h2>
-                <p>Cliquez sur le bouton ci-dessous pour finaliser votre transfert sur WhatsApp</p>
-                <a href="#" id="whatsapp-link" class="btn-whatsapp" target="_blank">
-                    <i class="fab fa-whatsapp"></i>
-                    Finaliser sur WhatsApp
-                </a>
             </div>
         </div>
 
         <section class="avantages">
             <div class="container">
-                <h2>Pourquoi choisir Enviar ?</h2>
+                <h2 data-translate="avantages-title">Pourquoi choisir Enviar ?</h2>
                 <div class="avantages-grid">
                     <div class="avantage-card">
-                        <i class="fas fa-bolt fa-2x"></i>
-                        <h3>Rapide</h3>
-                        <p>Transferts instantanés vers vos proches</p>
+                        <i class="fas fa-rocket"></i>
+                        <h3 data-translate="avantage-rapidite">Rapidité</h3>
+                        <p data-translate="avantage-rapidite-desc">Transferts instantanés vers vos proches en Guinée</p>
                     </div>
                     <div class="avantage-card">
-                        <i class="fas fa-euro-sign fa-2x"></i>
-                        <h3>Économique</h3>
-                        <p>Frais réduits et taux de change avantageux</p>
+                        <i class="fas fa-shield-alt"></i>
+                        <h3 data-translate="avantage-securite">Sécurité</h3>
+                        <p data-translate="avantage-securite-desc">Transactions 100% sécurisées et conformes aux réglementations</p>
                     </div>
                     <div class="avantage-card">
-                        <i class="fas fa-shield-alt fa-2x"></i>
-                        <h3>Sécurisé</h3>
-                        <p>Protection de vos transactions</p>
+                        <i class="fas fa-dollar-sign"></i>
+                        <h3 data-translate="avantage-tarifs">Tarifs compétitifs</h3>
+                        <p data-translate="avantage-tarifs-desc">Les meilleurs taux de change et les frais les plus bas du marché</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="stats">
+        <section class="process">
             <div class="container">
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <h3>98%</h3>
-                        <p>Satisfaction client</p>
+                <h2 data-translate="process-title">Comment ça marche ?</h2>
+                <div class="process-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3 data-translate="step-1-title">Calculez votre transfert</h3>
+                        <p data-translate="step-1-desc">Utilisez notre calculateur pour connaître le montant exact que votre bénéficiaire recevra</p>
                     </div>
-                    <div class="stat-item">
-                        <h3>24/7</h3>
-                        <p>Support client</p>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3 data-translate="step-2-title">Contactez-nous</h3>
+                        <p data-translate="step-2-desc">Envoyez-nous un message sur WhatsApp avec les détails de votre transfert</p>
                     </div>
-                    <div class="stat-item">
-                        <h3>3</h3>
-                        <p>Pays desservis</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3>1M+</h3>
-                        <p>Transferts effectués</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="temoignages">
-            <div class="container">
-                <h2>Ce que disent nos clients</h2>
-                <div class="temoignages-grid">
-                    <div class="temoignage-card">
-                        <div class="temoignage-content">
-                            <p>"Service rapide et fiable. J'envoie de l'argent régulièrement à ma famille au Sénégal et je suis toujours satisfait."</p>
-                        </div>
-                        <div class="temoignage-author">
-                            <img src="https://i.pravatar.cc/100?img=1" alt="Photo de client">
-                            <div class="author-info">
-                                <h4>Mamadou D.</h4>
-                                <p>Paris, France</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="temoignage-card">
-                        <div class="temoignage-content">
-                            <p>"Les frais sont vraiment compétitifs et le service client est excellent. Je recommande vivement pour les envois au Sénégal !"</p>
-                        </div>
-                        <div class="temoignage-author">
-                            <img src="https://i.pravatar.cc/100?img=2" alt="Photo de client">
-                            <div class="author-info">
-                                <h4>Fatou S.</h4>
-                                <p>Lyon, France</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="temoignage-card">
-                        <div class="temoignage-content">
-                            <p>"Application simple à utiliser et transferts instantanés. Parfait pour envoyer de l'argent à mes parents au Sénégal !"</p>
-                        </div>
-                        <div class="temoignage-author">
-                            <img src="https://i.pravatar.cc/100?img=3" alt="Photo de client">
-                            <div class="author-info">
-                                <h4>Ibrahim K.</h4>
-                                <p>Marseille, France</p>
-                            </div>
-                        </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3 data-translate="step-3-title">Recevez votre argent</h3>
+                        <p data-translate="step-3-desc">Votre bénéficiaire reçoit l'argent instantanément après confirmation</p>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Section Pays desservis -->
         <section class="pays-desservis">
             <div class="container">
-                <h2>Pays Desservis</h2>
+                <h2 data-translate="served-countries">Pays desservis</h2>
                 <div class="pays-grid">
                     <div class="pays-card">
-                        <h3>Envoi depuis :</h3>
+                        <h3 data-translate="sending-from">Envoi depuis :</h3>
                         <ul>
-                            <li>Guinée</li>
-                            <li>Canada</li>
-                            <li>Sénégal</li>
+                            <li data-translate="canada">Canada</li>
                         </ul>
                     </div>
-                     <div class="pays-card">
-                        <h3>Réception en :</h3>
+                    <div class="pays-card">
+                        <h3 data-translate="receiving-in">Réception en :</h3>
                         <ul>
-                            <li>Guinée</li>
-                            <li>Canada</li>
-                            <li>Sénégal</li>
+                            <li data-translate="guinea">Guinée Conakry</li>
+                            <li data-translate="senegal">Sénégal</li>
                         </ul>
                     </div>
                 </div>
@@ -343,19 +292,19 @@
 
         <section class="faq">
             <div class="container">
-                <h2>FAQ</h2>
+                <h2 data-translate="faq-title">Questions fréquentes</h2>
                 <div class="faq-grid">
-                    <div class="faq-card">
-                        <h3>Comment faire un transfert ?</h3>
-                        <p>Pour effectuer un transfert, connectez-vous à votre compte, sélectionnez le montant à envoyer, le pays de destination et suivez les étapes de paiement.</p>
+                    <div class="faq-item">
+                        <h3 data-translate="faq-1-question">Combien de temps prend un transfert ?</h3>
+                        <p data-translate="faq-1-answer">La plupart de nos transferts sont instantanés. Dans certains cas, le délai peut aller jusqu'à 24 heures selon le pays de destination.</p>
                     </div>
-                    <div class="faq-card">
-                        <h3>Quels sont les frais de transfert ?</h3>
-                        <p>Les frais de transfert varient en fonction du montant et de la destination. Vous pouvez les calculer en utilisant notre outil de calcul sur la page d'accueil.</p>
+                    <div class="faq-item">
+                        <h3 data-translate="faq-2-question">Quels documents sont nécessaires ?</h3>
+                        <p data-translate="faq-2-answer">Une pièce d'identité valide (passeport ou carte d'identité) et un justificatif de domicile de moins de 3 mois.</p>
                     </div>
-                    <div class="faq-card">
-                        <h3>Quel est le délai de réception ?</h3>
-                        <p>Le délai de réception peut varier en fonction de la destination. Nous vous informerons généralement du délai de traitement de votre transfert.</p>
+                    <div class="faq-item">
+                        <h3 data-translate="faq-3-question">Comment mon bénéficiaire reçoit-il l'argent ?</h3>
+                        <p data-translate="faq-3-answer">Votre bénéficiaire peut retirer l'argent dans l'un de nos points de retrait partenaires ou recevoir directement sur son compte bancaire.</p>
                     </div>
                 </div>
             </div>
@@ -365,11 +314,10 @@
     {% include 'cookie-banner.html' %}
     {% include 'footer.html' %}
 
+    <script src="/static/js/translator.js"></script>
     <script src="/static/js/calculator.js"></script>
-    <script src="/static/js/transfert.js"></script>
-    <script src="/static/js/cookies.js"></script>
     <script src="/static/js/main.js"></script>
-
+    
     <script>
     // Custom select with flags
     function setupCustomSelect(selectId) {
@@ -405,8 +353,11 @@
         });
     }
 
-    setupCustomSelect('custom-pays-depart');
-    setupCustomSelect('custom-pays-destination');
+    // Initialiser les sélecteurs quand le DOM est chargé
+    document.addEventListener('DOMContentLoaded', function() {
+        setupCustomSelect('custom-pays-depart');
+        setupCustomSelect('custom-pays-destination');
+    });
     </script>
 </body>
 </html> 

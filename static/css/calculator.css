@@ -369,7 +369,7 @@
     content: '';
     position: absolute;
     top: 20px;
-    left: calc(10% + 20px);
+   
     right: calc(10% + 20px);
     height: 2px;
     background: #e0e0e0;

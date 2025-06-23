@@ -6,6 +6,7 @@
     <title>Politique de confidentialité - Enviar</title>
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/whatsapp-buttons.css?v=1">
+    <link rel="stylesheet" href="/static/css/whatsapp-floating.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -26,16 +27,16 @@
             </a>
             <nav class="nav-menu">
                 <ul class="nav-links">
-                    <li><a href="/">Accueil</a></li>
-                    <li><a href="/fonctionnement">Fonctionnement</a></li>
-                    <li><a href="/a-propos">À propos</a></li>
-                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/" data-translate="nav-home">Accueil</a></li>
+                    <li><a href="/fonctionnement" data-translate="nav-how-it-works">Fonctionnement</a></li>
+                    <li><a href="/a-propos" data-translate="nav-about">À propos</a></li>
+                    <li><a href="/contact" data-translate="nav-contact">Contact</a></li>
                 </ul>
                 <div class="nav-buttons">
-                    <a href="https://wa.me/15142295522" class="btn-whatsapp" target="_blank">
-                        <i class="fab fa-whatsapp"></i>
-                        Nous contacter
-                    </a>
+                    <select id="language-selector" class="language-selector">
+                        <option value="fr">🇫🇷 FR</option>
+                        <option value="en">🇨🇦 EN</option>
+                    </select>
                 </div>
             </nav>
             <div class="menu-toggle">
@@ -44,116 +45,124 @@
         </div>
     </header>
 
+    <!-- Bouton WhatsApp flottant -->
+    <div class="whatsapp-floating">
+        <a href="https://wa.me/15142295522" target="_blank" title="Contactez-nous sur WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+            <div class="flag"></div>
+        </a>
+    </div>
+
     <main>
         <section class="page-header">
             <div class="container">
-                <h1>Politique de confidentialité</h1>
-                <p>Dernière mise à jour : 17 Juin 2025</p>
+                <h1 data-translate="privacy-title">Politique de confidentialité</h1>
+                <p data-translate="privacy-last-update">Dernière mise à jour : 17 Juin 2025</p>
             </div>
         </section>
 
         <section class="privacy-content">
             <div class="container">
                 <div class="privacy-intro">
-                    <p>Chez Enviar Transfert, la protection de vos données personnelles est une priorité. Cette politique de confidentialité décrit les types de données que nous collectons, comment nous les utilisons, et vos droits en tant qu'utilisateur.</p>
+                    <p data-translate="privacy-intro-text">Chez Enviar Transfert, la protection de vos données personnelles est une priorité. Cette politique de confidentialité décrit les types de données que nous collectons, comment nous les utilisons, et vos droits en tant qu'utilisateur.</p>
                 </div>
 
                 <div class="privacy-section">
-                    <h2>1. Qui sommes-nous ?</h2>
-                    <p>Enviar Transfert est une application de transfert d'argent disponible au Canada et en Guinée, conçue pour faciliter des envois rapides, sûrs et transparents.</p>
-                    <p><i class="fas fa-envelope"></i> Contact : <a href="mailto:contact@enviartransfert.com">contact@enviartransfert.com</a></p>
+                    <h2 data-translate="privacy-who-we-are">1. Qui sommes-nous ?</h2>
+                    <p data-translate="privacy-who-we-are-desc">Enviar Transfert est une application de transfert d'argent disponible au Canada et en Guinée, conçue pour faciliter des envois rapides, sûrs et transparents.</p>
+                    <p><i class="fas fa-envelope"></i> <span data-translate="privacy-contact">Contact :</span> <a href="mailto:contact@enviartransfert.com">contact@enviartransfert.com</a></p>
                 </div>
 
                 <div class="privacy-section">
-                    <h2>2. Quelles données collectons-nous ?</h2>
-                    <h3>Données fournies par l'utilisateur :</h3>
+                    <h2 data-translate="privacy-data-collection">2. Quelles données collectons-nous ?</h2>
+                    <h3 data-translate="privacy-user-data">Données fournies par l'utilisateur :</h3>
                     <ul>
-                        <li>Nom et prénom</li>
-                        <li>Numéro de téléphone</li>
-                        <li>Adresse e-mail</li>
-                        <li>Informations de paiement (de manière sécurisée)</li>
-                        <li>Données d'identification requises pour les obligations légales (KYC)</li>
+                        <li data-translate="privacy-name">Nom et prénom</li>
+                        <li data-translate="privacy-phone">Numéro de téléphone</li>
+                        <li data-translate="privacy-email">Adresse e-mail</li>
+                        <li data-translate="privacy-payment">Informations de paiement (de manière sécurisée)</li>
+                        <li data-translate="privacy-kyc">Données d'identification requises pour les obligations légales (KYC)</li>
                     </ul>
-                    <h3>Données collectées automatiquement :</h3>
+                    <h3 data-translate="privacy-auto-data">Données collectées automatiquement :</h3>
                     <ul>
-                        <li>Adresse IP</li>
-                        <li>Type d'appareil, système d'exploitation, langue</li>
-                        <li>Données d'utilisation (pages vues, temps passé, interactions)</li>
-                        <li>Informations techniques pour la sécurité et le bon fonctionnement de l'application</li>
-                    </ul>
-                </div>
-
-                <div class="privacy-section">
-                    <h2>3. À quoi servent vos données ?</h2>
-                    <ul>
-                        <li>Exécuter les transferts d'argent</li>
-                        <li>Vérifier votre identité et prévenir la fraude</li>
-                        <li>Vous envoyer des confirmations et notifications de transactions</li>
-                        <li>Améliorer notre application (via Google Analytics)</li>
-                        <li>Vous fournir une assistance client efficace (WhatsApp)</li>
-                        <li>Respecter nos obligations légales et réglementaires</li>
-                    </ul>
-                    <p><em>Nous n'utilisons pas vos données à des fins de publicité ciblée dans l'application.</em></p>
-                </div>
-
-                <div class="privacy-section">
-                    <h2>4. Avec qui partageons-nous vos données ?</h2>
-                    <p>Nous ne partageons vos données personnelles qu'avec :</p>
-                    <ul>
-                        <li>Nos partenaires techniques (hébergeur, processeurs de paiement)</li>
-                        <li>Fournisseurs de services analytiques (Google Analytics)</li>
-                        <li>Outils d'assistance client (WhatsApp)</li>
-                        <li>Autorités réglementaires ou judiciaires, si requis par la loi</li>
-                    </ul>
-                    <p><strong>Nous ne revendons jamais vos données.</strong></p>
-                </div>
-
-                <div class="privacy-section">
-                    <h2>5. Combien de temps conservons-nous vos données ?</h2>
-                    <p>Nous conservons vos données pendant une durée proportionnelle aux finalités :</p>
-                    <ul>
-                        <li>Données de compte : tant que votre compte est actif</li>
-                        <li>Données de transaction : jusqu'à 7 ans (conformément aux lois fiscales et anti-blanchiment)</li>
-                        <li>Données d'analyse : maximum 13 mois</li>
+                        <li data-translate="privacy-ip">Adresse IP</li>
+                        <li data-translate="privacy-device">Type d'appareil, système d'exploitation, langue</li>
+                        <li data-translate="privacy-usage">Données d'utilisation (pages vues, temps passé, interactions)</li>
+                        <li data-translate="privacy-technical">Informations techniques pour la sécurité et le bon fonctionnement de l'application</li>
                     </ul>
                 </div>
 
                 <div class="privacy-section">
-                    <h2>6. Vos droits</h2>
-                    <p>Conformément à la loi canadienne (LPRPDE) et aux lois applicables en Guinée, vous avez :</p>
+                    <h2 data-translate="privacy-data-use">3. À quoi servent vos données ?</h2>
                     <ul>
-                        <li>Le droit d'accès à vos données</li>
-                        <li>Le droit de rectification si vos données sont incorrectes</li>
-                        <li>Le droit à l'effacement (dans certains cas)</li>
-                        <li>Le droit de retirer votre consentement</li>
-                        <li>Le droit d'introduire une plainte auprès d'une autorité de protection des données</li>
+                        <li data-translate="privacy-execute-transfers">Exécuter les transferts d'argent</li>
+                        <li data-translate="privacy-verify-identity">Vérifier votre identité et prévenir la fraude</li>
+                        <li data-translate="privacy-send-notifications">Vous envoyer des confirmations et notifications de transactions</li>
+                        <li data-translate="privacy-improve-app">Améliorer notre application (via Google Analytics)</li>
+                        <li data-translate="privacy-customer-support">Vous fournir une assistance client efficace (WhatsApp)</li>
+                        <li data-translate="privacy-legal-obligations">Respecter nos obligations légales et réglementaires</li>
                     </ul>
-                    <p><i class="fas fa-envelope"></i> Pour exercer vos droits : <a href="mailto:contact@enviartransfert.com">contact@enviartransfert.com</a></p>
+                    <p><em data-translate="privacy-no-advertising">Nous n'utilisons pas vos données à des fins de publicité ciblée dans l'application.</em></p>
                 </div>
 
                 <div class="privacy-section">
-                    <h2>7. Sécurité des données</h2>
-                    <p>Nous utilisons des mesures techniques et organisationnelles strictes pour garantir la sécurité de vos informations :</p>
+                    <h2 data-translate="privacy-data-sharing">4. Avec qui partageons-nous vos données ?</h2>
+                    <p data-translate="privacy-sharing-intro">Nous ne partageons vos données personnelles qu'avec :</p>
                     <ul>
-                        <li>Chiffrement des communications</li>
-                        <li>Accès restreint aux données sensibles</li>
-                        <li>Surveillance active contre les accès non autorisés</li>
+                        <li data-translate="privacy-technical-partners">Nos partenaires techniques (hébergeur, processeurs de paiement)</li>
+                        <li data-translate="privacy-analytics">Fournisseurs de services analytiques (Google Analytics)</li>
+                        <li data-translate="privacy-support-tools">Outils d'assistance client (WhatsApp)</li>
+                        <li data-translate="privacy-authorities">Autorités réglementaires ou judiciaires, si requis par la loi</li>
+                    </ul>
+                    <p><strong data-translate="privacy-no-sale">Nous ne revendons jamais vos données.</strong></p>
+                </div>
+
+                <div class="privacy-section">
+                    <h2 data-translate="privacy-data-retention">5. Combien de temps conservons-nous vos données ?</h2>
+                    <p data-translate="privacy-retention-intro">Nous conservons vos données pendant une durée proportionnelle aux finalités :</p>
+                    <ul>
+                        <li data-translate="privacy-account-data">Données de compte : tant que votre compte est actif</li>
+                        <li data-translate="privacy-transaction-data">Données de transaction : jusqu'à 7 ans (conformément aux lois fiscales et anti-blanchiment)</li>
+                        <li data-translate="privacy-analytics-data">Données d'analyse : maximum 13 mois</li>
                     </ul>
                 </div>
 
                 <div class="privacy-section">
-                    <h2>8. Transferts internationaux</h2>
-                    <p>Certaines données peuvent être traitées en dehors de votre pays de résidence (ex. : Canada). Dans ce cas, nous nous assurons que les protections nécessaires sont en place (clauses contractuelles, partenaires conformes).</p>
+                    <h2 data-translate="privacy-your-rights">6. Vos droits</h2>
+                    <p data-translate="privacy-rights-intro">Conformément à la loi canadienne (LPRPDE) et aux lois applicables en Guinée, vous avez :</p>
+                    <ul>
+                        <li data-translate="privacy-right-access">Le droit d'accès à vos données</li>
+                        <li data-translate="privacy-right-rectification">Le droit de rectification si vos données sont incorrectes</li>
+                        <li data-translate="privacy-right-erasure">Le droit à l'effacement (dans certains cas)</li>
+                        <li data-translate="privacy-right-withdraw">Le droit de retirer votre consentement</li>
+                        <li data-translate="privacy-right-complaint">Le droit d'introduire une plainte auprès d'une autorité de protection des données</li>
+                    </ul>
+                    <p><i class="fas fa-envelope"></i> <span data-translate="privacy-exercise-rights">Pour exercer vos droits :</span> <a href="mailto:contact@enviartransfert.com">contact@enviartransfert.com</a></p>
                 </div>
 
                 <div class="privacy-section">
-                    <h2>9. Mises à jour</h2>
-                    <p>Nous pouvons mettre à jour cette politique de confidentialité pour refléter des évolutions légales ou techniques. En cas de changements significatifs, vous en serez informé via l'application.</p>
+                    <h2 data-translate="privacy-security">7. Sécurité des données</h2>
+                    <p data-translate="privacy-security-intro">Nous utilisons des mesures techniques et organisationnelles strictes pour garantir la sécurité de vos informations :</p>
+                    <ul>
+                        <li data-translate="privacy-encryption">Chiffrement des communications</li>
+                        <li data-translate="privacy-restricted-access">Accès restreint aux données sensibles</li>
+                        <li data-translate="privacy-monitoring">Surveillance active contre les accès non autorisés</li>
+                    </ul>
                 </div>
 
                 <div class="privacy-section">
-                    <h2>10. Contact</h2>
-                    <p>Pour toute question ou demande liée à cette politique :</p>
+                    <h2 data-translate="privacy-international">8. Transferts internationaux</h2>
+                    <p data-translate="privacy-international-desc">Certaines données peuvent être traitées en dehors de votre pays de résidence (ex. : Canada). Dans ce cas, nous nous assurons que les protections nécessaires sont en place (clauses contractuelles, partenaires conformes).</p>
+                </div>
+
+                <div class="privacy-section">
+                    <h2 data-translate="privacy-updates">9. Mises à jour</h2>
+                    <p data-translate="privacy-updates-desc">Nous pouvons mettre à jour cette politique de confidentialité pour refléter des évolutions légales ou techniques. En cas de changements significatifs, vous en serez informé via l'application.</p>
+                </div>
+
+                <div class="privacy-section">
+                    <h2 data-translate="privacy-contact-section">10. Contact</h2>
+                    <p data-translate="privacy-contact-question">Pour toute question ou demande liée à cette politique :</p>
                     <p><i class="fas fa-envelope"></i> <a href="mailto:contact@enviartransfert.com">contact@enviartransfert.com</a></p>
                 </div>
             </div>
@@ -165,5 +174,6 @@
 
     <script src="/static/js/main.js"></script>
     <script src="/static/js/cookies.js"></script>
+    <script src="/static/js/translator.js"></script>
 </body>
 </html> 

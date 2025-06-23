@@ -83,19 +83,21 @@
 </head>
 <body>
     <div class="login-container">
-        <h1>Connexion Administration</h1>
+        <h1 data-translate="admin-login">Connexion Administration</h1>
         <div class="error-message">{% if error %}{{ error }}{% endif %}</div>
         <form method="POST">
             <div class="form-group">
-                <label for="username">Nom d'utilisateur</label>
-                <input type="text" id="username" name="username" required>
+                <label for="username" data-translate="username">Nom d'utilisateur</label>
+                <input type="text" id="username" name="username" required data-translate-placeholder="username">
             </div>
             <div class="form-group">
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" required>
+                <label for="password" data-translate="password">Mot de passe</label>
+                <input type="password" id="password" name="password" required data-translate-placeholder="password">
             </div>
-            <button type="submit">Se connecter</button>
+            <button type="submit" data-translate="login">Se connecter</button>
         </form>
     </div>
+    
+    <script src="/static/js/translator.js"></script>
 </body>
 </html> 

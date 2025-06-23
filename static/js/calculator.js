@@ -23,13 +23,24 @@ function formatMontant(montant, devise) {
 }
 
 // Fonction pour calculer le transfert
-function calculerTransfert(event) {
+async function calculerTransfert(event) {
     event.preventDefault();
     
     const paysDepart = document.getElementById('pays-depart').value;
     const montant = parseFloat(document.getElementById('montant').value);
-    const tauxCadGnf = parseFloat(document.getElementById('taux-cad-gnf').textContent);
-    const tauxXofGnf = parseFloat(document.getElementById('taux-xof-gnf').textContent);
+
+    // Charger les taux depuis le backend
+    let tauxCadGnf, tauxXofGnf;
+    try {
+        const response = await fetch('/get_taux');
+        const taux = await response.json();
+        tauxCadGnf = taux.taux_cad_gnf;
+        tauxXofGnf = taux.taux_xof_gnf;
+    } catch (error) {
+        console.error('Erreur lors du chargement des taux :', error);
+        alert("Impossible de charger les taux de change. Veuillez réessayer.");
+        return;
+    }
     
     if (isNaN(montant) || montant <= 0) {
         alert("Veuillez entrer un montant valide.");
@@ -42,33 +53,42 @@ function calculerTransfert(event) {
     
     // Calculer le montant à recevoir selon le pays de départ
     let montantRecu;
+    let deviseDepart, deviseDestination, tauxAffiche;
+
     if (paysDepart === 'canada') {
-        // Du Canada vers un autre pays
-        montantRecu = montant * tauxCadGnf;
+        const paysDestination = document.getElementById('pays-destination').value;
+        if (paysDestination === 'guinee') {
+            montantRecu = montant * tauxCadGnf;
+            deviseDepart = 'CAD';
+            deviseDestination = 'GNF';
+            tauxAffiche = `1 CAD = ${tauxCadGnf.toFixed(4)} GNF`;
+        } else if (paysDestination === 'senegal') {
+            // CAD -> XOF (via GNF)
+            const gnfAmount = montant * tauxCadGnf;
+            montantRecu = gnfAmount / tauxXofGnf;
+            deviseDepart = 'CAD';
+            deviseDestination = 'XOF';
+            const tauxCadXof = tauxCadGnf / tauxXofGnf;
+            tauxAffiche = `1 CAD = ${tauxCadXof.toFixed(4)} XOF`;
+        }
     } else if (paysDepart === 'guinee') {
-        // De la Guinée vers le Sénégal
+        // GNF -> XOF (vers le Sénégal)
         montantRecu = montant / tauxXofGnf;
+        deviseDepart = 'GNF';
+        deviseDestination = 'XOF';
+        tauxAffiche = `1 XOF = ${tauxXofGnf.toFixed(2)} GNF`;
     } else if (paysDepart === 'senegal') {
-        // Du Sénégal vers la Guinée
+        // XOF -> GNF (vers la Guinée)
         montantRecu = montant * tauxXofGnf;
+        deviseDepart = 'XOF';
+        deviseDestination = 'GNF';
+        tauxAffiche = `1 XOF = ${tauxXofGnf.toFixed(2)} GNF`;
+    } else {
+        alert("La combinaison de pays n'est pas supportée.");
+        return;
     }
-    
-    // Formater les montants avec les devises appropriées
-    const deviseDepart = paysDepart === 'guinee' ? 'GNF' : paysDepart === 'senegal' ? 'XOF' : paysDepart === 'canada' ? 'CAD' : '';
-    const deviseDestination = paysDepart === 'guinee' ? 'XOF' : paysDepart === 'senegal' ? 'GNF' : paysDepart === 'canada' ? 'CAD' : '';
     
     // Afficher les résultats dans la modal
-    let tauxAffiche;
-    if (paysDepart === 'canada') {
-        tauxAffiche = `1 ${deviseDepart} = ${tauxCadGnf.toFixed(5)} ${deviseDestination}`;
-    } else if (paysDepart === 'guinee') {
-        // Pour la Guinée, on affiche 1 GNF = X XOF
-        tauxAffiche = `5000 GNF = ${(5000/tauxXofGnf).toFixed(2)} XOF`;
-    } else if (paysDepart === 'senegal') {
-        // Pour le Sénégal, on affiche 1 XOF = X GNF
-        tauxAffiche = `1 XOF = ${tauxXofGnf.toFixed(5)} GNF`;
-    }
-    
     document.getElementById('taux-jour').textContent = tauxAffiche;
     document.getElementById('montant-envoyer').textContent = formatMontant(montant, deviseDepart);
     document.getElementById('frais').textContent = formatMontant(frais, deviseDepart);
@@ -180,28 +200,42 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM chargé, initialisation des écouteurs...');
     
     const calculatorForm = document.getElementById('calculator-form');
-    const contactForm = document.getElementById('contact-form');
-    const paysDepart = document.getElementById('pays-depart');
-    const closeModalBtn = document.querySelector('.close-modal');
-    
     if (calculatorForm) {
-        calculatorForm.addEventListener('submit', calculerTransfert);
+        calculatorForm.addEventListener('submit', function(event) {
+            calculerTransfert(event).catch(err => {
+                console.error("Erreur dans le calcul du transfert :", err);
+                alert("Une erreur est survenue. Veuillez réessayer.");
+            });
+        });
     }
+
+    const contactForm = document.getElementById('contact-form');
+    const paysDepartSelect = document.getElementById('custom-pays-depart');
+    const closeModalBtn = document.querySelector('.close-modal');
     
     if (contactForm) {
         contactForm.addEventListener('submit', envoyerFormulaire);
     }
 
-    if (paysDepart) {
-        console.log('Écouteur ajouté pour le changement de pays de départ');
-        paysDepart.addEventListener('change', function() {
+    if (paysDepartSelect) {
+        // Utiliser un MutationObserver pour détecter les changements d'attributs
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === "attributes" && mutation.attributeName === "data-value") {
             console.log('Changement de pays de départ détecté');
             updateDevise();
+                }
+            });
         });
+
+        observer.observe(paysDepartSelect.querySelector('.selected-option'), {
+            attributes: true // écouter les changements d'attributs
+        });
+        
         // Appeler updateDevise au chargement pour initialiser la devise
         updateDevise();
     } else {
-        console.error('Élément pays-depart non trouvé');
+        console.error('Élément custom-pays-depart non trouvé');
     }
 
     // Gestionnaire pour fermer la modal
