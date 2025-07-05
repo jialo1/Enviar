@@ -76,6 +76,14 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('summary-frais').textContent = formatMontant(transfertData.frais, transfertData.deviseDepart);
     document.getElementById('summary-total').textContent = formatMontant(transfertData.total, transfertData.deviseDepart);
 
+    // Remplir les pays et devises dans le récapitulatif
+    if (document.getElementById('summary-pays-depart')) {
+        document.getElementById('summary-pays-depart').textContent = transfertData.paysDepartLabel || transfertData.paysDepart || '';
+    }
+    if (document.getElementById('summary-pays-destination')) {
+        document.getElementById('summary-pays-destination').textContent = transfertData.paysDestinationLabel || transfertData.paysDestination || '';
+    }
+
     // Gestion des étapes
     const form = document.getElementById('transfert-form');
     const steps = document.querySelectorAll('.form-step');

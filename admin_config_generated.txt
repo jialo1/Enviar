@@ -1,0 +1,24 @@
+
+# Configuration d'Administration Enviar
+# Généré le: 2025-06-26 15:18:18
+
+# Identifiants d'administration
+ADMIN_USERNAME=1EFcaNY2uOM
+ADMIN_PASSWORD=6Wi2zOievxh4iUexuT3gvg
+
+# Clé secrète Flask
+SECRET_KEY=04974b972b368d3fcf435de400242e896c4cb4f607a2c4be8d8376b392db8a88
+
+# Configuration de sécurité
+SESSION_COOKIE_SECURE=True
+SESSION_COOKIE_HTTPONLY=True
+SESSION_COOKIE_SAMESITE=Lax
+PERMANENT_SESSION_LIFETIME=86400  # 24 heures
+
+# Configuration de production
+FLASK_ENV=production
+FLASK_DEBUG=False
+
+# Identifiants de sauvegarde
+BACKUP_USERNAME=backup_5alb3Q
+BACKUP_PASSWORD=Z_vqmw7z3AlPHGYT

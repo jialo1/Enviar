@@ -16,7 +16,7 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 # Configuration de sécurité
 app.secret_key = secrets.token_hex(32)
-app.config['SESSION_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_SECURE'] = False  # Désactivé pour le débogage
 app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
@@ -24,12 +24,32 @@ app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 COOKIE_CONSENT_NAME = 'cookie_consent'
 COOKIE_CONSENT_MAX_AGE = 2 * 365 * 24 * 60 * 60  # 2 ans en secondes
 
-# Identifiants d'administration
-ADMIN_USERNAME = os.getenv('ADMIN_USERNAME', 'admin')
-ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD', 'password123')
-
 # Chemins des fichiers
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Fonction pour lire les identifiants depuis le fichier de configuration
+def load_admin_credentials():
+    config_file = os.path.join(BASE_DIR, 'admin_config_generated.txt')
+    admin_username = '1EFcaNY2uOM'  # Valeur par défaut
+    admin_password = '6Wi2zOievxh4iUexuT3gvg'  # Valeur par défaut
+    
+    if os.path.exists(config_file):
+        try:
+            with open(config_file, 'r') as f:
+                for line in f:
+                    line = line.strip()
+                    if line.startswith('ADMIN_USERNAME='):
+                        admin_username = line.split('=', 1)[1]
+                    elif line.startswith('ADMIN_PASSWORD='):
+                        admin_password = line.split('=', 1)[1]
+        except Exception as e:
+            print(f"Erreur lors de la lecture du fichier de configuration: {e}")
+    
+    return admin_username, admin_password
+
+# Identifiants d'administration (hardcodés pour le débogage)
+ADMIN_USERNAME = '1EFcaNY2uOM'
+ADMIN_PASSWORD = '6Wi2zOievxh4iUexuT3gvg'
 TAUX_FILE = os.path.join(BASE_DIR, 'taux.json')
 
 # Charger les taux actuels

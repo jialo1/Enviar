@@ -33,6 +33,7 @@ class Translator {
                 'fees': 'Frais à payer :',
                 'total-to-pay': 'Total à payer :',
                 'total-to-receive': 'Total à recevoir :',
+                'amount-to-receive': 'Montant à recevoir :',
                 'lets-go': 'C\'est parti',
                 
                 // Contact
@@ -178,6 +179,10 @@ class Translator {
                 'back': 'Retour',
                 'confirmation': 'Confirmation',
                 'transfer-summary': 'Récapitulatif de votre transfert',
+                'step-details': 'Détails',
+                'step-your-info': 'Vos infos',
+                'step-beneficiary': 'Bénéficiaire',
+                'step-confirm': 'Confirmer',
                 'sending': 'Envoi :',
                 'additional-info': 'Informations complémentaires (optionnel)',
                 'continue-whatsapp': 'Continuer sur WhatsApp',

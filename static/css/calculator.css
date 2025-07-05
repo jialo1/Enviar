@@ -513,12 +513,10 @@
 }
 
 /* Style pour les montants importants */
-#summary-total span:last-child,
-#summary-montant-envoyer span:last-child,
-#summary-montant-recu span:last-child {
-    color: #25D366;
-    font-size: 1.2em;
+span#summary-total {
+    color: #25D366 !important;
     font-weight: 700;
+    font-size: 1.2em;
 }
 
 /* Style pour les champs en lecture seule */
@@ -757,4 +755,64 @@ input.error {
     margin-top: 0;
     margin-bottom: 0.7em;
     line-height: 1.2;
+}
+
+@media (min-width: 900px) {
+  .transfert-layout {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .steps-progress {
+    flex-direction: column;
+    align-items: flex-end;
+    min-width: 180px;
+    margin-bottom: 0;
+    margin-right: 0;
+    margin-top: 40px;
+    height: auto;
+  }
+  .form-step {
+    padding: 3.5rem 3rem 3rem 3rem;
+    margin: 0 0 0 0;
+    min-width: 480px;
+    max-width: 650px;
+  }
+  .confirmation-summary {
+    padding: 2.5rem 2rem 2rem 2rem;
+    margin-bottom: 2.5rem;
+  }
+  .form-group {
+    margin-bottom: 2.5rem;
+  }
+  .form-buttons {
+    margin-top: 2.5rem;
+    gap: 2rem;
+  }
+  .form-group input,
+  .form-group textarea {
+    padding: 1.2em;
+    font-size: 1.08em;
+  }
+  .form-step[data-step="4"] h2 {
+    text-align: center;
+  }
+}
+
+@media (max-width: 899px) {
+  .transfert-layout {
+    display: block;
+  }
+  .steps-progress {
+    flex-direction: row;
+    align-items: flex-start;
+    min-width: 0;
+    margin-bottom: 3rem;
+    margin-right: 0;
+    margin-top: 0;
+    height: auto;
+  }
 } 
