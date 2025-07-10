@@ -154,41 +154,31 @@
 
 @media (max-width: 768px) {
     .calculator-container {
-        padding: 1.5em;
-        margin: 0;
-        width: 100%;
+        padding: 0.5em;
+        margin: 0.7em 0.2em;
     }
-    
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-        padding: 0.6em;
+    .resultat-calcul {
+        padding: 0.5em;
+        margin-top: 0.5em;
     }
-    
-    .cta-button {
-        padding: 0.8em 1.5em;
+    .resultat-item {
+        padding: 0.3em 0.1em;
+        gap: 0.1em;
     }
+}
 
-    .modal-content {
-        margin: 0;
-        width: 100%;
-        height: 100%;
-        border-radius: 0;
-        padding: 1.5em;
+@media (max-width: 480px) {
+    .calculator-container {
+        padding: 0.3em;
+        margin: 0.3em 0.05em;
     }
-
-    .modal .contact-button {
-        margin-top: 1.5em;
-        display: flex;
-        justify-content: center;
-        width: 100%;
+    .resultat-calcul {
+        padding: 0.3em;
+        margin-top: 0.3em;
     }
-
-    .modal .contact-button .cta-button {
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
-        padding: 1em;
+    .resultat-item {
+        padding: 0.15em 0.05em;
+        gap: 0.05em;
     }
 }
 
@@ -325,9 +315,10 @@
 /* Styles responsifs pour la modal */
 @media (max-width: 768px) {
     .modal-content {
-        margin: 10% auto;
+        margin: 5% auto;
         padding: 1.5rem;
         width: 95%;
+        max-width: none;
     }
 
     .close-modal {
@@ -343,6 +334,30 @@
 
     .modal .resultat-item {
         padding: 0.8rem;
+        flex-direction: column;
+        gap: 0.3rem;
+        text-align: center;
+    }
+
+    .modal .resultat-item span:first-child {
+        font-size: 0.9rem;
+        color: #666;
+    }
+
+    .modal .resultat-item span:last-child {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .modal .contact-button {
+        margin-top: 1.5rem;
+    }
+
+    .modal .contact-button .cta-button {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1rem;
     }
 }
 
@@ -369,8 +384,8 @@
     content: '';
     position: absolute;
     top: 20px;
-   
-    right: calc(10% + 20px);
+    left: 20px;
+    right: 20px;
     height: 2px;
     background: #e0e0e0;
     z-index: 1;
@@ -387,18 +402,46 @@
 }
 
 .step-number {
-    width: 40px;
-    height: 40px;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 1.2rem !important;
+    font-weight: bold !important;
+    color: #fff !important;
     background-color: var(--primary-color);
-    color: var(--light-color);
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 0 auto 1rem;
-    box-shadow: 0 4px 10px rgba(0, 168, 89, 0.2);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    line-height: 1;
+}
+
+.step-number i,
+.step-number svg {
+    display: none !important;
+}
+
+/* Amélioration de l'état actif et complété sur desktop */
+.step.active .step-number {
+    background-color: #25D366;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+}
+
+.step.active .step-title {
+    color: #25D366;
+    font-weight: 600;
+}
+
+.step.completed .step-number {
+    background-color: #128C7E;
+    transform: scale(1.05);
+}
+
+.step.completed .step-title {
+    color: #128C7E;
+    font-weight: 500;
 }
 
 .step-title {
@@ -416,10 +459,15 @@
     background: white;
     border-radius: 10px;
     animation: fadeIn 0.5s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .form-step.active {
     display: block;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 @keyframes fadeIn {
@@ -558,8 +606,7 @@ input.error {
     }
     
     .steps-progress::before {
-        left: 20px;
-        right: 20px;
+        display: none;
     }
     
     .step {
@@ -567,6 +614,8 @@ input.error {
         width: 80px;
         margin: 0 0.25rem;
         padding: 0.25rem;
+        position: relative;
+        transition: all 0.3s ease;
     }
     
     .step-number {
@@ -574,12 +623,36 @@ input.error {
         height: 32px;
         font-size: 1.1rem;
         margin-bottom: 0.25rem;
+        transition: all 0.3s ease;
     }
     
     .step-title {
         font-size: 0.8rem;
         white-space: nowrap;
         margin-top: 0.25rem;
+        transition: color 0.3s ease;
+    }
+    
+    /* Amélioration de l'état actif et complété sur mobile */
+    .step.active .step-number {
+        background-color: #25D366;
+        transform: scale(1.1);
+        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+    }
+    
+    .step.active .step-title {
+        color: #25D366;
+        font-weight: 600;
+    }
+    
+    .step.completed .step-number {
+        background-color: #128C7E;
+        transform: scale(1.05);
+    }
+    
+    .step.completed .step-title {
+        color: #128C7E;
+        font-weight: 500;
     }
     
     .form-step {
@@ -627,10 +700,35 @@ input.error {
         width: 100%;
         padding: 1em;
         font-size: 1em;
-        height: 44px; /* Meilleure ergonomie tactile */
+        height: 48px; /* Meilleure ergonomie tactile */
         display: flex;
         align-items: center;
         justify-content: center;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+    
+    .form-buttons .cta-button {
+        background-color: #25D366;
+        color: white;
+    }
+    
+    .form-buttons .cta-button:hover {
+        background-color: #128C7E;
+        transform: translateY(-1px);
+    }
+    
+    .form-buttons .prev-step {
+        background-color: #f5f5f5;
+        color: #333;
+        border: 1px solid #ddd;
+    }
+    
+    .form-buttons .prev-step:hover {
+        background-color: #e0e0e0;
     }
 
     .summary-item {
@@ -672,16 +770,41 @@ input.error {
         width: 70px;
         margin: 0 0.15rem;
         padding: 0.15rem;
+        position: relative;
     }
 
     .step-number {
         width: 28px;
         height: 28px;
         font-size: 1rem;
+        transition: all 0.3s ease;
     }
 
     .step-title {
         font-size: 0.75rem;
+        transition: color 0.3s ease;
+    }
+    
+    /* Amélioration de l'état actif et complété sur très petits écrans */
+    .step.active .step-number {
+        background-color: #25D366;
+        transform: scale(1.15);
+        box-shadow: 0 3px 12px rgba(37, 211, 102, 0.4);
+    }
+    
+    .step.active .step-title {
+        color: #25D366;
+        font-weight: 600;
+    }
+    
+    .step.completed .step-number {
+        background-color: #128C7E;
+        transform: scale(1.08);
+    }
+    
+    .step.completed .step-title {
+        color: #128C7E;
+        font-weight: 500;
     }
 
     .form-group input,
@@ -699,6 +822,42 @@ input.error {
         font-size: 1.1em;
         color: #25D366;
     }
+
+    /* Styles spécifiques pour la modal sur très petits écrans */
+    .modal-content {
+        margin: 2% auto;
+        padding: 1rem;
+        width: 98%;
+    }
+
+    .modal h2 {
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .modal .resultat-item {
+        padding: 0.6rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .modal .resultat-item span:first-child {
+        font-size: 0.85rem;
+    }
+
+    .modal .resultat-item span:last-child {
+        font-size: 1rem;
+    }
+
+    .modal .contact-button .cta-button {
+        padding: 0.8rem;
+        font-size: 0.95rem;
+    }
+
+    .close-modal {
+        right: 0.8rem;
+        top: 0.3rem;
+        font-size: 1.5rem;
+    }
 }
 
 .modal #taux-jour {
@@ -708,6 +867,26 @@ input.error {
     font-weight: bold;
     color: #25D366;
     margin-bottom: 0.5em;
+}
+
+/* Amélioration de l'affichage du taux sur mobile */
+@media (max-width: 768px) {
+    .modal #taux-jour {
+        font-size: 1.2em;
+        margin-bottom: 0.8em;
+        padding: 0.5em;
+        background: #f0f8f0;
+        border-radius: 5px;
+        border: 1px solid #25D366;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal #taux-jour {
+        font-size: 1.1em;
+        margin-bottom: 0.6em;
+        padding: 0.4em;
+    }
 }
 
 @media (min-width: 1024px) {
@@ -815,4 +994,25 @@ input.error {
     margin-top: 0;
     height: auto;
   }
+} 
+
+.step-number {
+    color: #fff !important;
+    background-color: var(--primary-color);
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.step.active .step-number,
+.step.completed .step-number {
+    color: #fff !important;
+} 
+
+@media (max-width: 768px) {
+    .steps-progress {
+        display: none !important;
+    }
 } 
