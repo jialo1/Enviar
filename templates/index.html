@@ -24,7 +24,7 @@
     <header class="header">
         <div class="header-container">
             <a href="/" class="logo">
-                <img src="/images/Logo1.png" alt="Enviar Logo" style="height: 60px;">
+                <img src="/images/Logo1.png" alt="Enviar Logo" style="height: 40px;">
             </a>
             <nav class="nav-menu">
                 <ul class="nav-links">
@@ -66,14 +66,14 @@
             <div class="hero-content">
                 <div class="hero-title">
                     <h1 data-translate="hero-title">Envoyez de l'argent vers la Guinée en toute simplicité</h1>
-                    <p data-translate="hero-subtitle">Transferts rapides, sécurisés et économiques vers vos proches en Guinée</p>
+                    <p data-translate="hero-subtitle">Des transferts rapides, sécurisés et économiques vers vos proches en Guinée</p>
                 </div>
                 <div class="hero-right">
                     <div class="calculator-container">
                         <div class="taux-change">
                             <div data-translate="current-rates">Taux de change actuels :</div>
                             <div id="taux-change-display">
-                                1 CAD = <span id="taux-cad-gnf">{{ taux_cad_gnf }}</span> GNF
+                                <img src="/static/images/flags/canada.png" alt="Canada" class="flag-icon" style="vertical-align:middle;"> 1 CAD = <span id="taux-cad-gnf">{{ taux_cad_gnf }}</span> GNF <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon" style="vertical-align:middle;">
                             </div>
                         </div>
                         <form id="calculator-form">
@@ -81,17 +81,17 @@
                                 <label for="pays-depart" data-translate="send-country">Pays d'envoi</label>
                                 <div class="custom-select" id="custom-pays-depart">
                                     <div class="selected-option" data-value="canada">
-                                        <img src="/static/images/flags/canada.png" alt="Canada" class="flag-icon"> Canada (CAD)
+                                        <img src="/static/images/flags/canada.png" alt="Canada" class="flag-icon"> Canada
                                     </div>
                                     <div class="options-list">
                                         <div class="option" data-value="canada">
-                                            <img src="/static/images/flags/canada.png" alt="Canada" class="flag-icon"> Canada (CAD)
+                                            <img src="/static/images/flags/canada.png" alt="Canada" class="flag-icon"> Canada
                                         </div>
                                         <div class="option" data-value="guinee">
-                                            <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> Guinée Conakry (GNF)
+                                            <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> Guinée Conakry
                                         </div>
                                         <div class="option" data-value="senegal">
-                                            <img src="/static/images/flags/senegal.png" alt="Sénégal" class="flag-icon"> Sénégal (XOF)
+                                            <img src="/static/images/flags/senegal.png" alt="Sénégal" class="flag-icon"> Sénégal
                                         </div>
                                     </div>
                                     <input type="hidden" name="pays-depart" id="pays-depart" value="canada">
@@ -106,14 +106,14 @@
                                 <label for="pays-destination" data-translate="receive-country">Pays de réception</label>
                                 <div class="custom-select" id="custom-pays-destination">
                                     <div class="selected-option" data-value="guinee">
-                                        <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> Guinée Conakry (GNF)
+                                        <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> Guinée Conakry
                                     </div>
                                     <div class="options-list">
                                         <div class="option" data-value="guinee">
-                                            <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> Guinée Conakry (GNF)
+                                            <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> Guinée Conakry
                                         </div>
                                         <div class="option" data-value="senegal">
-                                            <img src="/static/images/flags/senegal.png" alt="Sénégal" class="flag-icon"> Sénégal (XOF)
+                                            <img src="/static/images/flags/senegal.png" alt="Sénégal" class="flag-icon"> Sénégal
                                         </div>
                                     </div>
                                     <input type="hidden" name="pays-destination" id="pays-destination" value="guinee">
@@ -134,7 +134,7 @@
                             <span data-translate="secure">100% sécurisé</span>
                         </div>
                         <div class="feature-item">
-                            <i class="fas fa-euro-sign"></i>
+                            <i class="fas fa-dollar-sign"></i>
                             <span data-translate="low-fees">Frais réduits</span>
                         </div>
                     </div>
@@ -142,6 +142,10 @@
                         <div class="stat">
                             <span class="stat-number">1M+</span>
                             <span class="stat-label" data-translate="transfers">Transferts</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">3</span>
+                            <span class="stat-label">pays</span>
                         </div>
                         <div class="stat">
                             <span class="stat-number">24/7</span>
@@ -279,14 +283,16 @@
                     <div class="pays-card">
                         <h3 data-translate="sending-from">Envoi depuis :</h3>
                         <ul>
-                            <li data-translate="canada">Canada</li>
+                            <li><img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> <span data-translate="guinea">Guinée</span></li>
+                            <li><img src="/static/images/flags/canada.png" alt="Canada" class="flag-icon"> <span data-translate="canada">Canada</span></li>
+                            <li><img src="/static/images/flags/senegal.png" alt="Sénégal" class="flag-icon"> <span data-translate="senegal">Sénégal</span></li>
                         </ul>
                     </div>
                     <div class="pays-card">
                         <h3 data-translate="receiving-in">Réception en :</h3>
                         <ul>
-                            <li data-translate="guinea">Guinée Conakry</li>
-                            <li data-translate="senegal">Sénégal</li>
+                            <li><img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> <span data-translate="guinea">Guinée Conakry</span></li>
+                            <li><img src="/static/images/flags/senegal.png" alt="Sénégal" class="flag-icon"> <span data-translate="senegal">Sénégal</span></li>
                         </ul>
                     </div>
                 </div>

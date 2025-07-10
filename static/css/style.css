@@ -658,6 +658,13 @@ main {
     font-size: 1.1rem;
 }
 
+.avantage-card i {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1.2rem;
+  display: block;
+}
+
 /* Footer Styles */
 .footer {
     background-color: var(--dark-color);
@@ -2542,4 +2549,59 @@ a {
         min-width: 70px;
         border-radius: 15px;
     }
+}
+
+.flag-icon {
+  width: 24px;
+  height: 16px;
+  object-fit: cover;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 6px;
+}
+
+.hero .form-group input#montant {
+  background: #fff !important;
+  color: #222;
+  border: 1px solid #ccc;
+}
+
+.hero .calculator-container form button.cta-button {
+  display: block;
+  margin: 2rem auto 0 auto;
+}
+
+.hero .form-group .custom-select {
+  min-height: 38px;
+  padding: 0.2rem 0.8rem;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.hero .form-group .custom-select .selected-option,
+.hero .form-group .custom-select .options-list .option {
+  background: #fff !important;
+  color: #222;
+}
+
+.hero .form-group .custom-select .selected-option img.flag-icon,
+.hero .form-group .custom-select .options-list .option img.flag-icon {
+  vertical-align: middle;
+}
+
+.hero .form-group #custom-pays-destination {
+  min-height: 38px;
+  padding: 0.2rem 0.8rem;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.contact-form .cta-button {
+  border: 2px solid var(--primary-color) !important;
+}
+
+.contact-form .cta-button:hover {
+  background-color: var(--primary-color) !important;
+  color: #fff !important;
+  border: 2px solid var(--primary-color) !important;
 }

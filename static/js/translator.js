@@ -13,7 +13,7 @@ class Translator {
                 
                 // Page d'accueil
                 'hero-title': 'Envoyez de l\'argent vers la Guinée en toute simplicité',
-                'hero-subtitle': 'Transferts rapides, sécurisés et économiques vers vos proches en Guinée',
+                'hero-subtitle': 'Des transferts rapides, sécurisés et économiques vers vos proches en Guinée',
                 'send-country': 'Pays d\'envoi',
                 'amount': 'Montant à envoyer',
                 'receive-country': 'Pays de réception',
@@ -53,9 +53,9 @@ class Translator {
                 'how-it-works-title': 'Comment ça marche',
                 'how-it-works-subtitle': 'Découvrez notre processus simple et sécurisé',
                 'step-1-title': 'Calculez votre transfert',
-                'step-1-desc': 'Utilisez notre calculateur pour connaître le montant exact que votre bénéficiaire recevra en XOF.',
-                'step-2-title': 'Contactez-nous sur WhatsApp',
-                'step-2-desc': 'Envoyez-nous un message sur WhatsApp avec le montant calculé pour finaliser votre transfert.',
+                'step-1-desc': 'Utilisez notre calculateur pour connaître le montant exact que votre bénéficiaire recevra en franc guinéen.',
+                'step-2-title': 'Transférer sur WhatsApp',
+                'step-2-desc': 'Remplissez le formulaire et continuer sur WhatsApp pour finaliser votre transfert',
                 'step-3-title': 'Recevez votre argent',
                 'step-3-desc': 'Votre bénéficiaire reçoit l\'argent instantanément après la confirmation du transfert.',
                 'served-countries': 'Pays desservis',
