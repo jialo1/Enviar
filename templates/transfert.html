@@ -80,21 +80,23 @@
                             <label data-translate="receiving-country">Pays de destination</label>
                             <div id="pays-destination-display" class="pays-display"></div>
                         </div>
-                        <div class="form-group">
-                            <label data-translate="amount-to-send">Montant à envoyer</label>
-                            <input type="text" id="montant-display" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label data-translate="amount-to-receive">Montant à recevoir</label>
-                            <input type="text" id="montant-recu-display" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label data-translate="transfer-fees">Frais de transfert</label>
-                            <input type="text" id="frais-display" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label data-translate="total-to-pay">Total à payer</label>
-                            <input type="text" id="total-display" readonly>
+                        <div class="transfer-summary">
+                            <div class="summary-row">
+                                <span class="summary-label" data-translate="amount-to-send">Montant à envoyer :</span>
+                                <span class="summary-value" id="montant-display"></span>
+                            </div>
+                            <div class="summary-row highlight">
+                                <span class="summary-label" data-translate="amount-to-receive">Montant à recevoir :</span>
+                                <span class="summary-value" id="montant-recu-display"></span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label" data-translate="transfer-fees">Frais de transfert :</span>
+                                <span class="summary-value" id="frais-display"></span>
+                            </div>
+                            <div class="summary-row total">
+                                <span class="summary-label" data-translate="total-to-pay">Total à payer :</span>
+                                <span class="summary-value" id="total-display"></span>
+                            </div>
                         </div>
                         <button type="button" class="next-step cta-button" data-translate="continue">Continuer</button>
                     </div>
@@ -103,12 +105,19 @@
                     <div class="form-step" data-step="2">
                         <h2 data-translate="your-info">Vos informations</h2>
                         <div class="form-group">
-                            <label for="nom" data-translate="full-name">Nom complet</label>
-                            <input type="text" id="nom" name="nom" required data-translate-placeholder="full-name">
+                            <label for="nom" data-translate="nom">Nom</label>
+                            <input type="text" id="nom" name="nom" required placeholder="Nom" data-translate-placeholder="nom">
+                        </div>
+                        <div class="form-group">
+                            <label for="prenom" data-translate="prenom">Prénom</label>
+                            <input type="text" id="prenom" name="prenom" required placeholder="Prénom" data-translate-placeholder="prenom">
                         </div>
                         <div class="form-group">
                             <label for="telephone" data-translate="phone">Téléphone</label>
-                            <input type="tel" id="telephone" name="telephone" required data-translate-placeholder="phone">
+                            <div style="display: flex; gap: 8px; align-items: stretch; height: 40px;">
+                                <input type="text" id="indicatif" name="indicatif" placeholder="+224" style="width: 70px; font-size: 0.85em; color: #333; background-color: #f8f8f8;" maxlength="5" required>
+                                <input type="tel" id="telephone" name="telephone" required data-translate-placeholder="phone" style="flex: 1;">
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="email" data-translate="email">Email</label>
@@ -124,12 +133,19 @@
                     <div class="form-step" data-step="3">
                         <h2 data-translate="beneficiary-info">Informations du bénéficiaire</h2>
                         <div class="form-group">
-                            <label for="beneficiaire-nom" data-translate="beneficiary-name">Nom complet du bénéficiaire</label>
-                            <input type="text" id="beneficiaire-nom" name="beneficiaire-nom" required data-translate-placeholder="beneficiary-name">
+                            <label for="beneficiaire-nom" data-translate="nom">Nom</label>
+                            <input type="text" id="beneficiaire-nom" name="beneficiaire-nom" required placeholder="Nom" data-translate-placeholder="nom">
+                        </div>
+                        <div class="form-group">
+                            <label for="beneficiaire-prenom" data-translate="prenom">Prénom</label>
+                            <input type="text" id="beneficiaire-prenom" name="beneficiaire-prenom" required placeholder="Prénom" data-translate-placeholder="prenom">
                         </div>
                         <div class="form-group">
                             <label for="beneficiaire-telephone" data-translate="beneficiary-phone">Téléphone du bénéficiaire</label>
-                            <input type="tel" id="beneficiaire-telephone" name="beneficiaire-telephone" required data-translate-placeholder="beneficiary-phone">
+                            <div style="display: flex; gap: 8px; align-items: stretch; height: 40px;">
+                                <input type="text" id="beneficiaire-indicatif" name="beneficiaire-indicatif" placeholder="+224" style="width: 70px; font-size: 0.85em; color: #333; background-color: #f8f8f8;" maxlength="5" required>
+                                <input type="tel" id="beneficiaire-telephone" name="beneficiaire-telephone" required data-translate-placeholder="beneficiary-phone" style="flex: 1;">
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="beneficiaire-adresse" data-translate="beneficiary-address">Adresse du bénéficiaire</label>

@@ -40,4 +40,24 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+});
+
+// Gestion des champs d'indicatif téléphonique (page contact)
+document.addEventListener('DOMContentLoaded', function() {
+    const countryCodeInput = document.getElementById('country-code');
+    if (countryCodeInput) {
+        // Effacer le placeholder au focus
+        countryCodeInput.addEventListener('focus', function() {
+            if (this.value === '') {
+                this.placeholder = '';
+            }
+        });
+        
+        // Remettre le placeholder si le champ est vide au blur
+        countryCodeInput.addEventListener('blur', function() {
+            if (this.value === '') {
+                this.placeholder = '+224';
+            }
+        });
+    }
 }); 

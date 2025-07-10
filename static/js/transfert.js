@@ -65,10 +65,10 @@ document.addEventListener('DOMContentLoaded', function() {
     flagDest.className = 'flag-icon';
     paysDestinationDiv.appendChild(flagDest);
     paysDestinationDiv.append(' ' + (transfertData.paysDestinationLabel || transfertData.paysDestination));
-    document.getElementById('montant-display').value = formatMontant(transfertData.montant, transfertData.deviseDepart);
-    document.getElementById('montant-recu-display').value = formatMontant(transfertData.montantRecu, transfertData.deviseDestination);
-    document.getElementById('frais-display').value = formatMontant(transfertData.frais, transfertData.deviseDepart);
-    document.getElementById('total-display').value = formatMontant(transfertData.total, transfertData.deviseDepart);
+    document.getElementById('montant-display').textContent = formatMontant(transfertData.montant, transfertData.deviseDepart);
+    document.getElementById('montant-recu-display').textContent = formatMontant(transfertData.montantRecu, transfertData.deviseDestination);
+    document.getElementById('frais-display').textContent = formatMontant(transfertData.frais, transfertData.deviseDepart);
+    document.getElementById('total-display').textContent = formatMontant(transfertData.total, transfertData.deviseDepart);
 
     // Remplir le récapitulatif de la dernière étape avec les montants formatés
     document.getElementById('summary-montant-envoyer').textContent = formatMontant(transfertData.montant, transfertData.deviseDepart);
@@ -100,8 +100,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         progressSteps.forEach(step => {
-            step.classList.remove('active');
-            if (parseInt(step.dataset.step) <= stepNumber) {
+            step.classList.remove('active', 'completed');
+            const n = parseInt(step.dataset.step);
+            if (n < stepNumber) {
+                step.classList.add('completed');
+            } else if (n === stepNumber) {
                 step.classList.add('active');
             }
         });
@@ -139,6 +142,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 input.classList.remove('error');
             }
         });
+        // Validation spécifique pour l'indicatif bénéficiaire
+        const indicatifBenef = currentStepElement.querySelector('#beneficiaire-indicatif');
+        if (indicatifBenef && !indicatifBenef.value.trim()) {
+            isValid = false;
+            indicatifBenef.classList.add('error');
+        } else if (indicatifBenef) {
+            indicatifBenef.classList.remove('error');
+        }
+        // Validation spécifique pour l'indicatif utilisateur
+        const indicatifUser = currentStepElement.querySelector('#indicatif');
+        if (indicatifUser && !indicatifUser.value.trim()) {
+            isValid = false;
+            indicatifUser.classList.add('error');
+        } else if (indicatifUser) {
+            indicatifUser.classList.remove('error');
+        }
 
         return isValid;
     }
@@ -224,11 +243,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Afficher l'aperçu à chaque fois qu'on arrive à l'étape 4 ou qu'on modifie un champ
     function updateWhatsAppPreview() {
-        const preview = document.getElementById('whatsapp-preview');
         const whatsappLink = document.getElementById('whatsapp-continue');
-        if (preview && currentStep === 4) {
+        if (whatsappLink && currentStep === 4) {
             const message = getMessageWhatsAppLisible();
-            preview.textContent = message;
             // Mettre à jour le lien WhatsApp
             whatsappLink.href = `https://wa.me/774062102?text=${encodeURIComponent(message)}`;
         }
@@ -274,4 +291,22 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // Gestion des champs d'indicatif téléphonique
+    const indicatifInputs = document.querySelectorAll('#indicatif, #beneficiaire-indicatif');
+    indicatifInputs.forEach(input => {
+        // Effacer le placeholder au focus
+        input.addEventListener('focus', function() {
+            if (this.value === '') {
+                this.placeholder = '';
+            }
+        });
+        
+        // Remettre le placeholder si le champ est vide au blur
+        input.addEventListener('blur', function() {
+            if (this.value === '') {
+                this.placeholder = '+224';
+            }
+        });
+    });
 }); 

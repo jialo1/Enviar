@@ -39,6 +39,8 @@ class Translator {
                 // Contact
                 'contact-title': 'Contactez-nous pour finaliser votre transfert',
                 'your-info': 'Vos informations',
+                'nom': 'Nom',
+                'prenom': 'Prénom',
                 'full-name': 'Nom complet',
                 'phone': 'Téléphone',
                 'email': 'Email',
@@ -237,6 +239,8 @@ class Translator {
                 // Contact
                 'contact-title': 'Contact us to finalize your transfer',
                 'your-info': 'Your information',
+                'nom': 'Last name',
+                'prenom': 'First name',
                 'full-name': 'Full name',
                 'phone': 'Phone',
                 'email': 'Email',
@@ -377,7 +381,12 @@ class Translator {
                 'back': 'Back',
                 'confirmation': 'Confirmation',
                 'transfer-summary': 'Transfer Summary',
+                'step-details': 'Details',
+                'step-your-info': 'Your Info',
+                'step-beneficiary': 'Beneficiary',
+                'step-confirm': 'Confirm',
                 'sending': 'Sending',
+                'amount-to-receive': 'Amount to receive',
                 'additional-info': 'Additional Information (optional)',
                 'continue-whatsapp': 'Continue on WhatsApp',
                 'copy-button': 'Copy',
@@ -400,19 +409,7 @@ class Translator {
                 
                 // Page Transfert
                 'transfer-page-title': 'Enviar - New Transfer',
-                'step-details': 'Details',
-                'step-your-info': 'Your Info',
-                'step-beneficiary': 'Beneficiary',
-                'step-confirm': 'Confirm',
-                'amount-to-receive': 'Amount to receive',
                 'beneficiary-info': 'Beneficiary information',
-                'confirmation': 'Confirmation',
-                'transfer-summary': 'Transfer summary',
-                'sending': 'Sending',
-                'additional-info': 'Additional information (optional)',
-                'continue-whatsapp': 'Continue on WhatsApp',
-                'copy-button': 'Copy',
-                'transfer-confirmation-title': 'Confirm Your Transfer',
                 
                 // Page Fonctionnement
                 'how-it-works-title': 'How It Works'
