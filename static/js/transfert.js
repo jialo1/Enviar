@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    
     // Fonction pour formater les montants
     function formatMontant(montant, devise) {
         // Supprimer tous les caractères non numériques sauf le point
@@ -49,39 +50,61 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Remplir les champs de la première étape avec les montants formatés et les drapeaux
     const paysDepartDiv = document.getElementById('pays-depart-display');
-    paysDepartDiv.innerHTML = '';
-    const flagDepart = document.createElement('img');
-    flagDepart.src = fallbackFlags[transfertData.paysDepart];
-    flagDepart.alt = transfertData.paysDepart;
-    flagDepart.className = 'flag-icon';
-    paysDepartDiv.appendChild(flagDepart);
-    paysDepartDiv.append(' ' + (transfertData.paysDepartLabel || transfertData.paysDepart));
+    if (paysDepartDiv) {
+        paysDepartDiv.innerHTML = '';
+        const flagDepart = document.createElement('img');
+        flagDepart.src = fallbackFlags[transfertData.paysDepart];
+        flagDepart.alt = transfertData.paysDepart;
+        flagDepart.className = 'flag-icon';
+        paysDepartDiv.appendChild(flagDepart);
+        paysDepartDiv.append(' ' + (transfertData.paysDepartLabel || transfertData.paysDepart));
+    }
 
     const paysDestinationDiv = document.getElementById('pays-destination-display');
-    paysDestinationDiv.innerHTML = '';
-    const flagDest = document.createElement('img');
-    flagDest.src = fallbackFlags[transfertData.paysDestination];
-    flagDest.alt = transfertData.paysDestination;
-    flagDest.className = 'flag-icon';
-    paysDestinationDiv.appendChild(flagDest);
-    paysDestinationDiv.append(' ' + (transfertData.paysDestinationLabel || transfertData.paysDestination));
-    document.getElementById('montant-display').textContent = formatMontant(transfertData.montant, transfertData.deviseDepart);
-    document.getElementById('montant-recu-display').textContent = formatMontant(transfertData.montantRecu, transfertData.deviseDestination);
-    document.getElementById('frais-display').textContent = formatMontant(transfertData.frais, transfertData.deviseDepart);
-    document.getElementById('total-display').textContent = formatMontant(transfertData.total, transfertData.deviseDepart);
+    if (paysDestinationDiv) {
+        paysDestinationDiv.innerHTML = '';
+        const flagDest = document.createElement('img');
+        flagDest.src = fallbackFlags[transfertData.paysDestination];
+        flagDest.alt = transfertData.paysDestination;
+        flagDest.className = 'flag-icon';
+        paysDestinationDiv.appendChild(flagDest);
+        paysDestinationDiv.append(' ' + (transfertData.paysDestinationLabel || transfertData.paysDestination));
+    }
+
+    // Remplir les montants
+    const montantDisplay = document.getElementById('montant-display');
+    if (montantDisplay) montantDisplay.textContent = formatMontant(transfertData.montant, transfertData.deviseDepart);
+    
+    const montantRecuDisplay = document.getElementById('montant-recu-display');
+    if (montantRecuDisplay) montantRecuDisplay.textContent = formatMontant(transfertData.montantRecu, transfertData.deviseDestination);
+    
+    const fraisDisplay = document.getElementById('frais-display');
+    if (fraisDisplay) fraisDisplay.textContent = formatMontant(transfertData.frais, transfertData.deviseDepart);
+    
+    const totalDisplay = document.getElementById('total-display');
+    if (totalDisplay) totalDisplay.textContent = formatMontant(transfertData.total, transfertData.deviseDepart);
 
     // Remplir le récapitulatif de la dernière étape avec les montants formatés
-    document.getElementById('summary-montant-envoyer').textContent = formatMontant(transfertData.montant, transfertData.deviseDepart);
-    document.getElementById('summary-montant-recu').textContent = formatMontant(transfertData.montantRecu, transfertData.deviseDestination);
-    document.getElementById('summary-frais').textContent = formatMontant(transfertData.frais, transfertData.deviseDepart);
-    document.getElementById('summary-total').textContent = formatMontant(transfertData.total, transfertData.deviseDepart);
+    const summaryMontantEnvoyer = document.getElementById('summary-montant-envoyer');
+    if (summaryMontantEnvoyer) summaryMontantEnvoyer.textContent = formatMontant(transfertData.montant, transfertData.deviseDepart);
+    
+    const summaryMontantRecu = document.getElementById('summary-montant-recu');
+    if (summaryMontantRecu) summaryMontantRecu.textContent = formatMontant(transfertData.montantRecu, transfertData.deviseDestination);
+    
+    const summaryFrais = document.getElementById('summary-frais');
+    if (summaryFrais) summaryFrais.textContent = formatMontant(transfertData.frais, transfertData.deviseDepart);
+    
+    const summaryTotal = document.getElementById('summary-total');
+    if (summaryTotal) summaryTotal.textContent = formatMontant(transfertData.total, transfertData.deviseDepart);
 
     // Remplir les pays et devises dans le récapitulatif
-    if (document.getElementById('summary-pays-depart')) {
-        document.getElementById('summary-pays-depart').textContent = transfertData.paysDepartLabel || transfertData.paysDepart || '';
+    const summaryPaysDepart = document.getElementById('summary-pays-depart');
+    if (summaryPaysDepart) {
+        summaryPaysDepart.textContent = transfertData.paysDepartLabel || transfertData.paysDepart || '';
     }
-    if (document.getElementById('summary-pays-destination')) {
-        document.getElementById('summary-pays-destination').textContent = transfertData.paysDestinationLabel || transfertData.paysDestination || '';
+    const summaryPaysDestination = document.getElementById('summary-pays-destination');
+    if (summaryPaysDestination) {
+        summaryPaysDestination.textContent = transfertData.paysDestinationLabel || transfertData.paysDestination || '';
     }
 
     // Gestion des étapes
@@ -92,13 +115,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Fonction pour afficher une étape spécifique
     function showStep(stepNumber) {
+        
+        // Masquer toutes les étapes
         steps.forEach(step => {
             step.classList.remove('active');
-            if (parseInt(step.dataset.step) === stepNumber) {
-                step.classList.add('active');
-            }
+            step.style.display = 'none';
         });
 
+        // Afficher l'étape actuelle
+        const currentStepElement = document.querySelector(`.form-step[data-step="${stepNumber}"]`);
+        if (currentStepElement) {
+            currentStepElement.classList.add('active');
+            currentStepElement.style.display = 'block';
+        } else {
+            console.error('Étape non trouvée:', stepNumber);
+        }
+
+        // Mettre à jour la barre de progression
         progressSteps.forEach(step => {
             step.classList.remove('active', 'completed');
             const n = parseInt(step.dataset.step);
@@ -110,11 +143,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         currentStep = stepNumber;
+        
+        // Faire défiler vers le haut sur mobile
+        if (window.innerWidth <= 768) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     }
 
     // Gestion des boutons "Continuer"
-    document.querySelectorAll('.next-step').forEach(button => {
-        button.addEventListener('click', () => {
+    const nextButtons = document.querySelectorAll('.next-step');
+    
+    nextButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
             if (validateStep(currentStep)) {
                 showStep(currentStep + 1);
             }
@@ -122,8 +163,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Gestion des boutons "Retour"
-    document.querySelectorAll('.prev-step').forEach(button => {
-        button.addEventListener('click', () => {
+    const prevButtons = document.querySelectorAll('.prev-step');
+    
+    prevButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
             showStep(currentStep - 1);
         });
     });
@@ -131,6 +175,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Validation des étapes
     function validateStep(step) {
         const currentStepElement = document.querySelector(`.form-step[data-step="${step}"]`);
+        if (!currentStepElement) {
+            console.error('Élément d\'étape non trouvé:', step);
+            return false;
+        }
+        
         const requiredInputs = currentStepElement.querySelectorAll('input[required]');
         let isValid = true;
 
@@ -142,6 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 input.classList.remove('error');
             }
         });
+        
         // Validation spécifique pour l'indicatif bénéficiaire
         const indicatifBenef = currentStepElement.querySelector('#beneficiaire-indicatif');
         if (indicatifBenef && !indicatifBenef.value.trim()) {
@@ -150,6 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (indicatifBenef) {
             indicatifBenef.classList.remove('error');
         }
+        
         // Validation spécifique pour l'indicatif utilisateur
         const indicatifUser = currentStepElement.querySelector('#indicatif');
         if (indicatifUser && !indicatifUser.value.trim()) {
@@ -163,9 +214,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Gestion de la soumission du formulaire
-    form.addEventListener('submit', function(e) {
-        e.preventDefault(); // Empêcher la soumission par défaut
-    });
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Empêcher la soumission par défaut
+        });
+    }
 
     // Fonction pour générer le message WhatsApp lisible
     function getMessageWhatsAppLisible() {
@@ -214,13 +267,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const t = labels[lang];
 
-        const nom = document.getElementById('nom').value;
-        const telephone = document.getElementById('telephone').value;
-        const email = document.getElementById('email').value;
-        const beneficiaireNom = document.getElementById('beneficiaire-nom').value;
-        const beneficiaireTelephone = document.getElementById('beneficiaire-telephone').value;
-        const beneficiaireAdresse = document.getElementById('beneficiaire-adresse').value;
-        const message = document.getElementById('message').value;
+        const nom = document.getElementById('nom')?.value || '';
+        const telephone = document.getElementById('telephone')?.value || '';
+        const email = document.getElementById('email')?.value || '';
+        const beneficiaireNom = document.getElementById('beneficiaire-nom')?.value || '';
+        const beneficiaireTelephone = document.getElementById('beneficiaire-telephone')?.value || '';
+        const beneficiaireAdresse = document.getElementById('beneficiaire-adresse')?.value || '';
+        const message = document.getElementById('message')?.value || '';
         
         return `${t.greeting}\n\n` +
             `${t.myInfo}\n` +
@@ -252,11 +305,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Mettre à jour l'aperçu lors du passage à l'étape 4
-    document.querySelectorAll('.next-step').forEach(button => {
+    nextButtons.forEach(button => {
         button.addEventListener('click', () => {
             setTimeout(updateWhatsAppPreview, 100); // Laisse le temps au DOM de changer d'étape
         });
     });
+    
     // Mettre à jour l'aperçu en temps réel sur les champs de l'étape 4
     const confirmationStep = document.querySelector('.form-step[data-step="4"]');
     if (confirmationStep) {
@@ -309,4 +363,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Initialisation : afficher la première étape
+    showStep(1);
 }); 

@@ -811,17 +811,24 @@ main {
 
 @media (max-width: 768px) {
     .footer {
-        padding: 3rem 0 1.5rem;
+        padding: 2rem 0 1rem;
+        margin-top: 2rem;
     }
 
     .footer-content {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
     }
 
     .footer-section {
         text-align: center;
-        padding: 0 2rem;
+        padding: 0 1rem;
+    }
+
+    .footer-section h3 {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
     }
 
     .footer-section h3::after {
@@ -829,21 +836,73 @@ main {
         transform: translateX(-50%);
     }
 
+    .footer-section p {
+        font-size: 0.9rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .footer-section ul li {
+        margin-bottom: 0.6rem;
+    }
+
+    .footer-section ul li a {
+        font-size: 0.9rem;
+    }
+
     .social-links {
         justify-content: center;
+        gap: 0.8rem;
+        margin-top: 1rem;
+    }
+
+    .social-links a {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+    }
+
+    .contact-info {
+        background-color: transparent;
+        padding: 0;
+        width: 100%;
+        margin: 0 auto;
+        max-width: 300px;
     }
 
     .contact-info p {
+        display: flex;
+        align-items: center;
         justify-content: center;
+        gap: 0.5rem;
+        margin: 0.5rem 0;
+        padding: 0.5rem;
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: 5px;
+    }
+
+    .contact-info p i {
+        font-size: 0.9rem;
+        min-width: 16px;
+    }
+
+    .contact-info p a,
+    .contact-info p span {
+        font-size: 0.85rem;
+        word-break: break-word;
+    }
+
+    .footer-bottom {
+        padding-top: 1.5rem;
     }
 
     .footer-bottom-content {
         flex-direction: column;
         text-align: center;
+        gap: 0.5rem;
     }
 
-    .payment-methods {
-        justify-content: center;
+    .copyright {
+        font-size: 0.8rem;
     }
 }
 
@@ -1855,7 +1914,40 @@ a {
     .avantages h2,
     .temoignages h2,
     .cta-content h2 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+    }
+
+    /* Page À propos - Mobile */
+    .pourquoi-nous-choisir h2 {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+    }
+
+    .pourquoi-content {
+        padding: 0 1rem;
+    }
+
+    .pourquoi-content p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .valeurs-grid,
+    .securite-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .valeur-card,
+    .securite-item {
+        padding: 1.5rem;
+    }
+
+    .histoire-content p {
+        font-size: 1rem;
+        line-height: 1.6;
+        padding: 0 1rem;
     }
 
     .avantages-grid,
@@ -1963,7 +2055,79 @@ a {
     .avantages h2,
     .temoignages h2,
     .cta-content h2 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
+    }
+
+    /* Page À propos - Très petit écran */
+    .pourquoi-nous-choisir h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .pourquoi-content p {
+        font-size: 0.95rem;
+    }
+
+    .valeur-card,
+    .securite-item {
+        padding: 1rem;
+    }
+
+    .histoire-content p {
+        font-size: 0.95rem;
+        padding: 0 0.5rem;
+    }
+
+    /* Footer - Très petit écran */
+    .footer {
+        padding: 1.5rem 0 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .footer-content {
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .footer-section {
+        padding: 0 0.5rem;
+    }
+
+    .footer-section h3 {
+        font-size: 1rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .footer-section p {
+        font-size: 0.85rem;
+    }
+
+    .footer-section ul li a {
+        font-size: 0.85rem;
+    }
+
+    .social-links {
+        gap: 0.6rem;
+    }
+
+    .social-links a {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
+    }
+
+    .contact-info {
+        max-width: 280px;
+    }
+
+    .contact-info p {
+        padding: 0.4rem;
+        margin: 0.4rem 0;
+    }
+
+    .contact-info p a,
+    .contact-info p span {
+        font-size: 0.8rem;
     }
 
     .cta-button {

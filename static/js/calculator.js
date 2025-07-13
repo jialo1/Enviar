@@ -197,7 +197,6 @@ function envoyerFormulaire(event) {
 
 // Ajouter les écouteurs d'événements
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM chargé, initialisation des écouteurs...');
     
     const calculatorForm = document.getElementById('calculator-form');
     if (calculatorForm) {
@@ -222,7 +221,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const observer = new MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
                 if (mutation.type === "attributes" && mutation.attributeName === "data-value") {
-            console.log('Changement de pays de départ détecté');
             updateDevise();
                 }
             });

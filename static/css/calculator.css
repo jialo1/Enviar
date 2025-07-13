@@ -1016,3 +1016,140 @@ input.error {
         display: none !important;
     }
 } 
+
+@media (max-width: 768px) {
+    .taux-change {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5em;
+        margin-bottom: 1em;
+    }
+    .taux-change #taux-change-display {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4em;
+        font-size: 1em;
+        flex-wrap: wrap;
+    }
+    .taux-change #taux-change-display img.flag-icon {
+        width: 1.5em;
+        height: 1.5em;
+        margin: 0 0.1em;
+    }
+    .taux-change #taux-change-display span {
+        font-size: 1em;
+        font-weight: 600;
+    }
+}
+
+@media (max-width: 768px) {
+    .taux-change #taux-change-display {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4em;
+        font-size: 0.92em;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .taux-change #taux-change-display {
+        font-size: 0.85em;
+        gap: 0.2em;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        overflow-x: auto;
+    }
+} 
+
+@media (max-width: 768px) {
+    .modal .contact-button {
+        display: block !important;
+        text-align: center !important;
+        margin-top: 1.2em;
+        margin-bottom: 0.7em;
+    }
+    .modal .contact-button .cta-button {
+        display: block !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        width: fit-content !important;
+        min-width: 120px;
+        max-width: 320px;
+        padding: 0.9em 1.5em;
+        font-size: 1.08em;
+        border-radius: 6px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal .contact-button .cta-button {
+        min-width: 100px;
+        max-width: 260px;
+        padding: 0.8em 1.2em;
+        font-size: 1em;
+        border-radius: 6px;
+    }
+} 
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 98vw !important;
+    max-width: 98vw !important;
+    padding: 0.2em 0.1em !important;
+    box-sizing: border-box;
+  }
+  .modal .resultat-calcul {
+    padding: 0.2em 0.1em !important;
+    margin-top: 0.2em;
+  }
+  .modal .resultat-item {
+    padding: 0.1em 0.05em !important;
+    gap: 0.05em;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+  .modal .resultat-item span:first-child {
+    font-size: 0.95em;
+    white-space: nowrap;
+    flex: 1 1 40%;
+  }
+  .modal .resultat-item span:last-child {
+    font-size: 1.15em;
+    font-weight: bold;
+    color: #25D366;
+    word-break: break-all;
+    text-align: right;
+    margin-left: auto;
+    flex: 1 1 60%;
+    min-width: 0;
+  }
+}
+@media (max-width: 480px) {
+  .modal-content {
+    width: 99vw !important;
+    max-width: 99vw !important;
+    padding: 0.1em 0.02em !important;
+  }
+  .modal .resultat-calcul {
+    padding: 0.1em 0.02em !important;
+  }
+  .modal .resultat-item {
+    padding: 0.05em 0.01em !important;
+    gap: 0.01em;
+  }
+  .modal .resultat-item span:first-child {
+    font-size: 0.9em;
+  }
+  .modal .resultat-item span:last-child {
+    font-size: 1.08em;
+  }
+} 
