@@ -496,12 +496,14 @@ class Translator {
 document.addEventListener('DOMContentLoaded', () => {
     window.translator = new Translator();
     window.translator.init();
-    
-    // Écouter les changements du sélecteur de langue
-    const languageSelector = document.querySelector('.language-selector');
-    if (languageSelector) {
-        languageSelector.addEventListener('change', (e) => {
+
+    // Sélectionne TOUS les sélecteurs de langue (desktop + mobile)
+    const languageSelectors = document.querySelectorAll('.language-selector');
+    languageSelectors.forEach(selector => {
+        selector.addEventListener('change', (e) => {
             window.translator.setLanguage(e.target.value);
+            // Synchronise tous les sélecteurs
+            languageSelectors.forEach(s => { s.value = e.target.value; });
         });
-    }
+    });
 }); 
