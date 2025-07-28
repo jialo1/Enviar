@@ -12,7 +12,7 @@ Enviar est une plateforme de transfert d'argent vers l'Afrique, offrant des serv
 
 ## Pays Desservis
 
-- Guinée Conakry (GNF)
+- Guinée (GNF)
 - Sénégal (XOF)
 - Mali (XOF)
 - Côte d'Ivoire (XOF)

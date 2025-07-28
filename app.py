@@ -60,24 +60,48 @@ def load_taux():
                 data = json.load(f)
                 return {
                     'taux_cad_gnf': data.get('taux_cad_gnf', 6700.0),
-                    'taux_xof_gnf': data.get('taux_xof_gnf', 8.0)
+                    'taux_xof_gnf': data.get('taux_xof_gnf', 8.0),
+                    'frais_canada_guinee': data.get('frais_canada_guinee', 3.0),
+                    'frais_canada_senegal': data.get('frais_canada_senegal', 3.0),
+                    'frais_guinee_canada': data.get('frais_guinee_canada', 3.0),
+                    'frais_guinee_senegal': data.get('frais_guinee_senegal', 3.0),
+                    'frais_senegal_canada': data.get('frais_senegal_canada', 3.0),
+                    'frais_senegal_guinee': data.get('frais_senegal_guinee', 3.0)
                 }
             except (json.JSONDecodeError, AttributeError):
                 return {
                     'taux_cad_gnf': 6700.0,
-                    'taux_xof_gnf': 8.0
+                    'taux_xof_gnf': 8.0,
+                    'frais_canada_guinee': 3.0,
+                    'frais_canada_senegal': 3.0,
+                    'frais_guinee_canada': 3.0,
+                    'frais_guinee_senegal': 3.0,
+                    'frais_senegal_canada': 3.0,
+                    'frais_senegal_guinee': 3.0
                 }
     return {
         'taux_cad_gnf': 6700.0,
-        'taux_xof_gnf': 8.0
+        'taux_xof_gnf': 8.0,
+        'frais_canada_guinee': 3.0,
+        'frais_canada_senegal': 3.0,
+        'frais_guinee_canada': 3.0,
+        'frais_guinee_senegal': 3.0,
+        'frais_senegal_canada': 3.0,
+        'frais_senegal_guinee': 3.0
     }
 
-# Sauvegarder les nouveaux taux
-def save_taux(taux_cad_gnf, taux_xof_gnf):
+# Sauvegarder les nouveaux taux et frais
+def save_taux(taux_cad_gnf, taux_xof_gnf, frais_data):
     with open(TAUX_FILE, 'w') as f:
         json.dump({
             'taux_cad_gnf': taux_cad_gnf,
-            'taux_xof_gnf': taux_xof_gnf
+            'taux_xof_gnf': taux_xof_gnf,
+            'frais_canada_guinee': frais_data.get('frais_canada_guinee', 3.0),
+            'frais_canada_senegal': frais_data.get('frais_canada_senegal', 3.0),
+            'frais_guinee_canada': frais_data.get('frais_guinee_canada', 3.0),
+            'frais_guinee_senegal': frais_data.get('frais_guinee_senegal', 3.0),
+            'frais_senegal_canada': frais_data.get('frais_senegal_canada', 3.0),
+            'frais_senegal_guinee': frais_data.get('frais_senegal_guinee', 3.0)
         }, f, indent=4)
 
 # Décorateur pour vérifier si l'utilisateur est connecté
@@ -103,6 +127,19 @@ def home():
 def get_taux():
     return jsonify(load_taux())
 
+# Route pour obtenir les frais par destination
+@app.route('/get_frais')
+def get_frais():
+    taux = load_taux()
+    return jsonify({
+        'frais_canada_guinee': taux['frais_canada_guinee'],
+        'frais_canada_senegal': taux['frais_canada_senegal'],
+        'frais_guinee_canada': taux['frais_guinee_canada'],
+        'frais_guinee_senegal': taux['frais_guinee_senegal'],
+        'frais_senegal_canada': taux['frais_senegal_canada'],
+        'frais_senegal_guinee': taux['frais_senegal_guinee']
+    })
+
 # Route pour la page de connexion
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -125,7 +162,13 @@ def admin():
     taux = load_taux()
     return render_template('admin.html', 
                          taux_cad_gnf=taux['taux_cad_gnf'],
-                         taux_xof_gnf=taux['taux_xof_gnf'])
+                         taux_xof_gnf=taux['taux_xof_gnf'],
+                         frais_canada_guinee=taux['frais_canada_guinee'],
+                         frais_canada_senegal=taux['frais_canada_senegal'],
+                         frais_guinee_canada=taux['frais_guinee_canada'],
+                         frais_guinee_senegal=taux['frais_guinee_senegal'],
+                         frais_senegal_canada=taux['frais_senegal_canada'],
+                         frais_senegal_guinee=taux['frais_senegal_guinee'])
 
 # Route pour la déconnexion
 @app.route('/logout')
@@ -140,18 +183,33 @@ def update_taux():
     if request.method == 'POST':
         try:
             nouveau_taux_cad = float(request.form['nouveau-taux-cad'])
-            nouveau_taux_xof = float(request.form['nouveau-taux-xof'])
-            if nouveau_taux_cad > 0 and nouveau_taux_xof > 0:
-                save_taux(nouveau_taux_cad, nouveau_taux_xof)
+            
+            # Charger le taux XOF actuel pour le garder inchangé
+            taux_actuel = load_taux()
+            taux_xof_actuel = taux_actuel['taux_xof_gnf']
+            
+            # Récupérer les frais
+            frais_data = {
+                'frais_canada_guinee': float(request.form.get('frais-canada-guinee', 3.0)),
+                'frais_canada_senegal': float(request.form.get('frais-canada-senegal', 3.0)),
+                'frais_guinee_canada': float(request.form.get('frais-guinee-canada', 3.0)),
+                'frais_guinee_senegal': float(request.form.get('frais-guinee-senegal', 3.0)),
+                'frais_senegal_canada': float(request.form.get('frais-senegal-canada', 3.0)),
+                'frais_senegal_guinee': float(request.form.get('frais-senegal-guinee', 3.0))
+            }
+            
+            if nouveau_taux_cad > 0:
+                save_taux(nouveau_taux_cad, taux_xof_actuel, frais_data)
                 return jsonify({
                     'success': True,
                     'new_taux_cad': nouveau_taux_cad,
-                    'new_taux_xof': nouveau_taux_xof
+                    'new_taux_xof': taux_xof_actuel,
+                    'frais_data': frais_data
                 })
             else:
                 return jsonify({
                     'success': False,
-                    'error': 'Les taux doivent être supérieurs à 0'
+                    'error': 'Le taux doit être supérieur à 0'
                 })
         except ValueError:
             return jsonify({

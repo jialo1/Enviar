@@ -6,7 +6,6 @@
     <title>À propos - Enviar</title>
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/whatsapp-buttons.css?v=1">
-    <link rel="stylesheet" href="/static/css/whatsapp-floating.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -22,8 +21,8 @@
 <body>
     <header class="header">
         <div class="header-container">
-            <a href="index.html" class="logo">
-                <img src="images/Logo1.png" alt="Enviar Logo" style="height: 40px;">
+            <a href="/" class="logo">
+                <img src="/static/images/logo-enviar.png.png" alt="Enviar Logo" style="height: 40px;">
             </a>
             <nav class="nav-menu">
                 <ul class="nav-links">
@@ -44,14 +43,6 @@
             </div>
         </div>
     </header>
-
-    <!-- Bouton WhatsApp flottant -->
-    <div class="whatsapp-floating">
-        <a href="https://wa.me/15142295522" target="_blank" title="Contactez-nous sur WhatsApp">
-            <i class="fab fa-whatsapp"></i>
-            <div class="flag"></div>
-        </a>
-    </div>
 
     <main>
         <section class="page-header">
@@ -103,41 +94,6 @@
             </div>
         </section>
 
-        <!--
-        <section class="equipe">
-            <div class="container">
-                <h2>Notre Équipe</h2>
-                <div class="equipe-grid">
-                    <div class="membre-card">
-                        <div class="membre-photo">
-                            
-                            <div class="photo-placeholder"></div>
-                        </div>
-                        <h3>Jean Dupont</h3>
-                        <p class="role">Fondateur & CEO</p>
-                        <p class="description">Plus de 15 ans d'expérience dans le secteur des transferts d'argent</p>
-                    </div>
-                    <div class="membre-card">
-                        <div class="membre-photo">
-                            <div class="photo-placeholder"></div>
-                        </div>
-                        <h3>Marie Martin</h3>
-                        <p class="role">Directrice des Opérations</p>
-                        <p class="description">Expertise en gestion des risques et conformité</p>
-                    </div>
-                    <div class="membre-card">
-                        <div class="membre-photo">
-                            <div class="photo-placeholder"></div>
-                        </div>
-                        <h3>Pierre Dubois</h3>
-                        <p class="role">Directeur Technique</p>
-                        <p class="description">Spécialiste en solutions de paiement innovantes</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        -->
-
         <section class="securite">
             <div class="container">
                 <h2 data-translate="about-security">Sécurité et Conformité</h2>
@@ -161,6 +117,13 @@
 
     {% include 'cookie-banner.html' %}
     {% include 'footer.html' %}
+
+    <!-- Bouton WhatsApp flottant -->
+    <div class="whatsapp-floating">
+        <a href="https://wa.me/15142295522" target="_blank" class="btn-whatsapp" aria-label="Contactez-nous sur WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
 
     <script src="/static/js/main.js"></script>
     <script src="/static/js/cookies.js"></script>

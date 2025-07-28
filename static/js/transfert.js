@@ -51,24 +51,24 @@ document.addEventListener('DOMContentLoaded', function() {
     // Remplir les champs de la première étape avec les montants formatés et les drapeaux
     const paysDepartDiv = document.getElementById('pays-depart-display');
     if (paysDepartDiv) {
-        paysDepartDiv.innerHTML = '';
-        const flagDepart = document.createElement('img');
-        flagDepart.src = fallbackFlags[transfertData.paysDepart];
-        flagDepart.alt = transfertData.paysDepart;
-        flagDepart.className = 'flag-icon';
-        paysDepartDiv.appendChild(flagDepart);
-        paysDepartDiv.append(' ' + (transfertData.paysDepartLabel || transfertData.paysDepart));
+    paysDepartDiv.innerHTML = '';
+    const flagDepart = document.createElement('img');
+    flagDepart.src = fallbackFlags[transfertData.paysDepart];
+    flagDepart.alt = transfertData.paysDepart;
+    flagDepart.className = 'flag-icon';
+    paysDepartDiv.appendChild(flagDepart);
+    paysDepartDiv.append(' ' + (transfertData.paysDepartLabel || transfertData.paysDepart));
     }
 
     const paysDestinationDiv = document.getElementById('pays-destination-display');
     if (paysDestinationDiv) {
-        paysDestinationDiv.innerHTML = '';
-        const flagDest = document.createElement('img');
-        flagDest.src = fallbackFlags[transfertData.paysDestination];
-        flagDest.alt = transfertData.paysDestination;
-        flagDest.className = 'flag-icon';
-        paysDestinationDiv.appendChild(flagDest);
-        paysDestinationDiv.append(' ' + (transfertData.paysDestinationLabel || transfertData.paysDestination));
+    paysDestinationDiv.innerHTML = '';
+    const flagDest = document.createElement('img');
+    flagDest.src = fallbackFlags[transfertData.paysDestination];
+    flagDest.alt = transfertData.paysDestination;
+    flagDest.className = 'flag-icon';
+    paysDestinationDiv.appendChild(flagDest);
+    paysDestinationDiv.append(' ' + (transfertData.paysDestinationLabel || transfertData.paysDestination));
     }
 
     // Remplir les montants
@@ -97,14 +97,34 @@ document.addEventListener('DOMContentLoaded', function() {
     const summaryTotal = document.getElementById('summary-total');
     if (summaryTotal) summaryTotal.textContent = formatMontant(transfertData.total, transfertData.deviseDepart);
 
+    // Fonction pour obtenir le drapeau selon le pays
+    function getFlagForCountry(pays) {
+        const flagMap = {
+            'canada': '/static/images/flags/canada.png',
+            'guinee': '/static/images/flags/guinee.png',
+            'senegal': '/static/images/flags/senegal.png',
+            'sierra-leone': '/static/images/flags/Sierraleone.jpg'
+        };
+        return flagMap[pays] || '/static/images/flags/canada.png'; // drapeau par défaut
+    }
+
+    // Fonction pour créer l'élément avec drapeau
+    function createCountryWithFlag(pays, paysLabel) {
+        const flagSrc = getFlagForCountry(pays);
+        const flagImg = `<img src="${flagSrc}" alt="${paysLabel}" class="flag-icon" style="vertical-align:middle; width: 20px; height: 15px; margin-right: 5px;">`;
+        return flagImg + (paysLabel || pays || '');
+    }
+
     // Remplir les pays et devises dans le récapitulatif
     const summaryPaysDepart = document.getElementById('summary-pays-depart');
     if (summaryPaysDepart) {
-        summaryPaysDepart.textContent = transfertData.paysDepartLabel || transfertData.paysDepart || '';
+        const paysDepartLabel = transfertData.paysDepartLabel || transfertData.paysDepart || '';
+        summaryPaysDepart.innerHTML = createCountryWithFlag(transfertData.paysDepart, paysDepartLabel);
     }
     const summaryPaysDestination = document.getElementById('summary-pays-destination');
     if (summaryPaysDestination) {
-        summaryPaysDestination.textContent = transfertData.paysDestinationLabel || transfertData.paysDestination || '';
+        const paysDestinationLabel = transfertData.paysDestinationLabel || transfertData.paysDestination || '';
+        summaryPaysDestination.innerHTML = createCountryWithFlag(transfertData.paysDestination, paysDestinationLabel);
     }
 
     // Gestion des étapes
@@ -215,9 +235,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Gestion de la soumission du formulaire
     if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault(); // Empêcher la soumission par défaut
-        });
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Empêcher la soumission par défaut
+    });
     }
 
     // Fonction pour générer le message WhatsApp lisible

@@ -1,4 +1,10 @@
 {
     "taux_cad_gnf": 6500.0,
-    "taux_xof_gnf": 15.384615384615383
+    "taux_xof_gnf": 15.384615384615383,
+    "frais_canada_guinee": 3.0,
+    "frais_canada_senegal": 3.0,
+    "frais_guinee_canada": 3.0,
+    "frais_guinee_senegal": 3.0,
+    "frais_senegal_canada": 3.0,
+    "frais_senegal_guinee": 3.0
 }

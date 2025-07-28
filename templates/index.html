@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/static/css/style.css?v=1">
     <link rel="stylesheet" href="/static/css/calculator.css">
     <link rel="stylesheet" href="/static/css/whatsapp-buttons.css?v=1">
-    <link rel="stylesheet" href="/static/css/whatsapp-floating.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -40,26 +39,11 @@
                     </select>
                 </div>
             </nav>
-            <!-- Sélecteur de langue mobile -->
-            <div class="mobile-language-selector">
-                <select class="language-selector">
-                    <option value="fr">🇫🇷 FR</option>
-                    <option value="en">🇨🇦 EN</option>
-                </select>
-            </div>
             <div class="menu-toggle">
                 <i class="fas fa-bars"></i>
             </div>
         </div>
     </header>
-
-    <!-- Bouton WhatsApp flottant -->
-    <div class="whatsapp-floating">
-        <a href="https://wa.me/15142295522" target="_blank" title="Contactez-nous sur WhatsApp">
-            <i class="fab fa-whatsapp"></i>
-            <div class="flag"></div>
-        </a>
-    </div>
 
     <main>
         <section class="hero">
@@ -73,7 +57,7 @@
                         <div class="taux-change">
                             <div data-translate="current-rates">Taux de change actuels :</div>
                             <div id="taux-change-display">
-                                <img src="/static/images/flags/canada.png" alt="Canada" class="flag-icon" style="vertical-align:middle;"> 1 CAD = <span id="taux-cad-gnf">{{ taux_cad_gnf }}</span> GNF <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon" style="vertical-align:middle;">
+                                <img src="/static/images/flags/canada.png" alt="Canada" class="flag-icon" style="vertical-align:middle;"> 1 CAD = <span id="taux-cad-gnf">{{ "%.0f"|format(taux_cad_gnf) }}</span> GNF <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon" style="vertical-align:middle;">
                             </div>
                         </div>
                         <form id="calculator-form">
@@ -88,7 +72,7 @@
                                             <img src="/static/images/flags/canada.png" alt="Canada" class="flag-icon"> Canada
                                         </div>
                                         <div class="option" data-value="guinee">
-                                            <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> Guinée Conakry
+                                            <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> Guinée
                                         </div>
                                         <div class="option" data-value="senegal">
                                             <img src="/static/images/flags/senegal.png" alt="Sénégal" class="flag-icon"> Sénégal
@@ -106,11 +90,11 @@
                                 <label for="pays-destination" data-translate="receive-country">Pays de réception</label>
                                 <div class="custom-select" id="custom-pays-destination">
                                     <div class="selected-option" data-value="guinee">
-                                        <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> Guinée Conakry
+                                        <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> Guinée
                                     </div>
                                     <div class="options-list">
                                         <div class="option" data-value="guinee">
-                                            <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> Guinée Conakry
+                                            <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> Guinée
                                         </div>
                                         <div class="option" data-value="senegal">
                                             <img src="/static/images/flags/senegal.png" alt="Sénégal" class="flag-icon"> Sénégal
@@ -278,22 +262,19 @@
         <!-- Section Pays desservis -->
         <section class="pays-desservis">
             <div class="container">
-                <h2 data-translate="served-countries">Pays desservis</h2>
+                <h2 data-translate="served-countries">Principaux pays</h2>
                 <div class="pays-grid">
                     <div class="pays-card">
-                        <h3 data-translate="sending-from">Envoi depuis :</h3>
-                        <ul>
-                            <li><img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> <span data-translate="guinea">Guinée</span></li>
-                            <li><img src="/static/images/flags/canada.png" alt="Canada" class="flag-icon"> <span data-translate="canada">Canada</span></li>
-                            <li><img src="/static/images/flags/senegal.png" alt="Sénégal" class="flag-icon"> <span data-translate="senegal">Sénégal</span></li>
-                        </ul>
+                        <img src="/static/images/flags/canada.png" alt="Canada" class="flag-icon"> <span data-translate="canada">Canada</span>
                     </div>
                     <div class="pays-card">
-                        <h3 data-translate="receiving-in">Réception en :</h3>
-                        <ul>
-                            <li><img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> <span data-translate="guinea">Guinée Conakry</span></li>
-                            <li><img src="/static/images/flags/senegal.png" alt="Sénégal" class="flag-icon"> <span data-translate="senegal">Sénégal</span></li>
-                        </ul>
+                        <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> <span data-translate="guinea">Guinée</span>
+                    </div>
+                    <div class="pays-card">
+                        <img src="/static/images/flags/senegal.png" alt="Sénégal" class="flag-icon"> <span data-translate="senegal">Sénégal</span>
+                    </div>
+                    <div class="pays-card">
+                        <img src="/static/images/flags/Sierraleone.jpg" alt="Sierra Leone" class="flag-icon"> <span data-translate="sierra-leone">Sierra Leone</span>
                     </div>
                 </div>
             </div>
@@ -322,6 +303,13 @@
 
     {% include 'cookie-banner.html' %}
     {% include 'footer.html' %}
+
+    <!-- Bouton WhatsApp flottant -->
+    <div class="whatsapp-floating">
+        <a href="https://wa.me/15142295522" target="_blank" class="btn-whatsapp" aria-label="Contactez-nous sur WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
 
     <script src="/static/js/translator.js"></script>
     <script src="/static/js/calculator.js"></script>

@@ -16,10 +16,20 @@ function updateDevise() {
 
 // Fonction pour formater les montants
 function formatMontant(montant, devise) {
-    return new Intl.NumberFormat('fr-FR', {
+    let options = {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
-    }).format(montant) + ' ' + devise;
+    };
+    
+    // Pour le franc guinéen, pas de décimales
+    if (devise === 'GNF') {
+        options = {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        };
+    }
+    
+    return new Intl.NumberFormat('fr-FR', options).format(montant) + ' ' + devise;
 }
 
 // Fonction pour calculer le transfert
@@ -27,18 +37,41 @@ async function calculerTransfert(event) {
     event.preventDefault();
     
     const paysDepart = document.getElementById('pays-depart').value;
+    const paysDestination = document.getElementById('pays-destination').value;
     const montant = parseFloat(document.getElementById('montant').value);
 
-    // Charger les taux depuis le backend
-    let tauxCadGnf, tauxXofGnf;
+    // Charger les taux et frais depuis le backend
+    let tauxCadGnf, tauxXofGnf, frais;
     try {
-        const response = await fetch('/get_taux');
-        const taux = await response.json();
+        const [tauxResponse, fraisResponse] = await Promise.all([
+            fetch('/get_taux'),
+            fetch('/get_frais')
+        ]);
+        const taux = await tauxResponse.json();
+        const fraisData = await fraisResponse.json();
+        
         tauxCadGnf = taux.taux_cad_gnf;
         tauxXofGnf = taux.taux_xof_gnf;
+        
+        // Déterminer les frais selon la destination
+        if (paysDepart === 'canada' && paysDestination === 'guinee') {
+            frais = fraisData.frais_canada_guinee / 100;
+        } else if (paysDepart === 'canada' && paysDestination === 'senegal') {
+            frais = fraisData.frais_canada_senegal / 100;
+        } else if (paysDepart === 'guinee' && paysDestination === 'canada') {
+            frais = fraisData.frais_guinee_canada / 100;
+        } else if (paysDepart === 'guinee' && paysDestination === 'senegal') {
+            frais = fraisData.frais_guinee_senegal / 100;
+        } else if (paysDepart === 'senegal' && paysDestination === 'canada') {
+            frais = fraisData.frais_senegal_canada / 100;
+        } else if (paysDepart === 'senegal' && paysDestination === 'guinee') {
+            frais = fraisData.frais_senegal_guinee / 100;
+        } else {
+            frais = 0.03; // Frais par défaut si combinaison non prévue
+        }
     } catch (error) {
-        console.error('Erreur lors du chargement des taux :', error);
-        alert("Impossible de charger les taux de change. Veuillez réessayer.");
+        console.error('Erreur lors du chargement des taux et frais :', error);
+        alert("Impossible de charger les taux et frais. Veuillez réessayer.");
         return;
     }
     
@@ -47,51 +80,74 @@ async function calculerTransfert(event) {
         return;
     }
     
-    // Calculer les frais (3% du montant)
-    const frais = montant * 0.03;
-    const totalPayer = montant + frais;
+    // Calculer les frais selon le taux spécifique
+    const fraisMontant = montant * frais;
+    const totalPayer = montant + fraisMontant;
     
-    // Calculer le montant à recevoir selon le pays de départ
+    // Calculer le montant à recevoir selon les pays de départ et destination
     let montantRecu;
     let deviseDepart, deviseDestination, tauxAffiche;
 
-    if (paysDepart === 'canada') {
-        const paysDestination = document.getElementById('pays-destination').value;
-        if (paysDestination === 'guinee') {
-            montantRecu = montant * tauxCadGnf;
-            deviseDepart = 'CAD';
-            deviseDestination = 'GNF';
-            tauxAffiche = `1 CAD = ${tauxCadGnf.toFixed(4)} GNF`;
-        } else if (paysDestination === 'senegal') {
-            // CAD -> XOF (via GNF)
-            const gnfAmount = montant * tauxCadGnf;
-            montantRecu = gnfAmount / tauxXofGnf;
-            deviseDepart = 'CAD';
-            deviseDestination = 'XOF';
-            const tauxCadXof = tauxCadGnf / tauxXofGnf;
-            tauxAffiche = `1 CAD = ${tauxCadXof.toFixed(4)} XOF`;
-        }
-    } else if (paysDepart === 'guinee') {
-        // GNF -> XOF (vers le Sénégal)
-        montantRecu = montant / tauxXofGnf;
-        deviseDepart = 'GNF';
-        deviseDestination = 'XOF';
+    // Définir les devises pour chaque pays
+    const devises = {
+        'canada': 'CAD',
+        'guinee': 'GNF', 
+        'senegal': 'XOF'
+    };
+
+    deviseDepart = devises[paysDepart];
+    deviseDestination = devises[paysDestination];
+
+    // Calculer selon toutes les combinaisons possibles
+    if (paysDepart === 'canada' && paysDestination === 'guinee') {
+        // Le montant saisi est le montant à envoyer (après frais)
+        // Il faut calculer le montant avant frais pour la conversion
+        const montantAvantFrais = montant / (1 + frais);
+        montantRecu = montantAvantFrais * tauxCadGnf;
+        tauxAffiche = `1 CAD = ${Math.round(tauxCadGnf)} GNF`;
+    } else if (paysDepart === 'canada' && paysDestination === 'senegal') {
+        // CAD -> XOF (via GNF)
+        const montantAvantFrais = montant / (1 + frais);
+        const gnfAmount = montantAvantFrais * tauxCadGnf;
+        montantRecu = gnfAmount / tauxXofGnf;
+        const tauxCadXof = tauxCadGnf / tauxXofGnf;
+        tauxAffiche = `1 CAD = ${tauxCadXof.toFixed(4)} XOF`;
+    } else if (paysDepart === 'guinee' && paysDestination === 'canada') {
+        // GNF -> CAD
+        const montantAvantFrais = montant / (1 + frais);
+        montantRecu = montantAvantFrais / tauxCadGnf;
+        tauxAffiche = `1 GNF = ${(1/tauxCadGnf).toFixed(6)} CAD`;
+    } else if (paysDepart === 'guinee' && paysDestination === 'senegal') {
+        // GNF -> XOF
+        const montantAvantFrais = montant / (1 + frais);
+        montantRecu = montantAvantFrais / tauxXofGnf;
         tauxAffiche = `1 XOF = ${tauxXofGnf.toFixed(2)} GNF`;
-    } else if (paysDepart === 'senegal') {
-        // XOF -> GNF (vers la Guinée)
-        montantRecu = montant * tauxXofGnf;
-        deviseDepart = 'XOF';
-        deviseDestination = 'GNF';
-        tauxAffiche = `1 XOF = ${tauxXofGnf.toFixed(2)} GNF`;
+    } else if (paysDepart === 'senegal' && paysDestination === 'canada') {
+        // XOF -> CAD (via GNF)
+        const montantAvantFrais = montant / (1 + frais);
+        const gnfAmount = montantAvantFrais * tauxXofGnf;
+        montantRecu = gnfAmount / tauxCadGnf;
+        const tauxXofCad = tauxXofGnf / tauxCadGnf;
+        tauxAffiche = `1 XOF = ${tauxXofCad.toFixed(6)} CAD`;
+    } else if (paysDepart === 'senegal' && paysDestination === 'guinee') {
+        // XOF -> GNF
+        const montantAvantFrais = montant / (1 + frais);
+        montantRecu = montantAvantFrais * tauxXofGnf;
+        tauxAffiche = `1 XOF = ${Math.round(tauxXofGnf)} GNF`;
+    } else if (paysDepart === paysDestination) {
+        // Même pays - pas de conversion
+        montantRecu = montant;
+        tauxAffiche = `Aucune conversion nécessaire`;
     } else {
-        alert("La combinaison de pays n'est pas supportée.");
-        return;
+        // Combinaison non prévue - utiliser une conversion générique
+        montantRecu = montant;
+        tauxAffiche = `Taux non disponible pour cette combinaison`;
     }
     
     // Afficher les résultats dans la modal
     document.getElementById('taux-jour').textContent = tauxAffiche;
     document.getElementById('montant-envoyer').textContent = formatMontant(montant, deviseDepart);
-    document.getElementById('frais').textContent = formatMontant(frais, deviseDepart);
+    document.getElementById('frais').textContent = formatMontant(fraisMontant, deviseDepart);
     document.getElementById('total-payer').textContent = formatMontant(totalPayer, deviseDepart);
     document.getElementById('montant-recu').textContent = formatMontant(montantRecu, deviseDestination);
     
@@ -124,7 +180,7 @@ function showContactForm() {
     // Déduire les noms et devises
     const paysLabels = {
         'canada': 'Canada (CAD)',
-        'guinee': 'Guinée Conakry (GNF)',
+        'guinee': 'Guinée (GNF)',
         'senegal': 'Sénégal (XOF)'
     };
     const deviseLabels = {

@@ -164,8 +164,9 @@ class Translator {
                 'avantage-support-desc': 'Notre équipe est disponible 24h/24 pour vous accompagner',
                 'process-title': 'Comment ça marche ?',
                 'canada': 'Canada',
-                'guinea': 'Guinée Conakry',
+                'guinea': 'Guinée',
                 'senegal': 'Sénégal',
+                'sierra-leone': 'Sierra Leone',
                 'france': 'France',
                 'usa': 'États-Unis',
                 'mali': 'Mali',
@@ -190,13 +191,13 @@ class Translator {
                 'continue-whatsapp': 'Continuer sur WhatsApp',
                 
                 // Formulaires d'administration
-                'admin-title': 'Exchange Rate Administration',
-                'cad-gnf-rate': 'CAD to GNF Exchange Rate',
-                'gnf-xof-rate': 'GNF to XOF Exchange Rate',
-                'success-update': 'Rates have been updated successfully!',
-                'new-cad-rate': 'New rate (1 CAD = ? GNF)',
-                'new-xof-rate': 'New rate (1 GNF = ? XOF)',
-                'update-rates': 'Update rates',
+                'admin-title': 'Administration des Taux de Change',
+                'cad-gnf-rate': 'Taux de Change CAD vers GNF',
+                'gnf-xof-rate': 'Taux de Change GNF vers XOF',
+                'success-update': 'Les taux ont été mis à jour avec succès !',
+                'new-cad-rate': 'Nouveau taux (1 CAD = ? GNF)',
+                'new-xof-rate': 'Nouveau taux (1 GNF = ? XOF)',
+                'update-rates': 'Mettre à jour les taux',
                 
                 // Formulaire de connexion
                 'admin-login': 'Administration Login',
@@ -364,8 +365,9 @@ class Translator {
                 'avantage-support-desc': 'Our team is available 24/7 to assist you',
                 'process-title': 'How does it work?',
                 'canada': 'Canada',
-                'guinea': 'Guinea Conakry',
+                'guinea': 'Guinée',
                 'senegal': 'Senegal',
+                'sierra-leone': 'Sierra Leone',
                 'france': 'France',
                 'usa': 'United States',
                 'mali': 'Mali',
@@ -393,7 +395,7 @@ class Translator {
                 'transfer-confirmation-title': 'Confirm Your Transfer',
                 
                 // Formulaires d'administration
-                'admin-title': 'Admin Panel - Exchange Rates',
+                'admin-title': 'Exchange Rate Administration',
                 'cad-gnf-rate': 'CAD to GNF Exchange Rate',
                 'gnf-xof-rate': 'GNF to XOF Exchange Rate',
                 'success-update': 'Rates have been updated successfully!',

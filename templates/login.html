@@ -82,6 +82,31 @@
     </style>
 </head>
 <body>
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="/images/Logo1.png" alt="Enviar Logo" style="height: 40px;">
+            </a>
+            <nav class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="/" data-translate="nav-home">Accueil</a></li>
+                    <li><a href="/fonctionnement" data-translate="nav-how-it-works">Fonctionnement</a></li>
+                    <li><a href="/a-propos" data-translate="nav-about">À propos</a></li>
+                    <li><a href="/contact" data-translate="nav-contact">Contact</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <select class="language-selector">
+                        <option value="fr">🇫🇷 FR</option>
+                        <option value="en">🇨🇦 EN</option>
+                    </select>
+                </div>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
     <div class="login-container">
         <h1 data-translate="admin-login">Connexion Administration</h1>
         <div class="error-message">{% if error %}{{ error }}{% endif %}</div>
@@ -99,5 +124,7 @@
     </div>
     
     <script src="/static/js/translator.js"></script>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/cookies.js"></script>
 </body>
 </html> 

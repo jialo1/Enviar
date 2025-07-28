@@ -45,14 +45,6 @@
         </div>
     </header>
 
-    <!-- Bouton WhatsApp flottant -->
-    <div class="whatsapp-floating">
-        <a href="https://wa.me/15142295522" target="_blank" title="Contactez-nous sur WhatsApp">
-            <i class="fab fa-whatsapp"></i>
-            <div class="flag"></div>
-        </a>
-    </div>
-
     <main>
         <section class="page-header">
             <div class="container">
@@ -82,23 +74,19 @@
         </section>
 
         <section class="pays-desservis">
-            <h2 data-translate="served-countries">Pays desservis</h2>
+            <h2 data-translate="served-countries">Principaux pays</h2>
             <div class="pays-grid">
                 <div class="pays-card">
-                    <h3 data-translate="sending-from">Envoi depuis :</h3>
-                    <ul>
-                        <li><img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> <span data-translate="guinea">Guinée</span></li>
-                        <li><img src="/static/images/flags/canada.png" alt="Canada" class="flag-icon"> <span data-translate="canada">Canada</span></li>
-                        <li><img src="/static/images/flags/senegal.png" alt="Sénégal" class="flag-icon"> <span data-translate="senegal">Sénégal</span></li>
-                    </ul>
+                    <img src="/static/images/flags/canada.png" alt="Canada" class="flag-icon"> <span data-translate="canada">Canada</span>
                 </div>
                 <div class="pays-card">
-                    <h3 data-translate="receiving-in">Réception en :</h3>
-                    <ul>
-                        <li><img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> <span data-translate="guinea">Guinée</span></li>
-                        <li><img src="/static/images/flags/canada.png" alt="Canada" class="flag-icon"> <span data-translate="canada">Canada</span></li>
-                        <li><img src="/static/images/flags/senegal.png" alt="Sénégal" class="flag-icon"> <span data-translate="senegal">Sénégal</span></li>
-                    </ul>
+                    <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> <span data-translate="guinea">Guinée</span>
+                </div>
+                <div class="pays-card">
+                    <img src="/static/images/flags/senegal.png" alt="Sénégal" class="flag-icon"> <span data-translate="senegal">Sénégal</span>
+                </div>
+                <div class="pays-card">
+                    <img src="/static/images/flags/Sierraleone.jpg" alt="Sierra Leone" class="flag-icon"> <span data-translate="sierra-leone">Sierra Leone</span>
                 </div>
             </div>
         </section>
@@ -124,6 +112,13 @@
 
     {% include 'cookie-banner.html' %}
     {% include 'footer.html' %}
+
+    <!-- Bouton WhatsApp flottant -->
+    <div class="whatsapp-floating">
+        <a href="https://wa.me/15142295522" target="_blank" class="btn-whatsapp" aria-label="Contactez-nous sur WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
 
     <script src="/static/js/main.js"></script>
     <script src="/static/js/cookies.js"></script>

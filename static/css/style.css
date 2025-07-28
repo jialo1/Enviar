@@ -227,7 +227,8 @@ a.logo:hover::after {
     }
 
     .nav-buttons {
-        display: none; /* Cache les nav-buttons dans le menu hamburger */
+        display: flex; /* Garde les nav-buttons visibles */
+        gap: 0.5rem;
     }
 
     /* Nouveau sélecteur de langue pour mobile */
@@ -330,11 +331,26 @@ main {
         display: block;
     }
 
+    /* Bouton de traduction visible en permanence sur mobile */
     .nav-buttons {
-        margin-top: 2rem;
-        width: 100%;
-        display: flex;
-        justify-content: center;
+        position: fixed;
+        top: 30px;
+        right: 80px;
+        z-index: 1001;
+        margin: 0;
+        width: auto;
+        display: flex !important;
+        justify-content: flex-end;
+    }
+
+    .language-selector {
+        padding: 6px 12px;
+        font-size: 11px;
+        min-width: 70px;
+        border-radius: 15px;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
 
     .btn-whatsapp {
@@ -382,13 +398,15 @@ main {
         flex-direction: column !important;
         gap: 1.5rem !important;
         max-width: 100% !important;
+        align-items: center !important;
     }
+
     .step {
         max-width: none !important;
         width: 100% !important;
         margin: 0 !important;
-        text-align: left !important;
-        align-items: flex-start !important;
+        text-align: center !important;
+        align-items: center !important;
         padding: 1rem 0.5rem !important;
     }
     .step-number {
@@ -933,16 +951,17 @@ main {
 .step-number {
     width: 40px;
     height: 40px;
-    background-color: var(--primary-color);
-    color: var(--light-color);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
     font-weight: bold;
-    margin: 0 auto 1rem;
-    box-shadow: 0 4px 10px rgba(0, 168, 89, 0.2);
+    font-size: 1.3rem;
+    margin: 0 auto 0.5rem auto;
+    background-color: #00A859;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0,168,89,0.08);
+    transition: background 0.3s, color 0.3s;
 }
 
 .step h3 {
@@ -977,12 +996,44 @@ main {
     margin: 0 auto;
 }
 
+@media (min-width: 768px) {
+    .pays-grid {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 1000px;
+    }
+}
+
 .pays-card {
     background: white;
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pays-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.pays-card .flag-icon {
+    width: 40px;
+    height: 30px;
+    object-fit: contain;
+    border-radius: 5px;
+    border: 1px solid #eee;
+}
+
+.pays-card span {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
 }
 
 .pays-card h3 {
@@ -1233,7 +1284,7 @@ tr:hover {
     margin: 0;
     font-size: 2.5rem;
     font-weight: 700;
-    color: #2c3e50;
+    color: #00A859;
     text-align: left !important;
 }
 
@@ -1264,7 +1315,7 @@ tr:hover {
 .pourquoi-nous-choisir h2 {
     text-align: center;
     margin-bottom: 3rem;
-    color: #2c3e50;
+    color: #00A859;
     font-size: 2.5rem;
     font-weight: 700;
 }
@@ -1294,6 +1345,14 @@ tr:hover {
     background-color: #f9f9f9;
 }
 
+.mission-valeurs h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #00A859;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
 .valeurs-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1310,7 +1369,7 @@ tr:hover {
 }
 
 .valeur-card h3 {
-    color: #2c3e50;
+    color: #00A859;
     margin-bottom: 1rem;
 }
 
@@ -1322,6 +1381,14 @@ tr:hover {
 .equipe {
     padding: 4rem 0;
     background-color: #fff;
+}
+
+.equipe h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #00A859;
+    font-size: 2.5rem;
+    font-weight: 700;
 }
 
 .equipe-grid {
@@ -1353,7 +1420,7 @@ tr:hover {
 }
 
 .membre-card h3 {
-    color: #2c3e50;
+    color: #00A859;
     margin-bottom: 0.5rem;
 }
 
@@ -1373,6 +1440,14 @@ tr:hover {
     background-color: #f9f9f9;
 }
 
+.securite h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #00A859;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
 .securite-content {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1388,7 +1463,7 @@ tr:hover {
 }
 
 .securite-item h3 {
-    color: #2c3e50;
+    color: #00A859;
     margin-bottom: 1rem;
 }
 
@@ -1921,6 +1996,19 @@ a {
     .pourquoi-nous-choisir h2 {
         font-size: 1.8rem;
         margin-bottom: 2rem;
+        color: #00A859;
+    }
+
+    .mission-valeurs h2 {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+        color: #00A859;
+    }
+
+    .securite h2 {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+        color: #00A859;
     }
 
     .pourquoi-content {
@@ -1944,9 +2032,28 @@ a {
         padding: 1.5rem;
     }
 
+    .valeur-card h3,
+    .securite-item h3 {
+        color: #00A859;
+    }
+
     .histoire-content p {
         font-size: 1rem;
         line-height: 1.6;
+        padding: 0 1rem;
+    }
+
+    /* Amélioration des sections À propos sur mobile */
+    .histoire,
+    .pourquoi-nous-choisir,
+    .mission-valeurs,
+    .securite {
+        padding: 2rem 0;
+    }
+
+    .histoire-content,
+    .pourquoi-content {
+        max-width: 100%;
         padding: 0 1rem;
     }
 
@@ -1967,14 +2074,15 @@ a {
         flex-direction: column !important;
         gap: 1.5rem !important;
         max-width: 100% !important;
+        align-items: center !important;
     }
 
     .step {
         max-width: none !important;
         width: 100% !important;
         margin: 0 !important;
-        text-align: left !important;
-        align-items: flex-start !important;
+        text-align: center !important;
+        align-items: center !important;
         padding: 1rem 0.5rem !important;
     }
     .step-number {
@@ -2062,6 +2170,19 @@ a {
     .pourquoi-nous-choisir h2 {
         font-size: 1.6rem;
         margin-bottom: 1.5rem;
+        color: #00A859;
+    }
+
+    .mission-valeurs h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1.5rem;
+        color: #00A859;
+    }
+
+    .securite h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1.5rem;
+        color: #00A859;
     }
 
     .pourquoi-content p {
@@ -2071,6 +2192,11 @@ a {
     .valeur-card,
     .securite-item {
         padding: 1rem;
+    }
+
+    .valeur-card h3,
+    .securite-item h3 {
+        color: #00A859;
     }
 
     .histoire-content p {
@@ -2598,20 +2724,7 @@ a {
     z-index: 999;
 }
 
-.contact-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-   
-    height: 50px;
-    border-radius: 50%;
-    background-color: var(--primary-color);
-    color: white;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    position: relative;
-}
+
 
 .contact-button:hover {
     transform: translateY(-3px);
@@ -2697,7 +2810,8 @@ a {
     }
 
     .nav-buttons {
-        display: none; /* Cache les nav-buttons dans le menu hamburger */
+        display: flex; /* Garde les nav-buttons visibles */
+        gap: 0.5rem;
     }
 
     /* Nouveau sélecteur de langue pour mobile */
@@ -2824,17 +2938,19 @@ a {
   font-weight: bold;
   font-size: 1.3rem;
   margin: 0 auto 0.5rem auto;
+  background-color: #00A859;
+  color: #fff;
   box-shadow: 0 2px 8px rgba(0,168,89,0.08);
   transition: background 0.3s, color 0.3s;
 }
 .step.active .step-number {
-  background: var(--primary-color);
+  background: #00A859;
   color: #fff;
   box-shadow: 0 4px 16px rgba(0,168,89,0.15);
 }
 .step.completed .step-number {
-  background: #e0e0e0;
-  color: #888;
+  background: #00A859;
+  color: #fff;
   text-decoration: line-through;
 }
 .step .step-label {
@@ -2848,8 +2964,8 @@ a {
   text-decoration: line-through;
 }
 .step:not(.active):not(.completed) .step-number {
-  background: #f3f3f3;
-  color: #bbb;
+  background: #00A859;
+  color: #fff;
 }
 .step:not(.active):not(.completed) .step-label {
   color: #bbb;
@@ -2936,4 +3052,81 @@ input#beneficiaire-indicatif:focus {
 input#beneficiaire-indicatif.error {
   border-color: #e74c3c !important;
   background: #fff0f0;
+}
+
+/* Responsive styles for side-by-side sections */
+@media screen and (max-width: 768px) {
+    .side-by-side-section .container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .side-by-side-section h2 {
+        flex-basis: auto;
+        font-size: 2rem;
+        text-align: center !important;
+        margin-bottom: 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .side-by-side-section h2 {
+        font-size: 1.8rem;
+    }
+}
+
+.histoire-content p {
+    font-size: 0.95rem;
+    padding: 0 0.5rem;
+}
+
+/* Amélioration des sections À propos sur très petit écran */
+.histoire,
+.pourquoi-nous-choisir,
+.mission-valeurs,
+.securite {
+    padding: 1.5rem 0;
+}
+
+.histoire-content,
+.pourquoi-content {
+    padding: 0 0.5rem;
+}
+
+/* Forcer l'affichage du bouton de traduction */
+.nav-buttons {
+    display: flex !important;
+    gap: 1rem;
+}
+
+.language-selector {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+@media screen and (max-width: 480px) {
+    .language-selector {
+        padding: 5px 10px;
+        font-size: 10px;
+        min-width: 65px;
+        border-radius: 12px;
+    }
+
+    .language-selector:hover {
+        transform: translateY(-1px) scale(1.01);
+    }
+
+    /* Ajustement pour très petit écran */
+    .nav-buttons {
+        top: 25px;
+        right: 70px;
+    }
+
+    .mobile-language-selector .language-selector {
+        padding: 4px 8px;
+        font-size: 9px;
+        min-width: 60px;
+        border-radius: 10px;
+    }
 }
