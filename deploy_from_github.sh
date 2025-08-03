@@ -33,7 +33,7 @@ log_error() {
 
 # Variables
 APP_DIR="/opt/enviar"
-GITHUB_REPO="https://github.com/VOTRE_USERNAME/enviar.git"
+GITHUB_REPO="https://github.com/jialo1/Enviar.git"
 BACKUP_DIR="/opt/enviar_backup_$(date +%Y%m%d_%H%M%S)"
 
 # Vérifier si on est root
