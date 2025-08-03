@@ -42,6 +42,20 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
+# Vérifier les prérequis
+log_info "Vérification des prérequis..."
+if ! command -v python3 &> /dev/null; then
+    log_error "Python3 n'est pas installé"
+    exit 1
+fi
+
+if ! command -v git &> /dev/null; then
+    log_error "Git n'est pas installé"
+    exit 1
+fi
+
+log_success "Prérequis vérifiés"
+
 log_info "Arrêt des services..."
 systemctl stop enviar.service 2>/dev/null || true
 
@@ -74,7 +88,20 @@ chmod +x $APP_DIR/*.sh
 
 log_info "Installation des dépendances..."
 cd $APP_DIR
+
+# Vérifier si l'environnement virtuel existe
+if [ ! -d "venv" ]; then
+    log_info "Création de l'environnement virtuel..."
+    python3 -m venv venv
+    log_success "Environnement virtuel créé"
+fi
+
+# Activer l'environnement virtuel
+log_info "Activation de l'environnement virtuel..."
 source venv/bin/activate
+
+# Installer les dépendances
+log_info "Installation des packages Python..."
 pip install -r requirements.txt
 
 log_info "Redémarrage des services..."
