@@ -1,0 +1,15 @@
+[Unit]
+Description=Enviar Flask Application
+After=network.target
+
+[Service]
+Type=exec
+User=root
+WorkingDirectory=/opt/enviar
+Environment=PATH=/opt/enviar/venv/bin
+ExecStart=/opt/enviar/venv/bin/gunicorn -c gunicorn.conf.py wsgi:app
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target 

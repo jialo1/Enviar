@@ -1,0 +1,18 @@
+[Unit]
+Description=Enviar Service Monitor
+After=network.target enviar.service
+Wants=enviar.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/enviar
+Environment=PATH=/opt/enviar/venv/bin
+ExecStart=/opt/enviar/venv/bin/python /opt/enviar/monitor_service.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target 

@@ -16,7 +16,7 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 # Configuration de sécurité
 app.secret_key = secrets.token_hex(32)
-app.config['SESSION_COOKIE_SECURE'] = False  # Désactivé pour le débogage
+app.config['SESSION_COOKIE_SECURE'] = False  # Désactivé pour HTTP
 app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
@@ -302,7 +302,7 @@ def set_cookie_consent():
                 COOKIE_CONSENT_NAME,
                 'accepted',
                 max_age=COOKIE_CONSENT_MAX_AGE,
-                secure=True,
+                secure=False,  # Désactivé pour HTTP
                 httponly=False,  # Permettre à JavaScript de lire le cookie
                 samesite='Lax'
             )
@@ -311,7 +311,7 @@ def set_cookie_consent():
                 COOKIE_CONSENT_NAME,
                 'rejected',
                 max_age=COOKIE_CONSENT_MAX_AGE,
-                secure=True,
+                secure=False,  # Désactivé pour HTTP
                 httponly=False,  # Permettre à JavaScript de lire le cookie
                 samesite='Lax'
             )

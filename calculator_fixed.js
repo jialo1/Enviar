@@ -1,17 +1,15 @@
 // Fonction pour mettre à jour la devise affichée
 function updateDevise() {
     const paysDepart = document.getElementById('pays-depart').value;
-    const deviseMontant = document.getElementById('devise-montant');
+    const deviseSpan = document.getElementById('devise-montant');
     
-    if (paysDepart === 'guinee') {
-        deviseMontant.textContent = 'GNF';
-    } else if (paysDepart === 'senegal') {
-        deviseMontant.textContent = 'XOF';
-    } else if (paysDepart === 'canada') {
-        deviseMontant.textContent = 'CAD';
-    } else {
-        deviseMontant.textContent = '';
-    }
+    const devises = {
+        'canada': 'CAD',
+        'guinee': 'GNF',
+        'senegal': 'XOF'
+    };
+    
+    deviseSpan.textContent = devises[paysDepart] || '';
 }
 
 // Fonction pour formater les montants
@@ -171,131 +169,72 @@ function showContactForm() {
     const frais = document.getElementById('frais').textContent.replace(/\s+/g, '');
     const total = document.getElementById('total-payer').textContent.replace(/\s+/g, '');
 
-    // Déduire les noms et devises
-    const paysLabels = {
-        'canada': 'Canada (CAD)',
-        'guinee': 'Guinée (GNF)',
-        'senegal': 'Sénégal (XOF)'
-    };
-    const deviseLabels = {
-        'canada': 'CAD',
-        'guinee': 'GNF',
-        'senegal': 'XOF'
-    };
+    // Pré-remplir le formulaire de contact
+    document.getElementById('contact-pays-depart').value = paysDepart;
+    document.getElementById('contact-pays-destination').value = paysDestination;
+    document.getElementById('contact-montant').value = montant;
+    document.getElementById('contact-montant-recu').value = montantRecu;
+    document.getElementById('contact-frais').value = frais;
+    document.getElementById('contact-total').value = total;
 
-    const paysDepartLabel = paysLabels[paysDepart] || paysDepart;
-    const paysDestinationLabel = paysLabels[paysDestination] || paysDestination;
-    const deviseDepart = deviseLabels[paysDepart] || '';
-    const deviseDestination = deviseLabels[paysDestination] || '';
-
-    // Construire l'URL avec les paramètres
-    const params = new URLSearchParams({
-        paysDepart: paysDepart,
-        paysDepartLabel: paysDepartLabel,
-        paysDestination: paysDestination,
-        paysDestinationLabel: paysDestinationLabel,
-        montant: montant,
-        montantRecu: montantRecu,
-        frais: frais,
-        total: total,
-        deviseDepart: deviseDepart,
-        deviseDestination: deviseDestination
-    });
-
-    // Rediriger vers la page de transfert
-    window.location.href = `/transfert?${params.toString()}`;
+    // Fermer la modal de résultat et ouvrir le formulaire de contact
+    closeModal();
+    
+    // Afficher le formulaire de contact
+    const contactForm = document.getElementById('contact-form-container');
+    contactForm.style.display = 'block';
+    
+    // Faire défiler vers le formulaire
+    contactForm.scrollIntoView({ behavior: 'smooth' });
 }
 
 // Fonction pour envoyer le formulaire de contact
-function envoyerFormulaire(event) {
+async function envoyerFormulaire(event) {
     event.preventDefault();
     
-    // Récupérer les valeurs du formulaire
-    const nom = document.getElementById('nom').value;
-    const telephone = document.getElementById('telephone').value;
-    const email = document.getElementById('email').value;
-    const beneficiaireNom = document.getElementById('beneficiaire-nom').value;
-    const beneficiaireTelephone = document.getElementById('beneficiaire-telephone').value;
-    const beneficiaireAdresse = document.getElementById('beneficiaire-adresse').value;
-    const message = document.getElementById('message').value;
+    const formData = new FormData(event.target);
     
-    // Construire le message WhatsApp
-    const messageWhatsApp = `Bonjour, je souhaite effectuer un transfert d'argent.%0A%0A` +
-        `Mes informations :%0A` +
-        `- Nom : ${nom}%0A` +
-        `- Téléphone : ${telephone}%0A` +
-        `- Email : ${email}%0A%0A` +
-        `Informations du bénéficiaire :%0A` +
-        `- Nom : ${beneficiaireNom}%0A` +
-        `- Téléphone : ${beneficiaireTelephone}%0A` +
-        `- Adresse : ${beneficiaireAdresse}%0A%0A` +
-        `Détails du transfert :%0A` +
-        `- Montant à envoyer : ${document.getElementById('montant-envoyer').textContent}%0A` +
-        `- Frais : ${document.getElementById('frais').textContent}%0A` +
-        `- Total à payer : ${document.getElementById('total-payer').textContent}%0A` +
-        `- Montant à recevoir : ${document.getElementById('montant-recu').textContent}%0A%0A` +
-        `Message : ${message}`;
-    
-    // Mettre à jour le lien WhatsApp
-    const whatsappLink = document.getElementById('whatsapp-link');
-    whatsappLink.href = `https://wa.me/15142295522?text=${encodeURIComponent(messageWhatsApp)}`;
-    
-    // Afficher le bouton WhatsApp
-    document.getElementById('contact-form-container').style.display = 'none';
-    document.getElementById('whatsapp-button-container').style.display = 'block';
-}
-
-// Ajouter les écouteurs d'événements
-document.addEventListener('DOMContentLoaded', function() {
-    
-    const calculatorForm = document.getElementById('calculator-form');
-    if (calculatorForm) {
-        calculatorForm.addEventListener('submit', function(event) {
-            calculerTransfert(event).catch(err => {
-                console.error("Erreur dans le calcul du transfert :", err);
-                alert("Une erreur est survenue. Veuillez réessayer.");
-            });
-        });
-    }
-
-    const contactForm = document.getElementById('contact-form');
-    const paysDepartSelect = document.getElementById('custom-pays-depart');
-    const closeModalBtn = document.querySelector('.close-modal');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', envoyerFormulaire);
-    }
-
-    if (paysDepartSelect) {
-        // Utiliser un MutationObserver pour détecter les changements d'attributs
-        const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                if (mutation.type === "attributes" && mutation.attributeName === "data-value") {
-            updateDevise();
-                }
-            });
-        });
-
-        observer.observe(paysDepartSelect.querySelector('.selected-option'), {
-            attributes: true // écouter les changements d'attributs
+    try {
+        const response = await fetch('/submit-transfer', {
+            method: 'POST',
+            body: formData
         });
         
-        // Appeler updateDevise au chargement pour initialiser la devise
-        updateDevise();
-    } else {
-        console.error('Élément custom-pays-depart non trouvé');
+        if (response.ok) {
+            alert('Votre demande a été envoyée avec succès ! Nous vous contacterons bientôt.');
+            event.target.reset();
+            document.getElementById('contact-form-container').style.display = 'none';
+        } else {
+            alert('Erreur lors de l\'envoi du formulaire. Veuillez réessayer.');
+        }
+    } catch (error) {
+        console.error('Erreur:', error);
+        alert('Erreur lors de l\'envoi du formulaire. Veuillez réessayer.');
     }
+}
 
-    // Gestionnaire pour fermer la modal
-    if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', closeModal);
-    }
-
-    // Fermer la modal si on clique en dehors
+// Initialisation
+document.addEventListener('DOMContentLoaded', function() {
+    // Mettre à jour la devise au chargement
+    updateDevise();
+    
+    // Écouter les changements de pays de départ
+    document.getElementById('pays-depart').addEventListener('change', updateDevise);
+    
+    // Écouter la soumission du formulaire de calcul
+    document.getElementById('calculator-form').addEventListener('submit', calculerTransfert);
+    
+    // Écouter la soumission du formulaire de contact
+    document.getElementById('contact-form').addEventListener('submit', envoyerFormulaire);
+    
+    // Fermer la modal en cliquant sur le bouton de fermeture
+    document.querySelector('.close-modal').addEventListener('click', closeModal);
+    
+    // Fermer la modal en cliquant en dehors
     window.addEventListener('click', function(event) {
         const modal = document.getElementById('resultat-modal');
         if (event.target === modal) {
             closeModal();
         }
     });
-});
+}); 
