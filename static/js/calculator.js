@@ -207,42 +207,28 @@ function showContactForm() {
 }
 
 // Fonction pour envoyer le formulaire de contact
-function envoyerFormulaire(event) {
+async function envoyerFormulaire(event) {
     event.preventDefault();
     
-    // Récupérer les valeurs du formulaire
-    const nom = document.getElementById('nom').value;
-    const telephone = document.getElementById('telephone').value;
-    const email = document.getElementById('email').value;
-    const beneficiaireNom = document.getElementById('beneficiaire-nom').value;
-    const beneficiaireTelephone = document.getElementById('beneficiaire-telephone').value;
-    const beneficiaireAdresse = document.getElementById('beneficiaire-adresse').value;
-    const message = document.getElementById('message').value;
+    const formData = new FormData(event.target);
     
-    // Construire le message WhatsApp
-    const messageWhatsApp = `Bonjour, je souhaite effectuer un transfert d'argent.%0A%0A` +
-        `Mes informations :%0A` +
-        `- Nom : ${nom}%0A` +
-        `- Téléphone : ${telephone}%0A` +
-        `- Email : ${email}%0A%0A` +
-        `Informations du bénéficiaire :%0A` +
-        `- Nom : ${beneficiaireNom}%0A` +
-        `- Téléphone : ${beneficiaireTelephone}%0A` +
-        `- Adresse : ${beneficiaireAdresse}%0A%0A` +
-        `Détails du transfert :%0A` +
-        `- Montant à envoyer : ${document.getElementById('montant-envoyer').textContent}%0A` +
-        `- Frais : ${document.getElementById('frais').textContent}%0A` +
-        `- Total à payer : ${document.getElementById('total-payer').textContent}%0A` +
-        `- Montant à recevoir : ${document.getElementById('montant-recu').textContent}%0A%0A` +
-        `Message : ${message}`;
-    
-    // Mettre à jour le lien WhatsApp
-    const whatsappLink = document.getElementById('whatsapp-link');
-    whatsappLink.href = `https://wa.me/15142295522?text=${encodeURIComponent(messageWhatsApp)}`;
-    
-    // Afficher le bouton WhatsApp
-    document.getElementById('contact-form-container').style.display = 'none';
-    document.getElementById('whatsapp-button-container').style.display = 'block';
+    try {
+        const response = await fetch('/submit-transfer', {
+            method: 'POST',
+            body: formData
+        });
+        
+        if (response.ok) {
+            alert('Votre demande a été envoyée avec succès ! Nous vous contacterons bientôt.');
+            event.target.reset();
+            document.getElementById('contact-form-container').style.display = 'none';
+        } else {
+            alert('Erreur lors de l\'envoi du formulaire. Veuillez réessayer.');
+        }
+    } catch (error) {
+        console.error('Erreur:', error);
+        alert('Erreur lors de l\'envoi du formulaire. Veuillez réessayer.');
+    }
 }
 
 // Ajouter les écouteurs d'événements
@@ -259,14 +245,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const contactForm = document.getElementById('contact-form');
-    const paysDepartSelect = document.getElementById('custom-pays-depart');
+    const customPaysDepartSelect = document.getElementById('custom-pays-depart');
     const closeModalBtn = document.querySelector('.close-modal');
     
     if (contactForm) {
         contactForm.addEventListener('submit', envoyerFormulaire);
     }
 
-    if (paysDepartSelect) {
+    if (customPaysDepartSelect) {
         // Utiliser un MutationObserver pour détecter les changements d'attributs
         const observer = new MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
@@ -276,7 +262,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        observer.observe(paysDepartSelect.querySelector('.selected-option'), {
+        observer.observe(customPaysDepartSelect.querySelector('.selected-option'), {
             attributes: true // écouter les changements d'attributs
         });
         
@@ -298,4 +284,13 @@ document.addEventListener('DOMContentLoaded', function() {
             closeModal();
         }
     });
+
+    // Mettre à jour la devise au chargement
+    updateDevise();
+    
+    // Écouter les changements de pays de départ
+    const paysDepartSelect = document.getElementById('pays-depart');
+    if (paysDepartSelect) {
+        paysDepartSelect.addEventListener('change', updateDevise);
+    }
 });

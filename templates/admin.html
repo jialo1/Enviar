@@ -96,8 +96,11 @@
             min-height: 1.2em;
             padding: 1rem;
             background-color: #e8f8f5;
-            border-radius: 5px;
+            border: 2px solid #27ae60;
+            border-radius: 8px;
             display: none;
+            font-weight: 500;
+            box-shadow: 0 2px 10px rgba(39, 174, 96, 0.1);
         }
 
         .btn-whatsapp:hover {
@@ -292,10 +295,6 @@
                 </div>
             </div>
 
-            <div id="successMessage" class="success-message" data-translate="success-update">
-                Les taux ont été mis à jour avec succès !
-            </div>
-
             <form id="taux-form" method="POST" action="/update_taux">
                 <h3 style="margin-bottom: 1rem; color: #333;">Taux de change</h3>
                 <div class="form-group">
@@ -330,6 +329,7 @@
                 </div>
                 
                 <div id="errorMessage" class="error-message"></div>
+                <div id="successMessage" class="success-message">✅ Taux et frais mis à jour avec succès !</div>
                 <button type="submit" data-translate="update-rates">Mettre à jour les taux et frais</button>
             </form>
         </section>
@@ -399,14 +399,18 @@
                             document.getElementById('frais-senegal-guinee-actuel').textContent = data.frais_data.frais_senegal_guinee + '%';
                         }
                         
-                        // Afficher le message de succès
+                        // Afficher le message de succès avec les détails
+                        successMessage.innerHTML = `✅ Mise à jour réussie !<br>
+                            <strong>Nouveau taux CAD/GNF :</strong> ${Math.round(data.new_taux_cad)} GNF<br>
+                            <strong>Nouveau taux XOF/GNF :</strong> ${(1 / data.new_taux_xof).toFixed(5)} GNF<br>
+                            <strong>Frais mis à jour :</strong> Tous les frais ont été modifiés`;
                         successMessage.style.display = 'block';
                         errorMessage.textContent = '';
                         
-                        // Cacher le message après 3 secondes
+                        // Cacher le message après 5 secondes
                         setTimeout(() => {
                             successMessage.style.display = 'none';
-                        }, 3000);
+                        }, 5000);
                     } else {
                         errorMessage.textContent = data.error || 'Une erreur est survenue';
                     }
