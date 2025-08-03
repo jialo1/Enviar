@@ -217,6 +217,120 @@ def update_taux():
                 'error': 'Valeur invalide'
             })
 
+@app.route('/update_taux_simple', methods=['POST'])
+@login_required
+def update_taux_simple():
+    if request.method == 'POST':
+        try:
+            destination = request.form['destination']
+            nouveau_taux = float(request.form['nouveau-taux'])
+            
+            if nouveau_taux <= 0:
+                return jsonify({
+                    'success': False,
+                    'error': 'Le taux doit être supérieur à 0'
+                })
+            
+            # Charger les taux actuels
+            taux_actuel = load_taux()
+            
+            if destination == 'canada-guinee':
+                # Mettre à jour le taux CAD/GNF
+                save_taux(nouveau_taux, taux_actuel['taux_xof_gnf'], {
+                    'frais_canada_guinee': taux_actuel['frais_canada_guinee'],
+                    'frais_canada_senegal': taux_actuel['frais_canada_senegal'],
+                    'frais_guinee_canada': taux_actuel['frais_guinee_canada'],
+                    'frais_guinee_senegal': taux_actuel['frais_guinee_senegal'],
+                    'frais_senegal_canada': taux_actuel['frais_senegal_canada'],
+                    'frais_senegal_guinee': taux_actuel['frais_senegal_guinee']
+                })
+            elif destination == 'senegal-guinee':
+                # Mettre à jour le taux XOF/GNF (inversé)
+                save_taux(taux_actuel['taux_cad_gnf'], 1/nouveau_taux, {
+                    'frais_canada_guinee': taux_actuel['frais_canada_guinee'],
+                    'frais_canada_senegal': taux_actuel['frais_canada_senegal'],
+                    'frais_guinee_canada': taux_actuel['frais_guinee_canada'],
+                    'frais_guinee_senegal': taux_actuel['frais_guinee_senegal'],
+                    'frais_senegal_canada': taux_actuel['frais_senegal_canada'],
+                    'frais_senegal_guinee': taux_actuel['frais_senegal_guinee']
+                })
+            else:
+                return jsonify({
+                    'success': False,
+                    'error': 'Destination invalide'
+                })
+            
+            return jsonify({
+                'success': True,
+                'message': f'Taux mis à jour pour {destination}'
+            })
+            
+        except ValueError:
+            return jsonify({
+                'success': False,
+                'error': 'Valeur invalide'
+            })
+
+@app.route('/update_frais_simple', methods=['POST'])
+@login_required
+def update_frais_simple():
+    if request.method == 'POST':
+        try:
+            destination = request.form['destination']
+            nouveau_frais = float(request.form['nouveau-frais'])
+            
+            if nouveau_frais < 0 or nouveau_frais > 100:
+                return jsonify({
+                    'success': False,
+                    'error': 'Le pourcentage doit être entre 0 et 100'
+                })
+            
+            # Charger les taux actuels
+            taux_actuel = load_taux()
+            
+            # Créer un dictionnaire avec tous les frais actuels
+            frais_data = {
+                'frais_canada_guinee': taux_actuel['frais_canada_guinee'],
+                'frais_canada_senegal': taux_actuel['frais_canada_senegal'],
+                'frais_guinee_canada': taux_actuel['frais_guinee_canada'],
+                'frais_guinee_senegal': taux_actuel['frais_guinee_senegal'],
+                'frais_senegal_canada': taux_actuel['frais_senegal_canada'],
+                'frais_senegal_guinee': taux_actuel['frais_senegal_guinee']
+            }
+            
+            # Mettre à jour le frais spécifique
+            if destination == 'canada-guinee':
+                frais_data['frais_canada_guinee'] = nouveau_frais
+            elif destination == 'canada-senegal':
+                frais_data['frais_canada_senegal'] = nouveau_frais
+            elif destination == 'guinee-canada':
+                frais_data['frais_guinee_canada'] = nouveau_frais
+            elif destination == 'guinee-senegal':
+                frais_data['frais_guinee_senegal'] = nouveau_frais
+            elif destination == 'senegal-canada':
+                frais_data['frais_senegal_canada'] = nouveau_frais
+            elif destination == 'senegal-guinee':
+                frais_data['frais_senegal_guinee'] = nouveau_frais
+            else:
+                return jsonify({
+                    'success': False,
+                    'error': 'Destination invalide'
+                })
+            
+            # Sauvegarder avec les nouveaux frais
+            save_taux(taux_actuel['taux_cad_gnf'], taux_actuel['taux_xof_gnf'], frais_data)
+            
+            return jsonify({
+                'success': True,
+                'message': f'Frais mis à jour pour {destination}'
+            })
+            
+        except ValueError:
+            return jsonify({
+                'success': False,
+                'error': 'Valeur invalide'
+            })
+
 # Route pour servir les images
 @app.route('/images/<path:filename>')
 def serve_images(filename):

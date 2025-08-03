@@ -30,14 +30,28 @@
             margin-bottom: 2rem;
         }
 
-        .taux-actuel {
+        .current-rates-container {
+            display: flex;
+            gap: 2rem;
             margin-bottom: 2rem;
+        }
+
+        .taux-actuel {
+            flex: 1;
             padding: 1.5rem;
             background-color: var(--primary-light);
             color: var(--light-color);
             border-radius: 8px;
             font-size: 1.1rem;
             text-align: center;
+        }
+
+        .frais-actuel {
+            flex: 1;
+            padding: 1.5rem;
+            background-color: #e8f5e8;
+            border-radius: 8px;
+            color: #2c5e2c;
         }
 
         .taux-actuel span {
@@ -101,6 +115,47 @@
             display: none;
             font-weight: 500;
             box-shadow: 0 2px 10px rgba(39, 174, 96, 0.1);
+        }
+
+        .update-sections-container {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .update-section {
+            flex: 1;
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: white;
+        }
+
+        .update-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            padding: 0.8rem 1.5rem;
+            width: auto;
+            display: inline-block;
+        }
+
+        .update-btn:hover {
+            background-color: var(--primary-dark);
         }
 
         .btn-whatsapp:hover {
@@ -218,6 +273,13 @@
             .btn-logout i {
                 font-size: 0.9rem;
             }
+
+            /* Responsive pour les sections en colonnes */
+            .current-rates-container,
+            .update-sections-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
         }
         
         @media screen and (max-width: 480px) {
@@ -271,156 +333,232 @@
         <section class="admin-container">
             <h1 data-translate="admin-title">Administration des Taux de Change</h1>
             
-            <div class="taux-actuel">
-                <div class="taux-item">
-                    <h3 data-translate="cad-gnf-rate">Taux de Change CAD vers GNF</h3>
-                    <p>1 CAD = <span id="taux-cad-gnf">{{ "%.0f"|format(taux_cad_gnf) }}</span> GNF</p>
+            <div class="current-rates-container">
+                <!-- Section des taux actuels (GAUCHE) -->
+                <div class="taux-actuel">
+                    <div class="taux-item">
+                        <h3 data-translate="cad-gnf-rate">Taux de Change CAD vers GNF</h3>
+                        <p>1 CAD = <span id="taux-cad-gnf">{{ "%.0f"|format(taux_cad_gnf) }}</span> GNF</p>
+                    </div>
+                    <div class="taux-item" style="margin-top: 1rem;">
+                        <h3 data-translate="gnf-xof-rate">Taux de Change GNF vers XOF</h3>
+                        <p>1 GNF = <span id="taux-xof-gnf">{{ "%.5f"|format(1/taux_xof_gnf) }}</span> XOF</p>
+                    </div>
                 </div>
-                <div class="taux-item" style="margin-top: 1rem;">
-                    <h3 data-translate="gnf-xof-rate">Taux de Change GNF vers XOF</h3>
-                    <p>1 GNF = <span id="taux-xof-gnf">{{ "%.5f"|format(1/taux_xof_gnf) }}</span> XOF</p>
+
+                <!-- Section des frais actuels (DROITE) -->
+                <div class="frais-actuel">
+                    <h3 style="color: #2c5e2c; margin-bottom: 1rem;">Frais de transfert actuels</h3>
+                    <div class="frais-item">
+                        <p><strong>Canada → Guinée :</strong> <span id="frais-canada-guinee-actuel">{{ frais_canada_guinee }}%</span></p>
+                        <p><strong>Canada → Sénégal :</strong> <span id="frais-canada-senegal-actuel">{{ frais_canada_senegal }}%</span></p>
+                        <p><strong>Guinée → Canada :</strong> <span id="frais-guinee-canada-actuel">{{ frais_guinee_canada }}%</span></p>
+                        <p><strong>Guinée → Sénégal :</strong> <span id="frais-guinee-senegal-actuel">{{ frais_guinee_senegal }}%</span></p>
+                        <p><strong>Sénégal → Canada :</strong> <span id="frais-senegal-canada-actuel">{{ frais_senegal_canada }}%</span></p>
+                        <p><strong>Sénégal → Guinée :</strong> <span id="frais-senegal-guinee-actuel">{{ frais_senegal_guinee }}%</span></p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Section des frais actuels -->
-            <div class="frais-actuel" style="margin-top: 2rem; padding: 1.5rem; background-color: #e8f5e8; border-radius: 8px;">
-                <h3 style="color: #2c5e2c; margin-bottom: 1rem;">Frais de transfert actuels</h3>
-                <div class="frais-item">
-                    <p><strong>Canada → Guinée :</strong> <span id="frais-canada-guinee-actuel">{{ frais_canada_guinee }}%</span></p>
-                    <p><strong>Canada → Sénégal :</strong> <span id="frais-canada-senegal-actuel">{{ frais_canada_senegal }}%</span></p>
-                    <p><strong>Guinée → Canada :</strong> <span id="frais-guinee-canada-actuel">{{ frais_guinee_canada }}%</span></p>
-                    <p><strong>Guinée → Sénégal :</strong> <span id="frais-guinee-senegal-actuel">{{ frais_guinee_senegal }}%</span></p>
-                    <p><strong>Sénégal → Canada :</strong> <span id="frais-senegal-canada-actuel">{{ frais_senegal_canada }}%</span></p>
-                    <p><strong>Sénégal → Guinée :</strong> <span id="frais-senegal-guinee-actuel">{{ frais_senegal_guinee }}%</span></p>
+            <div class="update-sections-container">
+                <!-- Section Taux de change (GAUCHE) -->
+                <div class="update-section">
+                    <h3 style="margin-bottom: 1rem; color: #333;">Taux de change</h3>
+                    <div class="form-group">
+                        <label for="taux-destination">Destination</label>
+                        <select id="taux-destination" class="form-select">
+                            <option value="canada-guinee">Canada → Guinée</option>
+                            <option value="senegal-guinee">Sénégal → Guinée</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="nouveau-taux">Nouveau taux</label>
+                        <input type="number" id="nouveau-taux" step="0.01" min="0" placeholder="Entrez le nouveau taux">
+                    </div>
+                    <button type="button" onclick="updateTaux()" class="update-btn">Mettre à jour le taux</button>
+                </div>
+
+                <!-- Section Frais de transfert (DROITE) -->
+                <div class="update-section">
+                    <h3 style="margin-bottom: 1rem; color: #333;">Frais de transfert</h3>
+                    <div class="form-group">
+                        <label for="frais-destination">Destination</label>
+                        <select id="frais-destination" class="form-select">
+                            <option value="canada-guinee">Canada → Guinée</option>
+                            <option value="canada-senegal">Canada → Sénégal</option>
+                            <option value="guinee-canada">Guinée → Canada</option>
+                            <option value="guinee-senegal">Guinée → Sénégal</option>
+                            <option value="senegal-canada">Sénégal → Canada</option>
+                            <option value="senegal-guinee">Sénégal → Guinée</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="nouveau-frais">Nouveau pourcentage (%)</label>
+                        <input type="number" id="nouveau-frais" step="0.1" min="0" max="100" placeholder="Entrez le nouveau pourcentage">
+                    </div>
+                    <button type="button" onclick="updateFrais()" class="update-btn">Mettre à jour les frais</button>
                 </div>
             </div>
 
-            <form id="taux-form" method="POST" action="/update_taux">
-                <h3 style="margin-bottom: 1rem; color: #333;">Taux de change</h3>
-                <div class="form-group">
-                    <label for="nouveau-taux-cad" data-translate="new-cad-rate">Nouveau taux (1 CAD = ? GNF)</label>
-                    <input type="number" id="nouveau-taux-cad" name="nouveau-taux-cad" step="0.01" required>
-                </div>
-                
-                <h3 style="margin: 2rem 0 1rem 0; color: #333;">Frais de transfert par destination</h3>
-                <div class="form-group">
-                    <label for="frais-canada-guinee">Frais Canada → Guinée (%)</label>
-                    <input type="number" id="frais-canada-guinee" name="frais-canada-guinee" step="0.1" min="0" max="100" value="{{ frais_canada_guinee }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="frais-canada-senegal">Frais Canada → Sénégal (%)</label>
-                    <input type="number" id="frais-canada-senegal" name="frais-canada-senegal" step="0.1" min="0" max="100" value="{{ frais_canada_senegal }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="frais-guinee-canada">Frais Guinée → Canada (%)</label>
-                    <input type="number" id="frais-guinee-canada" name="frais-guinee-canada" step="0.1" min="0" max="100" value="{{ frais_guinee_canada }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="frais-guinee-senegal">Frais Guinée → Sénégal (%)</label>
-                    <input type="number" id="frais-guinee-senegal" name="frais-guinee-senegal" step="0.1" min="0" max="100" value="{{ frais_guinee_senegal }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="frais-senegal-canada">Frais Sénégal → Canada (%)</label>
-                    <input type="number" id="frais-senegal-canada" name="frais-senegal-canada" step="0.1" min="0" max="100" value="{{ frais_senegal_canada }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="frais-senegal-guinee">Frais Sénégal → Guinée (%)</label>
-                    <input type="number" id="frais-senegal-guinee" name="frais-senegal-guinee" step="0.1" min="0" max="100" value="{{ frais_senegal_guinee }}" required>
-                </div>
-                
-                <div id="errorMessage" class="error-message"></div>
-                <div id="successMessage" class="success-message">✅ Taux et frais mis à jour avec succès !</div>
-                <button type="submit" data-translate="update-rates">Mettre à jour les taux et frais</button>
-            </form>
+            <div id="errorMessage" class="error-message"></div>
+            <div id="successMessage" class="success-message">✅ Mise à jour réussie !</div>
         </section>
     </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('taux-form');
             const errorMessage = document.getElementById('errorMessage');
             const successMessage = document.getElementById('successMessage');
 
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const nouveauTauxCad = parseFloat(document.getElementById('nouveau-taux-cad').value);
-                
-                // Récupérer les frais
-                const fraisData = {
-                    'frais-canada-guinee': parseFloat(document.getElementById('frais-canada-guinee').value),
-                    'frais-canada-senegal': parseFloat(document.getElementById('frais-canada-senegal').value),
-                    'frais-guinee-canada': parseFloat(document.getElementById('frais-guinee-canada').value),
-                    'frais-guinee-senegal': parseFloat(document.getElementById('frais-guinee-senegal').value),
-                    'frais-senegal-canada': parseFloat(document.getElementById('frais-senegal-canada').value),
-                    'frais-senegal-guinee': parseFloat(document.getElementById('frais-senegal-guinee').value)
-                };
-                
-                if (isNaN(nouveauTauxCad) || nouveauTauxCad <= 0) {
-                    errorMessage.textContent = 'Veuillez entrer un taux valide (supérieur à 0)';
-                    return;
-                }
-
-                // Vérifier que tous les frais sont valides
-                for (let key in fraisData) {
-                    if (isNaN(fraisData[key]) || fraisData[key] < 0 || fraisData[key] > 100) {
-                        errorMessage.textContent = 'Veuillez entrer des frais valides (entre 0 et 100%)';
-                        return;
-                    }
-                }
-
-                const formData = new FormData();
-                formData.append('nouveau-taux-cad', nouveauTauxCad);
-                
-                // Ajouter les frais au formData
-                for (let key in fraisData) {
-                    formData.append(key, fraisData[key]);
-                }
-
-                fetch('/update_taux', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Mettre à jour l'affichage des taux
-                        document.getElementById('taux-cad-gnf').textContent = Math.round(data.new_taux_cad);
-                        // Convertir le taux XOF/GNF en GNF/XOF pour l'affichage
-                        document.getElementById('taux-xof-gnf').textContent = (1 / data.new_taux_xof).toFixed(5);
-                        
-                        // Mettre à jour l'affichage des frais
-                        if (data.frais_data) {
-                            document.getElementById('frais-canada-guinee-actuel').textContent = data.frais_data.frais_canada_guinee + '%';
-                            document.getElementById('frais-canada-senegal-actuel').textContent = data.frais_data.frais_canada_senegal + '%';
-                            document.getElementById('frais-guinee-canada-actuel').textContent = data.frais_data.frais_guinee_canada + '%';
-                            document.getElementById('frais-guinee-senegal-actuel').textContent = data.frais_data.frais_guinee_senegal + '%';
-                            document.getElementById('frais-senegal-canada-actuel').textContent = data.frais_data.frais_senegal_canada + '%';
-                            document.getElementById('frais-senegal-guinee-actuel').textContent = data.frais_data.frais_senegal_guinee + '%';
-                        }
-                        
-                        // Afficher le message de succès avec les détails
-                        successMessage.innerHTML = `✅ Mise à jour réussie !<br>
-                            <strong>Nouveau taux CAD/GNF :</strong> ${Math.round(data.new_taux_cad)} GNF<br>
-                            <strong>Nouveau taux XOF/GNF :</strong> ${(1 / data.new_taux_xof).toFixed(5)} GNF<br>
-                            <strong>Frais mis à jour :</strong> Tous les frais ont été modifiés`;
-                        successMessage.style.display = 'block';
-                        errorMessage.textContent = '';
-                        
-                        // Cacher le message après 5 secondes
-                        setTimeout(() => {
-                            successMessage.style.display = 'none';
-                        }, 5000);
-                    } else {
-                        errorMessage.textContent = data.error || 'Une erreur est survenue';
-                    }
-                })
-                .catch(error => {
-                    errorMessage.textContent = 'Une erreur est survenue lors de la mise à jour';
-                    console.error('Erreur:', error);
-                });
-            });
+            // Charger les valeurs actuelles dans les champs
+            loadCurrentValues();
         });
+
+        // Fonction pour charger les valeurs actuelles
+        function loadCurrentValues() {
+            // Charger les taux et frais actuels selon la destination sélectionnée
+            updateTauxPlaceholder();
+            updateFraisPlaceholder();
+        }
+
+        // Fonction pour mettre à jour le placeholder des taux
+        function updateTauxPlaceholder() {
+            const destination = document.getElementById('taux-destination').value;
+            const tauxActuels = {
+                'canada-guinee': '{{ "%.0f"|format(taux_cad_gnf) }}',
+                'senegal-guinee': '{{ "%.5f"|format(1/taux_xof_gnf) }}'
+            };
+            
+            const labels = {
+                'canada-guinee': 'GNF',
+                'senegal-guinee': 'XOF'
+            };
+            
+            document.getElementById('nouveau-taux').placeholder = `Taux actuel: ${tauxActuels[destination]} ${labels[destination]}`;
+        }
+
+        // Fonction pour mettre à jour le placeholder des frais
+        function updateFraisPlaceholder() {
+            const destination = document.getElementById('frais-destination').value;
+            const fraisActuels = {
+                'canada-guinee': '{{ frais_canada_guinee }}',
+                'canada-senegal': '{{ frais_canada_senegal }}',
+                'guinee-canada': '{{ frais_guinee_canada }}',
+                'guinee-senegal': '{{ frais_guinee_senegal }}',
+                'senegal-canada': '{{ frais_senegal_canada }}',
+                'senegal-guinee': '{{ frais_senegal_guinee }}'
+            };
+            
+            document.getElementById('nouveau-frais').placeholder = `Frais actuel: ${fraisActuels[destination]}%`;
+        }
+
+        // Fonction pour mettre à jour un taux
+        function updateTaux() {
+            const destination = document.getElementById('taux-destination').value;
+            const nouveauTaux = parseFloat(document.getElementById('nouveau-taux').value);
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+
+            if (isNaN(nouveauTaux) || nouveauTaux <= 0) {
+                errorMessage.textContent = 'Veuillez entrer un taux valide (supérieur à 0)';
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('destination', destination);
+            formData.append('nouveau-taux', nouveauTaux);
+
+            fetch('/update_taux_simple', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Mettre à jour l'affichage
+                    const destinationLabels = {
+                        'canada-guinee': 'Canada → Guinée',
+                        'senegal-guinee': 'Sénégal → Guinée'
+                    };
+                    
+                    if (destination === 'canada-guinee') {
+                        document.getElementById('taux-cad-gnf').textContent = Math.round(nouveauTaux);
+                    } else if (destination === 'senegal-guinee') {
+                        document.getElementById('taux-xof-gnf').textContent = nouveauTaux.toFixed(5);
+                    }
+                    
+                    successMessage.innerHTML = `✅ Taux mis à jour avec succès !<br>
+                        <strong>${destinationLabels[destination]} :</strong> ${nouveauTaux}`;
+                    successMessage.style.display = 'block';
+                    errorMessage.textContent = '';
+                    
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                } else {
+                    errorMessage.textContent = data.error || 'Une erreur est survenue';
+                }
+            })
+            .catch(error => {
+                errorMessage.textContent = 'Une erreur est survenue lors de la mise à jour';
+                console.error('Erreur:', error);
+            });
+        }
+
+        // Fonction pour mettre à jour les frais
+        function updateFrais() {
+            const destination = document.getElementById('frais-destination').value;
+            const nouveauFrais = parseFloat(document.getElementById('nouveau-frais').value);
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+
+            if (isNaN(nouveauFrais) || nouveauFrais < 0 || nouveauFrais > 100) {
+                errorMessage.textContent = 'Veuillez entrer un pourcentage valide (entre 0 et 100%)';
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('destination', destination);
+            formData.append('nouveau-frais', nouveauFrais);
+
+            fetch('/update_frais_simple', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Mettre à jour l'affichage
+                    const destinationLabels = {
+                        'canada-guinee': 'Canada → Guinée',
+                        'canada-senegal': 'Canada → Sénégal',
+                        'guinee-canada': 'Guinée → Canada',
+                        'guinee-senegal': 'Guinée → Sénégal',
+                        'senegal-canada': 'Sénégal → Canada',
+                        'senegal-guinee': 'Sénégal → Guinée'
+                    };
+                    
+                    successMessage.innerHTML = `✅ Frais mis à jour avec succès !<br>
+                        <strong>${destinationLabels[destination]} :</strong> ${nouveauFrais}%`;
+                    successMessage.style.display = 'block';
+                    errorMessage.textContent = '';
+                    
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                } else {
+                    errorMessage.textContent = data.error || 'Une erreur est survenue';
+                }
+            })
+            .catch(error => {
+                errorMessage.textContent = 'Une erreur est survenue lors de la mise à jour';
+                console.error('Erreur:', error);
+            });
+        }
+
+        // Écouter les changements de destination pour les taux et frais
+        document.getElementById('taux-destination').addEventListener('change', updateTauxPlaceholder);
+        document.getElementById('frais-destination').addEventListener('change', updateFraisPlaceholder);
 
         // Fonction pour afficher le popup de déconnexion
         function showLogoutPopup() {
