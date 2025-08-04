@@ -137,6 +137,65 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Fonction pour remplir les informations du récapitulatif
+    function fillSummaryInfo() {
+        // Informations du destinataire
+        const summaryNom = document.getElementById('summary-nom');
+        const summaryPrenom = document.getElementById('summary-prenom');
+        const summaryTelephone = document.getElementById('summary-telephone');
+        const summaryEmail = document.getElementById('summary-email');
+        
+        if (summaryNom) {
+            const nom = document.getElementById('nom')?.value || '';
+            summaryNom.textContent = nom || 'Non renseigné';
+        }
+        
+        if (summaryPrenom) {
+            const prenom = document.getElementById('prenom')?.value || '';
+            summaryPrenom.textContent = prenom || 'Non renseigné';
+        }
+        
+        if (summaryTelephone) {
+            const indicatif = document.getElementById('indicatif')?.value || '';
+            const telephone = document.getElementById('telephone')?.value || '';
+            const fullPhone = indicatif && telephone ? `${indicatif} ${telephone}` : '';
+            summaryTelephone.textContent = fullPhone || 'Non renseigné';
+        }
+        
+        if (summaryEmail) {
+            const email = document.getElementById('email')?.value || '';
+            summaryEmail.textContent = email || 'Non renseigné';
+        }
+        
+        // Informations du bénéficiaire
+        const summaryBeneficiaireNom = document.getElementById('summary-beneficiaire-nom');
+        const summaryBeneficiairePrenom = document.getElementById('summary-beneficiaire-prenom');
+        const summaryBeneficiaireTelephone = document.getElementById('summary-beneficiaire-telephone');
+        const summaryBeneficiaireAdresse = document.getElementById('summary-beneficiaire-adresse');
+        
+        if (summaryBeneficiaireNom) {
+            const beneficiaireNom = document.getElementById('beneficiaire-nom')?.value || '';
+            summaryBeneficiaireNom.textContent = beneficiaireNom || 'Non renseigné';
+        }
+        
+        if (summaryBeneficiairePrenom) {
+            const beneficiairePrenom = document.getElementById('beneficiaire-prenom')?.value || '';
+            summaryBeneficiairePrenom.textContent = beneficiairePrenom || 'Non renseigné';
+        }
+        
+        if (summaryBeneficiaireTelephone) {
+            const beneficiaireIndicatif = document.getElementById('beneficiaire-indicatif')?.value || '';
+            const beneficiaireTelephone = document.getElementById('beneficiaire-telephone')?.value || '';
+            const fullBeneficiairePhone = beneficiaireIndicatif && beneficiaireTelephone ? `${beneficiaireIndicatif} ${beneficiaireTelephone}` : '';
+            summaryBeneficiaireTelephone.textContent = fullBeneficiairePhone || 'Non renseigné';
+        }
+        
+        if (summaryBeneficiaireAdresse) {
+            const beneficiaireAdresse = document.getElementById('beneficiaire-adresse')?.value || '';
+            summaryBeneficiaireAdresse.textContent = beneficiaireAdresse || 'Non renseigné';
+        }
+    }
+
     // Fonction pour obtenir le drapeau selon le pays
     function getFlagForCountry(pays) {
         const flagMap = {
@@ -189,6 +248,13 @@ document.addEventListener('DOMContentLoaded', function() {
             currentStepElement.style.display = 'block';
         } else {
             console.error('Étape non trouvée:', stepNumber);
+        }
+        
+        // Si on arrive à l'étape 3 (récapitulatif), remplir les informations
+        if (stepNumber === 3) {
+            fillSummaryInfo();
+            // Mettre à jour l'aperçu WhatsApp après avoir rempli les informations
+            setTimeout(updateWhatsAppPreview, 100);
         }
 
         // Mettre à jour la barre de progression
@@ -243,12 +309,70 @@ document.addEventListener('DOMContentLoaded', function() {
         const requiredInputs = currentStepElement.querySelectorAll('input[required]');
         let isValid = true;
 
+        // Fonction de validation pour les noms (lettres, espaces, tirets, apostrophes)
+        function validateName(name) {
+            return /^[a-zA-ZÀ-ÿ\s\-']+$/.test(name.trim());
+        }
+
+        // Fonction de validation pour les numéros de téléphone (chiffres uniquement)
+        function validatePhone(phone) {
+            return /^[0-9\s\-\(\)]+$/.test(phone.trim()) && phone.trim().length >= 6;
+        }
+
+        // Fonction de validation pour les emails
+        function validateEmail(email) {
+            if (!email.trim()) return true; // Email optionnel
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+        }
+
         requiredInputs.forEach(input => {
-            if (!input.value.trim()) {
+            const value = input.value.trim();
+            let fieldValid = true;
+            let errorMessage = '';
+
+            // Vérifier si le champ est vide
+            if (!value) {
+                fieldValid = false;
+                errorMessage = 'Ce champ est obligatoire';
+            } else {
+                // Validation spécifique selon le type de champ
+                switch (input.id) {
+                    case 'nom':
+                    case 'prenom':
+                    case 'beneficiaire-nom':
+                    case 'beneficiaire-prenom':
+                        if (!validateName(value)) {
+                            fieldValid = false;
+                            errorMessage = 'Ce champ ne doit contenir que des lettres';
+                        }
+                        break;
+                    
+                    case 'telephone':
+                    case 'beneficiaire-telephone':
+                        if (!validatePhone(value)) {
+                            fieldValid = false;
+                            errorMessage = 'Ce champ ne doit contenir que des chiffres';
+                        }
+                        break;
+                    
+                    case 'email':
+                        if (!validateEmail(value)) {
+                            fieldValid = false;
+                            errorMessage = 'Veuillez entrer une adresse email valide';
+                        }
+                        break;
+                }
+            }
+
+            // Appliquer les styles d'erreur
+            if (!fieldValid) {
                 isValid = false;
                 input.classList.add('error');
+                // Afficher le message d'erreur
+                showFieldError(input, errorMessage);
             } else {
                 input.classList.remove('error');
+                hideFieldError(input);
             }
         });
         
@@ -273,6 +397,27 @@ document.addEventListener('DOMContentLoaded', function() {
         return isValid;
     }
 
+    // Fonction pour afficher les messages d'erreur
+    function showFieldError(input, message) {
+        // Supprimer l'ancien message d'erreur s'il existe
+        hideFieldError(input);
+        
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'field-error';
+        errorDiv.textContent = message;
+        errorDiv.style.cssText = 'color: #dc3545; font-size: 0.8em; margin-top: 0.25em; display: block;';
+        
+        input.parentNode.appendChild(errorDiv);
+    }
+
+    // Fonction pour masquer les messages d'erreur
+    function hideFieldError(input) {
+        const existingError = input.parentNode.querySelector('.field-error');
+        if (existingError) {
+            existingError.remove();
+        }
+    }
+
     // Gestion de la soumission du formulaire
     if (form) {
     form.addEventListener('submit', function(e) {
@@ -288,7 +433,7 @@ document.addEventListener('DOMContentLoaded', function() {
             fr: {
                 greeting: "Bonjour, je souhaite effectuer un transfert d'argent.",
                 myInfo: "Mes informations :",
-                name: "Nom",
+                name: "Nom complet",
                 phone: "Téléphone",
                 email: "Email",
                 beneficiaryInfo: "Informations du bénéficiaire :",
@@ -307,7 +452,7 @@ document.addEventListener('DOMContentLoaded', function() {
             en: {
                 greeting: "Hello, I would like to make a money transfer.",
                 myInfo: "My information:",
-                name: "Name",
+                name: "Full name",
                 phone: "Phone",
                 email: "Email",
                 beneficiaryInfo: "Beneficiary's information:",
@@ -328,22 +473,30 @@ document.addEventListener('DOMContentLoaded', function() {
         const t = labels[lang];
 
         const nom = document.getElementById('nom')?.value || '';
+        const prenom = document.getElementById('prenom')?.value || '';
+        const indicatif = document.getElementById('indicatif')?.value || '';
         const telephone = document.getElementById('telephone')?.value || '';
         const email = document.getElementById('email')?.value || '';
         const beneficiaireNom = document.getElementById('beneficiaire-nom')?.value || '';
+        const beneficiairePrenom = document.getElementById('beneficiaire-prenom')?.value || '';
+        const beneficiaireIndicatif = document.getElementById('beneficiaire-indicatif')?.value || '';
         const beneficiaireTelephone = document.getElementById('beneficiaire-telephone')?.value || '';
         const beneficiaireAdresse = document.getElementById('beneficiaire-adresse')?.value || '';
         const message = document.getElementById('message')?.value || '';
         
+        // Formater les numéros de téléphone complets
+        const telephoneComplet = indicatif && telephone ? `${indicatif} ${telephone}` : telephone;
+        const beneficiaireTelephoneComplet = beneficiaireIndicatif && beneficiaireTelephone ? `${beneficiaireIndicatif} ${beneficiaireTelephone}` : beneficiaireTelephone;
+        
         return `${t.greeting}\n\n` +
             `${t.myInfo}\n` +
-            `- ${t.name} : ${nom}\n` +
-            `- ${t.phone} : ${telephone}\n` +
+            `- ${t.name} : ${nom} ${prenom}\n` +
+            `- ${t.phone} : ${telephoneComplet}\n` +
             `- ${t.email} : ${email}\n\n` +
             `${t.beneficiaryInfo}\n` +
-            `- ${t.name} : ${beneficiaireNom}\n` +
-            `- ${t.phone} : ${beneficiaireTelephone}\n` +
-            `- ${t.address} : ${beneficiaireAdresse}\n\n` +
+            `- ${t.name} : ${beneficiaireNom} ${beneficiairePrenom}\n` +
+            `- ${t.phone} : ${beneficiaireTelephoneComplet}\n` +
+            `- ${t.beneficiaryAddress} : ${beneficiaireAdresse}\n\n` +
             `${t.transferDetails}\n` +
             `- ${t.sendingCountry} : ${transfertData.paysDepartLabel || transfertData.paysDepart}\n` +
             `- ${t.receivingCountry} : ${transfertData.paysDestinationLabel || transfertData.paysDestination}\n` +
@@ -371,13 +524,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Mettre à jour l'aperçu en temps réel sur les champs de l'étape 3
-    const confirmationStep = document.querySelector('.form-step[data-step="3"]');
-    if (confirmationStep) {
-        confirmationStep.querySelectorAll('input, textarea').forEach(input => {
-            input.addEventListener('input', updateWhatsAppPreview);
-        });
-    }
+    // Mettre à jour l'aperçu en temps réel sur tous les champs du formulaire
+    const allFormInputs = document.querySelectorAll('#transfert-form input, #transfert-form textarea, #transfert-form select');
+    allFormInputs.forEach(input => {
+        input.addEventListener('input', updateWhatsAppPreview);
+        input.addEventListener('change', updateWhatsAppPreview);
+        
+        // Validation en temps réel pour les champs spécifiques
+        if (input.id === 'nom' || input.id === 'prenom' || input.id === 'beneficiaire-nom' || input.id === 'beneficiaire-prenom') {
+            input.addEventListener('input', function(e) {
+                // Supprimer les chiffres et caractères spéciaux (sauf espaces, tirets, apostrophes)
+                this.value = this.value.replace(/[^a-zA-ZÀ-ÿ\s\-']/g, '');
+            });
+        }
+        
+        if (input.id === 'telephone' || input.id === 'beneficiaire-telephone') {
+            input.addEventListener('input', function(e) {
+                // Supprimer tout sauf les chiffres, espaces, tirets et parenthèses
+                this.value = this.value.replace(/[^0-9\s\-\(\)]/g, '');
+            });
+        }
+    });
 
     // Gestion du bouton de copie
     const copyButton = document.getElementById('copy-message');

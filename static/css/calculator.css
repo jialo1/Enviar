@@ -151,6 +151,38 @@
     margin-bottom: 0;
 }
 
+/* Styles pour les sections du récapitulatif */
+.summary-section {
+    border-top: 1px solid #e9ecef;
+    padding-top: 1.5em;
+}
+
+.summary-section h3 {
+    color: #25D366;
+    margin-bottom: 1em;
+    font-size: 1.1em;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.summary-section .summary-item {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    margin-bottom: 0.5em;
+}
+
+.summary-section .summary-item span:first-child {
+    color: #495057;
+    font-weight: 500;
+}
+
+.summary-section .summary-item span:last-child {
+    color: #333;
+    font-weight: 600;
+}
+
 .summary-item span:first-child {
     font-weight: 500;
     color: #666;
@@ -210,6 +242,18 @@
     .resultat-item {
         padding: 0.3em 0.1em;
         gap: 0.1em;
+        justify-content: flex-start;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .resultat-item span:first-child {
+        text-align: left;
+    }
+
+    .resultat-item span:last-child {
+        align-self: flex-end;
+        margin-top: 0.2em;
     }
 }
 
@@ -225,6 +269,20 @@
     .resultat-item {
         padding: 0.15em 0.05em;
         gap: 0.05em;
+        justify-content: flex-start;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .resultat-item span:first-child {
+        text-align: left;
+        font-size: 0.9em;
+    }
+
+    .resultat-item span:last-child {
+        align-self: flex-end;
+        margin-top: 0.1em;
+        font-size: 1.05em;
     }
 }
 
@@ -388,7 +446,9 @@
         padding: 0.8rem;
         flex-direction: column;
         gap: 0.3rem;
-        text-align: center;
+        text-align: left;
+        align-items: flex-start;
+        justify-content: flex-start;
     }
 
     .modal .resultat-item span:first-child {
@@ -635,7 +695,21 @@ input[readonly] {
 }
 
 input.error {
-    border-color: #ff4444;
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.field-error {
+    color: #dc3545;
+    font-size: 0.8em;
+    margin-top: 0.25em;
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Styles responsifs */
@@ -786,6 +860,10 @@ input.error {
     .summary-item {
         padding: 0.8em;
         margin-bottom: 0.8em;
+        justify-content: flex-start;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3em;
     }
 
     .summary-item span:first-child {
@@ -794,6 +872,23 @@ input.error {
 
     .summary-item span:last-child {
         font-size: 1.05em;
+        align-self: flex-end;
+        margin-top: 0.2em;
+    }
+
+    .summary-section {
+        margin-top: 1.5em;
+        padding-top: 1em;
+    }
+
+    .summary-section h3 {
+        font-size: 1em;
+        margin-bottom: 0.8em;
+    }
+
+    .summary-section .summary-item {
+        padding: 0.6em;
+        margin-bottom: 0.4em;
     }
 
     #whatsapp-preview {
@@ -868,11 +963,20 @@ input.error {
     .summary-item {
         flex-direction: column;
         gap: 0.5em;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .summary-item span:first-child {
+        font-size: 0.9em;
+        text-align: left;
     }
 
     .summary-item span:last-child {
         font-size: 1.1em;
         color: #25D366;
+        align-self: flex-end;
+        margin-top: 0.2em;
     }
 
     /* Styles spécifiques pour la modal sur très petits écrans */
@@ -890,14 +994,21 @@ input.error {
     .modal .resultat-item {
         padding: 0.6rem;
         margin-bottom: 0.3rem;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 0.2rem;
     }
 
     .modal .resultat-item span:first-child {
         font-size: 0.85rem;
+        text-align: left;
     }
 
     .modal .resultat-item span:last-child {
         font-size: 1rem;
+        align-self: flex-end;
+        margin-top: 0.1rem;
     }
 
     .modal .contact-button .cta-button {
