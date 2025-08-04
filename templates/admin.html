@@ -488,13 +488,14 @@
                     }
                     
                     successMessage.innerHTML = `✅ Taux mis à jour avec succès !<br>
-                        <strong>${destinationLabels[destination]} :</strong> ${nouveauTaux}`;
+                        <strong>${destinationLabels[destination]} :</strong> ${nouveauTaux}<br>
+                        <small>💡 Les nouveaux taux sont maintenant actifs dans le calculateur</small>`;
                     successMessage.style.display = 'block';
                     errorMessage.textContent = '';
                     
                     setTimeout(() => {
                         successMessage.style.display = 'none';
-                    }, 5000);
+                    }, 8000);
                 } else {
                     errorMessage.textContent = data.error || 'Une erreur est survenue';
                 }
@@ -539,13 +540,14 @@
                     };
                     
                     successMessage.innerHTML = `✅ Frais mis à jour avec succès !<br>
-                        <strong>${destinationLabels[destination]} :</strong> ${nouveauFrais}%`;
+                        <strong>${destinationLabels[destination]} :</strong> ${nouveauFrais}%<br>
+                        <small>💡 Les nouveaux frais sont maintenant actifs dans le calculateur</small>`;
                     successMessage.style.display = 'block';
                     errorMessage.textContent = '';
                     
                     setTimeout(() => {
                         successMessage.style.display = 'none';
-                    }, 5000);
+                    }, 8000);
                 } else {
                     errorMessage.textContent = data.error || 'Une erreur est survenue';
                 }

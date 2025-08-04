@@ -125,13 +125,17 @@ def home():
 # Route pour obtenir les taux actuels
 @app.route('/get_taux')
 def get_taux():
-    return jsonify(load_taux())
+    response = jsonify(load_taux())
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
 
 # Route pour obtenir les frais par destination
 @app.route('/get_frais')
 def get_frais():
     taux = load_taux()
-    return jsonify({
+    response = jsonify({
         'frais_canada_guinee': taux['frais_canada_guinee'],
         'frais_canada_senegal': taux['frais_canada_senegal'],
         'frais_guinee_canada': taux['frais_guinee_canada'],
@@ -139,6 +143,10 @@ def get_frais():
         'frais_senegal_canada': taux['frais_senegal_canada'],
         'frais_senegal_guinee': taux['frais_senegal_guinee']
     })
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
 
 # Route pour la page de connexion
 @app.route('/login', methods=['GET', 'POST'])

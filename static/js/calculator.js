@@ -44,8 +44,8 @@ async function calculerTransfert(event) {
     let tauxCadGnf, tauxXofGnf, frais;
     try {
         const [tauxResponse, fraisResponse] = await Promise.all([
-            fetch('/get_taux'),
-            fetch('/get_frais')
+            fetch('/get_taux?t=' + Date.now()),
+            fetch('/get_frais?t=' + Date.now())
         ]);
         const taux = await tauxResponse.json();
         const fraisData = await fraisResponse.json();
@@ -138,12 +138,25 @@ async function calculerTransfert(event) {
         tauxAffiche = `Taux non disponible pour cette combinaison`;
     }
     
+    // Stocker les résultats dans la variable globale
+    dernierCalcul = {
+        montantEnvoi: formatMontant(montant, deviseDepart),
+        fraisMontant: formatMontant(fraisMontant, deviseDepart),
+        totalPayer: formatMontant(totalPayer, deviseDepart),
+        montantRecu: formatMontant(montantRecu, deviseDestination),
+        // Valeurs brutes (sans formatage)
+        montantBrut: montant,
+        fraisBrut: fraisMontant,
+        totalBrut: totalPayer,
+        montantRecuBrut: montantRecu
+    };
+    
     // Afficher les résultats dans la modal
     document.getElementById('taux-jour').textContent = tauxAffiche;
-    document.getElementById('montant-envoyer').textContent = formatMontant(montant, deviseDepart);
-    document.getElementById('frais').textContent = formatMontant(fraisMontant, deviseDepart);
-    document.getElementById('total-payer').textContent = formatMontant(totalPayer, deviseDepart);
-    document.getElementById('montant-recu').textContent = formatMontant(montantRecu, deviseDestination);
+    document.getElementById('montant-envoyer').textContent = dernierCalcul.montantEnvoi;
+    document.getElementById('frais').textContent = dernierCalcul.fraisMontant;
+    document.getElementById('total-payer').textContent = dernierCalcul.totalPayer;
+    document.getElementById('montant-recu').textContent = dernierCalcul.montantRecu;
     
     // Afficher la modal
     const modal = document.getElementById('resultat-modal');
@@ -161,16 +174,25 @@ function closeModal() {
     document.body.style.overflow = 'auto';
 }
 
+// Variables globales pour stocker les résultats du calcul
+let dernierCalcul = {
+    montantEnvoi: '',
+    fraisMontant: '',
+    totalPayer: '',
+    montantRecu: '',
+    // Valeurs brutes (sans formatage)
+    montantBrut: 0,
+    fraisBrut: 0,
+    totalBrut: 0,
+    montantRecuBrut: 0
+};
+
 // Fonction pour afficher le formulaire de contact
 function showContactForm() {
-    // Récupérer les données du calcul
+    // Utiliser les valeurs stockées du dernier calcul
     const paysDepart = document.getElementById('pays-depart').value;
     const paysDestination = document.getElementById('pays-destination').value;
-    const montant = document.getElementById('montant').value;
-    const montantRecu = document.getElementById('montant-recu').textContent.replace(/\s+/g, '');
-    const frais = document.getElementById('frais').textContent.replace(/\s+/g, '');
-    const total = document.getElementById('total-payer').textContent.replace(/\s+/g, '');
-
+    
     // Déduire les noms et devises
     const paysLabels = {
         'canada': 'Canada (CAD)',
@@ -188,6 +210,12 @@ function showContactForm() {
     const deviseDepart = deviseLabels[paysDepart] || '';
     const deviseDestination = deviseLabels[paysDestination] || '';
 
+    // Utiliser les valeurs brutes stockées
+    const montant = dernierCalcul.montantBrut;
+    const montantRecu = dernierCalcul.montantRecuBrut;
+    const frais = dernierCalcul.fraisBrut;
+    const total = dernierCalcul.totalBrut;
+
     // Construire l'URL avec les paramètres
     const params = new URLSearchParams({
         paysDepart: paysDepart,
@@ -201,6 +229,18 @@ function showContactForm() {
         deviseDepart: deviseDepart,
         deviseDestination: deviseDestination
     });
+
+    // Stocker les valeurs exactes dans localStorage
+    localStorage.setItem('transfertData', JSON.stringify({
+        montantEnvoi: dernierCalcul.montantEnvoi,
+        fraisMontant: dernierCalcul.fraisMontant,
+        totalPayer: dernierCalcul.totalPayer,
+        montantRecu: dernierCalcul.montantRecu,
+        paysDepart: paysDepart,
+        paysDestination: paysDestination,
+        paysDepartLabel: paysDepartLabel,
+        paysDestinationLabel: paysDestinationLabel
+    }));
 
     // Rediriger vers la page de transfert
     window.location.href = `/transfert?${params.toString()}`;

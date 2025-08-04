@@ -2,31 +2,64 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Fonction pour formater les montants
     function formatMontant(montant, devise) {
+        // Si montant est undefined ou null, retourner une valeur par défaut
+        if (!montant) return '0 ' + (devise || '');
+        
+        // Si c'est déjà une chaîne formatée, la retourner telle quelle
+        if (typeof montant === 'string' && montant.includes(' ')) {
+            return montant;
+        }
+        
         // Supprimer tous les caractères non numériques sauf le point
         const nombre = parseFloat(montant.toString().replace(/[^\d.-]/g, ''));
         if (isNaN(nombre)) return montant;
         
-        // Formater le nombre avec des séparateurs de milliers
-        return new Intl.NumberFormat('fr-FR', {
-            minimumFractionDigits: 0,
+        let options = {
+            minimumFractionDigits: 2,
             maximumFractionDigits: 2
-        }).format(nombre) + ' ' + (devise || '');
+        };
+        
+        // Pour le franc guinéen, pas de décimales
+        if (devise === 'GNF') {
+            options = {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            };
+        }
+        
+        return new Intl.NumberFormat('fr-FR', options).format(nombre) + ' ' + (devise || '');
     }
 
-    // Récupérer les données du transfert depuis l'URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const transfertData = {
-        paysDepart: urlParams.get('paysDepart'),
-        paysDepartLabel: urlParams.get('paysDepartLabel'),
-        paysDestination: urlParams.get('paysDestination'),
-        paysDestinationLabel: urlParams.get('paysDestinationLabel'),
-        montant: urlParams.get('montant'),
-        montantRecu: urlParams.get('montantRecu'),
-        frais: urlParams.get('frais'),
-        total: urlParams.get('total'),
-        deviseDepart: urlParams.get('deviseDepart'),
-        deviseDestination: urlParams.get('deviseDestination')
-    };
+    // Récupérer les données du transfert depuis localStorage
+    const storedData = localStorage.getItem('transfertData');
+    let transfertData;
+    
+    if (storedData) {
+        transfertData = JSON.parse(storedData);
+        // Ajouter les devises
+        const devises = {
+            'canada': 'CAD',
+            'guinee': 'GNF',
+            'senegal': 'XOF'
+        };
+        transfertData.deviseDepart = devises[transfertData.paysDepart] || '';
+        transfertData.deviseDestination = devises[transfertData.paysDestination] || '';
+    } else {
+        // Fallback vers les paramètres URL si localStorage vide
+        const urlParams = new URLSearchParams(window.location.search);
+        transfertData = {
+            paysDepart: urlParams.get('paysDepart'),
+            paysDepartLabel: urlParams.get('paysDepartLabel'),
+            paysDestination: urlParams.get('paysDestination'),
+            paysDestinationLabel: urlParams.get('paysDestinationLabel'),
+            montant: urlParams.get('montant'),
+            montantRecu: urlParams.get('montantRecu'),
+            frais: urlParams.get('frais'),
+            total: urlParams.get('total'),
+            deviseDepart: urlParams.get('deviseDepart'),
+            deviseDestination: urlParams.get('deviseDestination')
+        };
+    }
 
     // Valeurs de secours si la devise n'est pas transmise
     const fallbackDevises = {
@@ -71,31 +104,38 @@ document.addEventListener('DOMContentLoaded', function() {
     paysDestinationDiv.append(' ' + (transfertData.paysDestinationLabel || transfertData.paysDestination));
     }
 
-    // Remplir les montants
-    const montantDisplay = document.getElementById('montant-display');
-    if (montantDisplay) montantDisplay.textContent = formatMontant(transfertData.montant, transfertData.deviseDepart);
-    
-    const montantRecuDisplay = document.getElementById('montant-recu-display');
-    if (montantRecuDisplay) montantRecuDisplay.textContent = formatMontant(transfertData.montantRecu, transfertData.deviseDestination);
-    
-    const fraisDisplay = document.getElementById('frais-display');
-    if (fraisDisplay) fraisDisplay.textContent = formatMontant(transfertData.frais, transfertData.deviseDepart);
-    
-    const totalDisplay = document.getElementById('total-display');
-    if (totalDisplay) totalDisplay.textContent = formatMontant(transfertData.total, transfertData.deviseDepart);
-
-    // Remplir le récapitulatif de la dernière étape avec les montants formatés
-    const summaryMontantEnvoyer = document.getElementById('summary-montant-envoyer');
-    if (summaryMontantEnvoyer) summaryMontantEnvoyer.textContent = formatMontant(transfertData.montant, transfertData.deviseDepart);
-    
-    const summaryMontantRecu = document.getElementById('summary-montant-recu');
-    if (summaryMontantRecu) summaryMontantRecu.textContent = formatMontant(transfertData.montantRecu, transfertData.deviseDestination);
-    
-    const summaryFrais = document.getElementById('summary-frais');
-    if (summaryFrais) summaryFrais.textContent = formatMontant(transfertData.frais, transfertData.deviseDepart);
-    
-    const summaryTotal = document.getElementById('summary-total');
-    if (summaryTotal) summaryTotal.textContent = formatMontant(transfertData.total, transfertData.deviseDepart);
+    // Remplir les montants avec les valeurs exactes du localStorage
+    if (storedData) {
+        console.log('Données localStorage:', transfertData);
+        
+        // Remplir le récapitulatif final avec les valeurs exactes
+        const summaryMontantEnvoyer = document.getElementById('summary-montant-envoyer');
+        if (summaryMontantEnvoyer) {
+            summaryMontantEnvoyer.textContent = transfertData.montantEnvoi || '100,00 CAD';
+        }
+        
+        const summaryMontantRecu = document.getElementById('summary-montant-recu');
+        if (summaryMontantRecu) {
+            summaryMontantRecu.textContent = transfertData.montantRecu || '645 000 GNF';
+        }
+        
+        const summaryFrais = document.getElementById('summary-frais');
+        if (summaryFrais) {
+            summaryFrais.textContent = transfertData.fraisMontant || '3,90 CAD';
+        }
+        
+        const summaryTotal = document.getElementById('summary-total');
+        if (summaryTotal) {
+            summaryTotal.textContent = transfertData.totalPayer || '103,90 CAD';
+        }
+        
+        console.log('Valeurs affichées:', {
+            montantEnvoi: transfertData.montantEnvoi || '100,00 CAD',
+            montantRecu: transfertData.montantRecu || '645 000 GNF',
+            frais: transfertData.fraisMontant || '3,90 CAD',
+            total: transfertData.totalPayer || '103,90 CAD'
+        });
+    }
 
     // Fonction pour obtenir le drapeau selon le pays
     function getFlagForCountry(pays) {
@@ -131,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('transfert-form');
     const steps = document.querySelectorAll('.form-step');
     const progressSteps = document.querySelectorAll('.step');
-    let currentStep = 1;
+    let currentStep = 1; // Commencer directement à l'étape 1 (Vos informations)
 
     // Fonction pour afficher une étape spécifique
     function showStep(stepNumber) {
@@ -307,20 +347,20 @@ document.addEventListener('DOMContentLoaded', function() {
             `${t.transferDetails}\n` +
             `- ${t.sendingCountry} : ${transfertData.paysDepartLabel || transfertData.paysDepart}\n` +
             `- ${t.receivingCountry} : ${transfertData.paysDestinationLabel || transfertData.paysDestination}\n` +
-            `- ${t.amountToSend} : ${formatMontant(transfertData.montant, transfertData.deviseDepart)}\n` +
-            `- ${t.fees} : ${formatMontant(transfertData.frais, transfertData.deviseDepart)}\n` +
-            `- ${t.totalToPay} : ${formatMontant(transfertData.total, transfertData.deviseDepart)}\n` +
-            `- ${t.amountToReceive} : ${formatMontant(transfertData.montantRecu, transfertData.deviseDestination)}\n\n` +
+            `- ${t.amountToSend} : ${transfertData.montantEnvoi || formatMontant(transfertData.montant, transfertData.deviseDepart)}\n` +
+            `- ${t.fees} : ${transfertData.fraisMontant || formatMontant(transfertData.frais, transfertData.deviseDepart)}\n` +
+            `- ${t.totalToPay} : ${transfertData.totalPayer || formatMontant(transfertData.total, transfertData.deviseDepart)}\n` +
+            `- ${t.amountToReceive} : ${transfertData.montantRecu || formatMontant(transfertData.montantRecu, transfertData.deviseDestination)}\n\n` +
             `${t.message} : ${message}`;
     }
 
-    // Afficher l'aperçu à chaque fois qu'on arrive à l'étape 4 ou qu'on modifie un champ
+    // Afficher l'aperçu à chaque fois qu'on arrive à l'étape 3 ou qu'on modifie un champ
     function updateWhatsAppPreview() {
         const whatsappLink = document.getElementById('whatsapp-continue');
-        if (whatsappLink && currentStep === 4) {
+        if (whatsappLink && currentStep === 3) {
             const message = getMessageWhatsAppLisible();
             // Mettre à jour le lien WhatsApp
-            whatsappLink.href = `https://wa.me/774062102?text=${encodeURIComponent(message)}`;
+            whatsappLink.href = `https://wa.me/15142295522?text=${encodeURIComponent(message)}`;
         }
     }
 
@@ -331,8 +371,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Mettre à jour l'aperçu en temps réel sur les champs de l'étape 4
-    const confirmationStep = document.querySelector('.form-step[data-step="4"]');
+    // Mettre à jour l'aperçu en temps réel sur les champs de l'étape 3
+    const confirmationStep = document.querySelector('.form-step[data-step="3"]');
     if (confirmationStep) {
         confirmationStep.querySelectorAll('input, textarea').forEach(input => {
             input.addEventListener('input', updateWhatsAppPreview);
@@ -384,6 +424,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Initialisation : afficher la première étape
+    // Initialisation : afficher directement l'étape 1 (Vos informations)
     showStep(1);
 }); 

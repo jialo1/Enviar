@@ -120,6 +120,53 @@
     color: #333;
 }
 
+/* Styles pour le résumé du transfert */
+.transfer-summary {
+    background: #f8f9fa;
+    padding: 1.5em;
+    border-radius: 8px;
+    margin-bottom: 2em;
+    border: 1px solid #e9ecef;
+}
+
+.transfer-summary h3 {
+    text-align: center;
+    margin-bottom: 1.5em;
+    color: #333;
+    font-size: 1.2em;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8em;
+    margin-bottom: 0.5em;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.summary-item:last-child {
+    margin-bottom: 0;
+}
+
+.summary-item span:first-child {
+    font-weight: 500;
+    color: #666;
+}
+
+.summary-item span:last-child {
+    font-weight: bold;
+    color: #25D366;
+    font-size: 1.1em;
+}
+
+.summary-item:last-child span:last-child {
+    color: #128C7E;
+    font-size: 1.2em;
+}
+
 #whatsapp-button-container {
     text-align: center;
     margin-top: 2em;
