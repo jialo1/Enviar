@@ -1,3 +1,8 @@
 [33m2b0b226[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Update: URL GitHub correcte dans le script de déploiement
 [33mb753e05[m Fix: Correction du calculateur et ajout du déploiement GitHub
 [33mea65766[m Améliorations majeures: liste déroulante indicatifs, bouton WhatsApp flottant, stepper supprimé, drapeaux pays, navbar admin simplifiée
+[33m8650271[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Amélioration du formulaire de transfert : validation des champs et récapitulatif complet - Ajout de validation en temps réel pour les noms (lettres uniquement) et téléphones (chiffres uniquement) - Amélioration du récapitulatif avec informations complètes du destinataire et bénéficiaire - Correction du message WhatsApp (prénoms, adresse, numéros complets) - Styles CSS améliorés pour les erreurs et l'alignement mobile
+[33m3755d2d[m Correction des problèmes de calculateur et mise à jour des taux en temps réel
+[33mddf7803[m Système de monitoring automatique pour détecter les erreurs 502
+[33m62c9f10[m Email rendu optionnel sur la page de transfert
+[33m88ecc4a[m Scripts de déploiement local : transfert direct des fichiers vers le serveur
