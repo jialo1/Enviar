@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comment ça marche - Enviar</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/whatsapp-buttons.css?v=1">
+    <link rel="stylesheet" href="/static/css/whatsapp-floating.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', {
+            'analytics_storage': 'denied' // Par défaut, les cookies sont désactivés
+        });
+    </script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="images/Logo1.png" alt="Enviar Logo" style="height: 40px;">
+            </a>
+            <nav class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="/" data-translate="nav-home">Accueil</a></li>
+                    <li><a href="/fonctionnement" class="active" data-translate="nav-how-it-works">Fonctionnement</a></li>
+                    <li><a href="/a-propos" data-translate="nav-about">À propos</a></li>
+                    <li><a href="/contact" data-translate="nav-contact">Contact</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <select id="language-selector" class="language-selector">
+                        <option value="fr">🇫🇷 FR</option>
+                        <option value="en">🇨🇦 EN</option>
+                    </select>
+                </div>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1 data-translate="how-it-works-title">Comment ça marche</h1>
+                <p data-translate="how-it-works-subtitle">Découvrez notre processus simple et sécurisé</p>
+            </div>
+        </section>
+
+        <section class="process">
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3 data-translate="step-1-title">Calculez votre transfert</h3>
+                    <p data-translate="step-1-desc">Utilisez notre calculateur pour connaître le montant exact que votre bénéficiaire recevra en GNF.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3 data-translate="step-2-title">Contactez-nous sur WhatsApp</h3>
+                    <p data-translate="step-2-desc">Envoyez-nous un message sur WhatsApp avec le montant calculé pour finaliser votre transfert.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3 data-translate="step-3-title">Recevez votre argent</h3>
+                    <p data-translate="step-3-desc">Votre bénéficiaire reçoit l'argent instantanément après la confirmation du transfert.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pays-desservis">
+            <h2 data-translate="served-countries">Principaux pays</h2>
+            <div class="pays-grid">
+                <div class="pays-card">
+                    <img src="/static/images/flags/canada.png" alt="Canada" class="flag-icon"> <span data-translate="canada">Canada</span>
+                </div>
+                <div class="pays-card">
+                    <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> <span data-translate="guinea">Guinée</span>
+                </div>
+                <div class="pays-card">
+                    <img src="/static/images/flags/senegal.png" alt="Sénégal" class="flag-icon"> <span data-translate="senegal">Sénégal</span>
+                </div>
+                <div class="pays-card">
+                    <img src="/static/images/flags/Sierraleone.jpg" alt="Sierra Leone" class="flag-icon"> <span data-translate="sierra-leone">Sierra Leone</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq">
+            <h2 data-translate="faq-title">Questions fréquentes</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3 data-translate="faq-1-question">Combien de temps prend un transfert ?</h3>
+                    <p data-translate="faq-1-answer">La plupart de nos transferts sont instantanés. Dans certains cas, le délai peut aller jusqu'à 24 heures selon le pays de destination.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 data-translate="faq-2-question">Quels documents sont nécessaires ?</h3>
+                    <p data-translate="faq-2-answer">Une pièce d'identité valide (passeport ou carte d'identité) et un justificatif de domicile de moins de 3 mois.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 data-translate="faq-3-question">Comment mon bénéficiaire reçoit-il l'argent ?</h3>
+                    <p data-translate="faq-3-answer">Votre bénéficiaire peut retirer l'argent dans l'un de nos points de retrait partenaires ou recevoir directement sur son compte bancaire.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    {% include 'cookie-banner.html' %}
+    {% include 'footer.html' %}
+
+    <!-- Bouton WhatsApp flottant -->
+    <div class="whatsapp-floating">
+        <a href="https://wa.me/15142295522" target="_blank" class="btn-whatsapp" aria-label="Contactez-nous sur WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/cookies.js"></script>
+    <script src="/static/js/translator.js"></script>
+</body>
+</html> 

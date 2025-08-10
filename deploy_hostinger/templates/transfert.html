@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar - Nouveau Transfert</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/calculator.css">
+    <link rel="stylesheet" href="/static/css/whatsapp-buttons.css?v=1">
+    <link rel="stylesheet" href="/static/css/whatsapp-floating.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', {
+            'analytics_storage': 'denied' // Par défaut, les cookies sont désactivés
+        });
+    </script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="/images/Logo1.png" alt="Enviar Logo" style="height: 40px;">
+            </a>
+            <nav class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="/" data-translate="nav-home">Accueil</a></li>
+                    <li><a href="/fonctionnement" data-translate="nav-how-it-works">Fonctionnement</a></li>
+                    <li><a href="/a-propos" data-translate="nav-about">À propos</a></li>
+                    <li><a href="/contact" data-translate="nav-contact">Contact</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <select class="language-selector">
+                        <option value="fr">🇫🇷 FR</option>
+                        <option value="en">🇨🇦 EN</option>
+                    </select>
+                </div>
+            </nav>
+            <div class="menu-toggle" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="transfert-layout">
+            <div class="transfert-container">
+                <form id="transfert-form" class="transfert-form">
+
+
+                    <!-- Étape 1: Vos informations -->
+                    <div class="form-step active" data-step="1">
+                        <h2 data-translate="your-info">Vos informations</h2>
+                        <div class="form-group">
+                            <label for="nom" data-translate="nom">Nom</label>
+                            <input type="text" id="nom" name="nom" required placeholder="Votre nom (lettres uniquement)" data-translate-placeholder="nom" pattern="[a-zA-ZÀ-ÿ\s\-']+" title="Veuillez entrer uniquement des lettres">
+                        </div>
+                        <div class="form-group">
+                            <label for="prenom" data-translate="prenom">Prénom</label>
+                            <input type="text" id="prenom" name="prenom" required placeholder="Votre prénom (lettres uniquement)" data-translate-placeholder="prenom" pattern="[a-zA-ZÀ-ÿ\s\-']+" title="Veuillez entrer uniquement des lettres">
+                        </div>
+                        <div class="form-group">
+                            <label for="telephone" data-translate="phone">Téléphone</label>
+                            <div style="display: flex; gap: 8px; align-items: stretch; height: 40px;">
+                                <select id="indicatif" name="indicatif" style="width: 100px; font-size: 0.85em; color: #333; background-color: #f8f8f8; border: 1px solid #ddd; border-radius: 4px; padding: 8px;" required>
+                                    <option value="+1">🇨🇦 +1 (Canada)</option>
+                                    <option value="+224" selected>🇬🇳 +224 (Guinée)</option>
+                                    <option value="+221">🇸🇳 +221 (Sénégal)</option>
+                                    <option value="+33">🇫🇷 +33 (France)</option>
+                                    <option value="+32">🇧🇪 +32 (Belgique)</option>
+                                    <option value="+41">🇨🇭 +41 (Suisse)</option>
+                                    <option value="+212">🇲🇦 +212 (Maroc)</option>
+                                    <option value="+225">🇨🇮 +225 (Côte d'Ivoire)</option>
+                                    <option value="+237">🇨🇲 +237 (Cameroun)</option>
+                                    <option value="+243">🇨🇩 +243 (RDC)</option>
+                                    <option value="+250">🇷🇼 +250 (Rwanda)</option>
+                                    <option value="+254">🇰🇪 +254 (Kenya)</option>
+                                    <option value="+234">🇳🇬 +234 (Nigeria)</option>
+                                    <option value="+233">🇬🇭 +233 (Ghana)</option>
+                                    <option value="+27">🇿🇦 +27 (Afrique du Sud)</option>
+                                </select>
+                                <input type="tel" id="telephone" name="telephone" required placeholder="Numéro de téléphone (chiffres uniquement)" data-translate-placeholder="phone" pattern="[0-9\s\-\(\)]+" title="Veuillez entrer uniquement des chiffres" style="flex: 1;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" data-translate="email">Email (optionnel)</label>
+                            <input type="email" id="email" name="email" placeholder="votre.email@exemple.com" data-translate-placeholder="email">
+                        </div>
+                        <div class="form-buttons">
+                            <button type="button" class="next-step cta-button" data-translate="continue">Continuer</button>
+                            <button type="button" class="prev-step" data-translate="back">Retour</button>
+                        </div>
+                    </div>
+
+                    <!-- Étape 2: Bénéficiaire -->
+                    <div class="form-step" data-step="2">
+                        <h2 data-translate="beneficiary-info">Informations du bénéficiaire</h2>
+                        <div class="form-group">
+                            <label for="beneficiaire-nom" data-translate="nom">Nom</label>
+                            <input type="text" id="beneficiaire-nom" name="beneficiaire-nom" required placeholder="Nom du bénéficiaire (lettres uniquement)" data-translate-placeholder="nom" pattern="[a-zA-ZÀ-ÿ\s\-']+" title="Veuillez entrer uniquement des lettres">
+                        </div>
+                        <div class="form-group">
+                            <label for="beneficiaire-prenom" data-translate="prenom">Prénom</label>
+                            <input type="text" id="beneficiaire-prenom" name="beneficiaire-prenom" required placeholder="Prénom du bénéficiaire (lettres uniquement)" data-translate-placeholder="prenom" pattern="[a-zA-ZÀ-ÿ\s\-']+" title="Veuillez entrer uniquement des lettres">
+                        </div>
+                        <div class="form-group">
+                            <label for="beneficiaire-telephone" data-translate="beneficiary-phone">Téléphone du bénéficiaire</label>
+                            <div style="display: flex; gap: 8px; align-items: stretch; height: 40px;">
+                                <select id="beneficiaire-indicatif" name="beneficiaire-indicatif" style="width: 100px; font-size: 0.85em; color: #333; background-color: #f8f8f8; border: 1px solid #ddd; border-radius: 4px; padding: 8px;" required>
+                                    <option value="+1">🇨🇦 +1 (Canada)</option>
+                                    <option value="+224" selected>🇬🇳 +224 (Guinée)</option>
+                                    <option value="+221">🇸🇳 +221 (Sénégal)</option>
+                                    <option value="+33">🇫🇷 +33 (France)</option>
+                                    <option value="+32">🇧🇪 +32 (Belgique)</option>
+                                    <option value="+41">🇨🇭 +41 (Suisse)</option>
+                                    <option value="+212">🇲🇦 +212 (Maroc)</option>
+                                    <option value="+225">🇨🇮 +225 (Côte d'Ivoire)</option>
+                                    <option value="+237">🇨🇲 +237 (Cameroun)</option>
+                                    <option value="+243">🇨🇩 +243 (RDC)</option>
+                                    <option value="+250">🇷🇼 +250 (Rwanda)</option>
+                                    <option value="+254">🇰🇪 +254 (Kenya)</option>
+                                    <option value="+234">🇳🇬 +234 (Nigeria)</option>
+                                    <option value="+233">🇬🇭 +233 (Ghana)</option>
+                                    <option value="+27">🇿🇦 +27 (Afrique du Sud)</option>
+                                </select>
+                                <input type="tel" id="beneficiaire-telephone" name="beneficiaire-telephone" required placeholder="Numéro de téléphone (chiffres uniquement)" data-translate-placeholder="beneficiary-phone" pattern="[0-9\s\-\(\)]+" title="Veuillez entrer uniquement des chiffres" style="flex: 1;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="beneficiaire-adresse" data-translate="beneficiary-address">Adresse du bénéficiaire</label>
+                            <input type="text" id="beneficiaire-adresse" name="beneficiaire-adresse" required data-translate-placeholder="beneficiary-address">
+                        </div>
+                        <div class="form-buttons">
+                            <button type="button" class="next-step cta-button" data-translate="continue">Continuer</button>
+                            <button type="button" class="prev-step" data-translate="back">Retour</button>
+                        </div>
+                    </div>
+
+                    <!-- Étape 3: Confirmation -->
+                    <div class="form-step" data-step="3">
+                        <h2 data-translate="transfer-summary">Récapitulatif de votre transfert</h2>
+                        <div class="confirmation-summary">
+                            <div class="resultat-item">
+                                <span data-translate="sending" style="color: #00A859;"><strong>Envoi :</strong></span>
+                                <span id="summary-montant-envoyer" style="color: #00A859;"></span>
+                            </div>
+                            <div class="summary-item">
+                                <span data-translate="fees"><strong>Frais à payer :</strong></span>
+                                <span id="summary-frais"></span>
+                            </div>
+                            <div class="summary-item">
+                                <span data-translate="total-to-pay"><strong>Total :</strong></span>
+                                <span id="summary-total"></span>
+                            </div>
+                            <div class="summary-item">
+                                <span data-translate="total-to-receive"><strong>Total à recevoir :</strong></span>
+                                <span id="summary-montant-recu"></span>
+                            </div>
+                            <div class="summary-item" style="background: none; box-shadow: none; display: block; text-align: left; margin-top: 1.5em;">
+                                <div><strong>Pays d'envoi :</strong> <span id="summary-pays-depart"></span></div>
+                                <div><strong>Pays de réception :</strong> <span id="summary-pays-destination"></span></div>
+                            </div>
+                            
+                            <!-- Informations du destinataire -->
+                            <div class="summary-section" style="margin-top: 2em;">
+                                <h3 style="color: #25D366; margin-bottom: 1em; font-size: 1.1em;">📤 Informations du destinataire</h3>
+                                <div class="summary-item">
+                                    <span><strong>Nom :</strong></span>
+                                    <span id="summary-nom"></span>
+                                </div>
+                                <div class="summary-item">
+                                    <span><strong>Prénom :</strong></span>
+                                    <span id="summary-prenom"></span>
+                                </div>
+                                <div class="summary-item">
+                                    <span><strong>Téléphone :</strong></span>
+                                    <span id="summary-telephone"></span>
+                                </div>
+                                <div class="summary-item">
+                                    <span><strong>Email :</strong></span>
+                                    <span id="summary-email"></span>
+                                </div>
+                            </div>
+                            
+                            <!-- Informations du bénéficiaire -->
+                            <div class="summary-section" style="margin-top: 2em;">
+                                <h3 style="color: #25D366; margin-bottom: 1em; font-size: 1.1em;">📥 Informations du bénéficiaire</h3>
+                                <div class="summary-item">
+                                    <span><strong>Nom :</strong></span>
+                                    <span id="summary-beneficiaire-nom"></span>
+                                </div>
+                                <div class="summary-item">
+                                    <span><strong>Prénom :</strong></span>
+                                    <span id="summary-beneficiaire-prenom"></span>
+                                </div>
+                                <div class="summary-item">
+                                    <span><strong>Téléphone :</strong></span>
+                                    <span id="summary-beneficiaire-telephone"></span>
+                                </div>
+                                <div class="summary-item">
+                                    <span><strong>Adresse :</strong></span>
+                                    <span id="summary-beneficiaire-adresse"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" data-translate="additional-info">Informations complémentaires (optionnel)</label>
+                            <textarea id="message" name="message" rows="3" data-translate-placeholder="message"></textarea>
+                        </div>
+                        <div class="form-buttons">
+                            <a id="whatsapp-continue" href="#" target="_blank" class="cta-button" style="flex:1 1 0; display:flex; align-items:center; justify-content:center; gap:0.5em; text-decoration:none;">
+                                <i class="fab fa-whatsapp"></i> <span data-translate="continue-whatsapp">Continuer sur WhatsApp</span>
+                            </a>
+                            <button type="button" class="prev-step" data-translate="back">Retour</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    {% include 'cookie-banner.html' %}
+    {% include 'footer.html' %}
+
+    <!-- Bouton WhatsApp flottant -->
+    <div class="whatsapp-floating">
+        <a href="https://wa.me/15142295522" target="_blank" class="btn-whatsapp" aria-label="Contactez-nous sur WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <script src="/static/js/translator.js"></script>
+    <script src="/static/js/transfert.js"></script>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/cookies.js"></script>
+
+    <!-- Modal de confirmation -->
+    <div id="confirmation-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 data-translate="transfer-confirmation-title">Confirmation de votre transfert</h2>
+            <div class="resultat-calcul">
+                <div class="resultat-item">
+                    <span data-translate="sending" style="color: #00A859;"><strong>Envoi :</strong></span>
+                    <span id="modal-montant-envoyer" style="color: #00A859;"></span>
+                </div>
+                <div class="resultat-item">
+                    <span data-translate="amount-to-receive"><strong>Montant à recevoir :</strong></span>
+                    <span id="modal-montant-recu"></span>
+                </div>
+                <div class="resultat-item">
+                    <span data-translate="transfer-fees"><strong>Frais de transfert :</strong></span>
+                    <span id="modal-frais"></span>
+                </div>
+                <div class="resultat-item">
+                    <span data-translate="total-to-pay"><strong>Total à payer :</strong></span>
+                    <span id="modal-total"></span>
+                </div>
+            </div>
+            <div class="contact-button">
+                <a href="#" id="modal-whatsapp-link" class="cta-button">
+                    <i class="fab fa-whatsapp"></i> <span data-translate="continue-whatsapp">Continuer sur WhatsApp</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script pour le menu mobile -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            const menuIcon = menuToggle.querySelector('i');
+
+            menuToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                menuIcon.classList.toggle('fa-bars');
+                menuIcon.classList.toggle('fa-times');
+            });
+
+            // Fermer le menu quand on clique sur un lien
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    menuIcon.classList.add('fa-bars');
+                    menuIcon.classList.remove('fa-times');
+                });
+            });
+
+            // Fermer le menu quand on clique en dehors
+            document.addEventListener('click', (e) => {
+                if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                    menuIcon.classList.add('fa-bars');
+                    menuIcon.classList.remove('fa-times');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

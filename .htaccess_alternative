@@ -1,0 +1,25 @@
+RewriteEngine On
+
+# Servir les fichiers statiques directement
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^(.*)$ $1 [L]
+
+# Rediriger vers index.html pour les pages principales
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^$ templates/index.html [L]
+
+# Rediriger les autres pages vers les templates HTML
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]+)/?$ templates/$1.html [L]
+
+# Headers de sécurité
+Header always set X-Content-Type-Options nosniff
+Header always set X-Frame-Options DENY
+Header always set X-XSS-Protection "1; mode=block"
+
+# Permissions
+<Files "*">
+    Require all granted
+</Files>

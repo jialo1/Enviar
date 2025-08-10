@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Enviar</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--gray-color);
+            padding-top: 80px; /* Ajustement pour le header fixe */
+        }
+
+        .admin-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: var(--light-color);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        .admin-container h1 {
+            text-align: center;
+            color: var(--dark-color);
+            margin-bottom: 2rem;
+        }
+
+        .current-rates-container {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .taux-actuel {
+            flex: 1;
+            padding: 1.5rem;
+            background-color: var(--primary-light);
+            color: var(--light-color);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .frais-actuel {
+            flex: 1;
+            padding: 1.5rem;
+            background-color: #e8f5e8;
+            border-radius: 8px;
+            color: #2c5e2c;
+        }
+
+        .taux-actuel span {
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .error-message {
+            color: #e74c3c;
+            margin-bottom: 1rem;
+            text-align: center;
+            min-height: 1.2em; /* Reserve space */
+        }
+
+        .success-message {
+            color: #27ae60;
+            margin-bottom: 1rem;
+            text-align: center;
+            min-height: 1.2em;
+            padding: 1rem;
+            background-color: #e8f8f5;
+            border: 2px solid #27ae60;
+            border-radius: 8px;
+            display: none;
+            font-weight: 500;
+            box-shadow: 0 2px 10px rgba(39, 174, 96, 0.1);
+        }
+
+        .update-sections-container {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .update-section {
+            flex: 1;
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: white;
+        }
+
+        .update-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            padding: 0.8rem 1.5rem;
+            width: auto;
+            display: inline-block;
+        }
+
+        .update-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
+        }
+
+        .btn-logout {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background-color: #e74c3c;
+            color: var(--light-color);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            margin-left: 1rem;
+        }
+
+        .btn-logout:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.2);
+        }
+
+        /* Styles pour le popup de déconnexion */
+        .logout-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logout-popup.active {
+            display: flex;
+        }
+
+        .logout-popup-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .logout-popup h3 {
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .logout-popup-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .logout-popup-buttons button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .logout-popup-buttons .btn-confirm {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .logout-popup-buttons .btn-cancel {
+            background-color: #95a5a6;
+            color: white;
+        }
+
+        .logout-popup-buttons button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Styles pour corriger l'affichage mobile du bouton de déconnexion */
+        @media screen and (max-width: 768px) {
+            .header-container {
+                padding: 0 1rem;
+            }
+            
+            .nav-buttons {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                margin-top: -5px;
+                margin-left: auto;
+            }
+            
+            .btn-logout {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+                white-space: nowrap;
+                min-width: auto;
+                margin-left: auto;
+            }
+            
+            .btn-logout i {
+                font-size: 0.9rem;
+            }
+
+            /* Responsive pour les sections en colonnes */
+            .current-rates-container,
+            .update-sections-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .header-container {
+                padding: 0 0.5rem;
+            }
+            
+            .nav-buttons {
+                margin-top: -3px;
+            }
+            
+            .btn-logout {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.8rem;
+                margin-left: auto;
+            }
+            
+            .btn-logout i {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="/images/Logo1.png" alt="Enviar Logo" style="height: 40px;">
+            </a>
+            <div class="nav-buttons">
+                <a href="/logout" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Déconnexion
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Popup de déconnexion -->
+    <div class="logout-popup" id="logoutPopup">
+        <div class="logout-popup-content">
+            <h3>Voulez-vous vraiment vous déconnecter ?</h3>
+            <div class="logout-popup-buttons">
+                <button class="btn-cancel" onclick="closeLogoutPopup()">Annuler</button>
+                <button class="btn-confirm" onclick="confirmLogout()">Se déconnecter</button>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <section class="admin-container">
+            <h1 data-translate="admin-title">Administration des Taux de Change</h1>
+            
+            <div class="current-rates-container">
+                <!-- Section des taux actuels (GAUCHE) -->
+                <div class="taux-actuel">
+                    <div class="taux-item">
+                        <h3 data-translate="cad-gnf-rate">Taux de Change CAD vers GNF</h3>
+                        <p>1 CAD = <span id="taux-cad-gnf">{{ "%.0f"|format(taux_cad_gnf) }}</span> GNF</p>
+                    </div>
+                    <div class="taux-item" style="margin-top: 1rem;">
+                        <h3 data-translate="gnf-xof-rate">Taux de Change GNF vers XOF</h3>
+                        <p>1 GNF = <span id="taux-xof-gnf">{{ "%.5f"|format(1/taux_xof_gnf) }}</span> XOF</p>
+                    </div>
+                </div>
+
+                <!-- Section des frais actuels (DROITE) -->
+                <div class="frais-actuel">
+                    <h3 style="color: #2c5e2c; margin-bottom: 1rem;">Frais de transfert actuels</h3>
+                    <div class="frais-item">
+                        <p><strong>Canada → Guinée :</strong> <span id="frais-canada-guinee-actuel">{{ frais_canada_guinee }}%</span></p>
+                        <p><strong>Canada → Sénégal :</strong> <span id="frais-canada-senegal-actuel">{{ frais_canada_senegal }}%</span></p>
+                        <p><strong>Guinée → Canada :</strong> <span id="frais-guinee-canada-actuel">{{ frais_guinee_canada }}%</span></p>
+                        <p><strong>Guinée → Sénégal :</strong> <span id="frais-guinee-senegal-actuel">{{ frais_guinee_senegal }}%</span></p>
+                        <p><strong>Sénégal → Canada :</strong> <span id="frais-senegal-canada-actuel">{{ frais_senegal_canada }}%</span></p>
+                        <p><strong>Sénégal → Guinée :</strong> <span id="frais-senegal-guinee-actuel">{{ frais_senegal_guinee }}%</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="update-sections-container">
+                <!-- Section Taux de change (GAUCHE) -->
+                <div class="update-section">
+                    <h3 style="margin-bottom: 1rem; color: #333;">Taux de change</h3>
+                    <div class="form-group">
+                        <label for="taux-destination">Destination</label>
+                        <select id="taux-destination" class="form-select">
+                            <option value="canada-guinee">Canada → Guinée</option>
+                            <option value="senegal-guinee">Sénégal → Guinée</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="nouveau-taux">Nouveau taux</label>
+                        <input type="number" id="nouveau-taux" step="0.01" min="0" placeholder="Entrez le nouveau taux">
+                    </div>
+                    <button type="button" onclick="updateTaux()" class="update-btn">Mettre à jour le taux</button>
+                </div>
+
+                <!-- Section Frais de transfert (DROITE) -->
+                <div class="update-section">
+                    <h3 style="margin-bottom: 1rem; color: #333;">Frais de transfert</h3>
+                    <div class="form-group">
+                        <label for="frais-destination">Destination</label>
+                        <select id="frais-destination" class="form-select">
+                            <option value="canada-guinee">Canada → Guinée</option>
+                            <option value="canada-senegal">Canada → Sénégal</option>
+                            <option value="guinee-canada">Guinée → Canada</option>
+                            <option value="guinee-senegal">Guinée → Sénégal</option>
+                            <option value="senegal-canada">Sénégal → Canada</option>
+                            <option value="senegal-guinee">Sénégal → Guinée</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="nouveau-frais">Nouveau pourcentage (%)</label>
+                        <input type="number" id="nouveau-frais" step="0.1" min="0" max="100" placeholder="Entrez le nouveau pourcentage">
+                    </div>
+                    <button type="button" onclick="updateFrais()" class="update-btn">Mettre à jour les frais</button>
+                </div>
+            </div>
+
+            <div id="errorMessage" class="error-message"></div>
+            <div id="successMessage" class="success-message">✅ Mise à jour réussie !</div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+
+            // Charger les valeurs actuelles dans les champs
+            loadCurrentValues();
+        });
+
+        // Fonction pour charger les valeurs actuelles
+        function loadCurrentValues() {
+            // Charger les taux et frais actuels selon la destination sélectionnée
+            updateTauxPlaceholder();
+            updateFraisPlaceholder();
+        }
+
+        // Fonction pour mettre à jour le placeholder des taux
+        function updateTauxPlaceholder() {
+            const destination = document.getElementById('taux-destination').value;
+            const tauxActuels = {
+                'canada-guinee': '{{ "%.0f"|format(taux_cad_gnf) }}',
+                'senegal-guinee': '{{ "%.5f"|format(1/taux_xof_gnf) }}'
+            };
+            
+            const labels = {
+                'canada-guinee': 'GNF',
+                'senegal-guinee': 'XOF'
+            };
+            
+            document.getElementById('nouveau-taux').placeholder = `Taux actuel: ${tauxActuels[destination]} ${labels[destination]}`;
+        }
+
+        // Fonction pour mettre à jour le placeholder des frais
+        function updateFraisPlaceholder() {
+            const destination = document.getElementById('frais-destination').value;
+            const fraisActuels = {
+                'canada-guinee': '{{ frais_canada_guinee }}',
+                'canada-senegal': '{{ frais_canada_senegal }}',
+                'guinee-canada': '{{ frais_guinee_canada }}',
+                'guinee-senegal': '{{ frais_guinee_senegal }}',
+                'senegal-canada': '{{ frais_senegal_canada }}',
+                'senegal-guinee': '{{ frais_senegal_guinee }}'
+            };
+            
+            document.getElementById('nouveau-frais').placeholder = `Frais actuel: ${fraisActuels[destination]}%`;
+        }
+
+        // Fonction pour mettre à jour un taux
+        function updateTaux() {
+            const destination = document.getElementById('taux-destination').value;
+            const nouveauTaux = parseFloat(document.getElementById('nouveau-taux').value);
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+
+            if (isNaN(nouveauTaux) || nouveauTaux <= 0) {
+                errorMessage.textContent = 'Veuillez entrer un taux valide (supérieur à 0)';
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('destination', destination);
+            formData.append('nouveau-taux', nouveauTaux);
+
+            fetch('/update_taux_simple', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Mettre à jour l'affichage
+                    const destinationLabels = {
+                        'canada-guinee': 'Canada → Guinée',
+                        'senegal-guinee': 'Sénégal → Guinée'
+                    };
+                    
+                    if (destination === 'canada-guinee') {
+                        document.getElementById('taux-cad-gnf').textContent = Math.round(nouveauTaux);
+                    } else if (destination === 'senegal-guinee') {
+                        document.getElementById('taux-xof-gnf').textContent = nouveauTaux.toFixed(5);
+                    }
+                    
+                    successMessage.innerHTML = `✅ Taux mis à jour avec succès !<br>
+                        <strong>${destinationLabels[destination]} :</strong> ${nouveauTaux}<br>
+                        <small>💡 Les nouveaux taux sont maintenant actifs dans le calculateur</small>`;
+                    successMessage.style.display = 'block';
+                    errorMessage.textContent = '';
+                    
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 8000);
+                } else {
+                    errorMessage.textContent = data.error || 'Une erreur est survenue';
+                }
+            })
+            .catch(error => {
+                errorMessage.textContent = 'Une erreur est survenue lors de la mise à jour';
+                console.error('Erreur:', error);
+            });
+        }
+
+        // Fonction pour mettre à jour les frais
+        function updateFrais() {
+            const destination = document.getElementById('frais-destination').value;
+            const nouveauFrais = parseFloat(document.getElementById('nouveau-frais').value);
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+
+            if (isNaN(nouveauFrais) || nouveauFrais < 0 || nouveauFrais > 100) {
+                errorMessage.textContent = 'Veuillez entrer un pourcentage valide (entre 0 et 100%)';
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('destination', destination);
+            formData.append('nouveau-frais', nouveauFrais);
+
+            fetch('/update_frais_simple', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Mettre à jour l'affichage
+                    const destinationLabels = {
+                        'canada-guinee': 'Canada → Guinée',
+                        'canada-senegal': 'Canada → Sénégal',
+                        'guinee-canada': 'Guinée → Canada',
+                        'guinee-senegal': 'Guinée → Sénégal',
+                        'senegal-canada': 'Sénégal → Canada',
+                        'senegal-guinee': 'Sénégal → Guinée'
+                    };
+                    
+                    successMessage.innerHTML = `✅ Frais mis à jour avec succès !<br>
+                        <strong>${destinationLabels[destination]} :</strong> ${nouveauFrais}%<br>
+                        <small>💡 Les nouveaux frais sont maintenant actifs dans le calculateur</small>`;
+                    successMessage.style.display = 'block';
+                    errorMessage.textContent = '';
+                    
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 8000);
+                } else {
+                    errorMessage.textContent = data.error || 'Une erreur est survenue';
+                }
+            })
+            .catch(error => {
+                errorMessage.textContent = 'Une erreur est survenue lors de la mise à jour';
+                console.error('Erreur:', error);
+            });
+        }
+
+        // Écouter les changements de destination pour les taux et frais
+        document.getElementById('taux-destination').addEventListener('change', updateTauxPlaceholder);
+        document.getElementById('frais-destination').addEventListener('change', updateFraisPlaceholder);
+
+        // Fonction pour afficher le popup de déconnexion
+        function showLogoutPopup() {
+            document.getElementById('logoutPopup').classList.add('active');
+        }
+
+        // Fonction pour fermer le popup de déconnexion
+        function closeLogoutPopup() {
+            document.getElementById('logoutPopup').classList.remove('active');
+        }
+
+        // Fonction pour confirmer la déconnexion
+        function confirmLogout() {
+            window.location.href = '/logout';
+        }
+
+        // Ajouter l'événement click sur le bouton de déconnexion
+        document.querySelector('.btn-logout').addEventListener('click', function(e) {
+            e.preventDefault();
+            showLogoutPopup();
+        });
+    </script>
+
+    <script src="/static/js/translator.js"></script>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/cookies.js"></script>
+</body>
+</html> 

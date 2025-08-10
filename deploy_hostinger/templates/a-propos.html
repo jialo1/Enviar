@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À propos - Enviar</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/whatsapp-buttons.css?v=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', {
+            'analytics_storage': 'denied' // Par défaut, les cookies sont désactivés
+        });
+    </script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="/static/images/logo-enviar.png.png" alt="Enviar Logo" style="height: 40px;">
+            </a>
+            <nav class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="/" data-translate="nav-home">Accueil</a></li>
+                    <li><a href="/fonctionnement" data-translate="nav-how-it-works">Fonctionnement</a></li>
+                    <li><a href="/a-propos" class="active" data-translate="nav-about">À propos</a></li>
+                    <li><a href="/contact" data-translate="nav-contact">Contact</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <select id="language-selector" class="language-selector">
+                        <option value="fr">🇫🇷 FR</option>
+                        <option value="en">🇨🇦 EN</option>
+                    </select>
+                </div>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1 data-translate="about-title">À propos d'Enviar</h1>
+                <p data-translate="about-subtitle">Notre mission et notre vision</p>
+            </div>
+        </section>
+
+        <section class="histoire side-by-side-section">
+            <div class="container">
+                <h2 data-translate="about-story">Notre Histoire</h2>
+                <div class="histoire-content">
+                    <p>Avec une expérience de plusieurs années, Enviar s'engage à offrir des solutions fiables et efficaces dans le domaine du transfert d'argent. Présente en Guinée et au Canada, notre entreprise est née d'une volonté claire : faciliter les échanges financiers à travers le monde en toute sécurité.</p>
+                    <p>Particulier, commerçant, membre de la diaspora ou une institution, nous mettons à votre disposition une solution de proximité, pensée pour répondre à vos besoins avec rapidité, instantanéité et à coût réduit.</p>
+                    <p>Notre mission est de faciliter les transferts d'argent entre ces trois pays, en offrant un service transparent, sécurisé et à des tarifs compétitifs.</p>
+                    <p>Nous croyons en la puissance des transferts d'argent pour soutenir le développement économique de l'Afrique et améliorer la vie des familles.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pourquoi-nous-choisir side-by-side-section">
+            <div class="container">
+                <h2>Pourquoi nous choisir ?</h2>
+                <div class="pourquoi-content">
+                    <p>Chez Enviar, la satisfaction de nos clients est notre priorité. Chaque opération est traitée avec professionnalisme, dans un environnement rassurant et conforme aux standards internationaux.</p>
+                    <p>Faites confiance à une équipe engagée, moderne et proche de vous. Enviar,<br>facilement vôtre !</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mission-valeurs">
+            <div class="container">
+                <h2 data-translate="about-values">Notre Mission et Nos Valeurs</h2>
+                <div class="valeurs-grid">
+                    <div class="valeur-card">
+                        <h3 data-translate="security">Sécurité</h3>
+                        <p>Protection maximale de vos transactions et de vos données personnelles</p>
+                    </div>
+                    <div class="valeur-card">
+                        <h3 data-translate="innovation">Innovation</h3>
+                        <p>Solutions technologiques modernes pour des transferts rapides et fiables</p>
+                    </div>
+                    <div class="valeur-card">
+                        <h3 data-translate="customer-service">Service Client</h3>
+                        <p>Une équipe dédiée à votre service 7j/7</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="securite">
+            <div class="container">
+                <h2 data-translate="about-security">Sécurité et Conformité</h2>
+                <div class="securite-content">
+                    <div class="securite-item">
+                        <h3 data-translate="licenses-regulations">Licences et Réglementations</h3>
+                        <p>Enviar est agréé par les autorités de régulation financière en France et dans les pays africains où nous opérons.</p>
+                    </div>
+                    <div class="securite-item">
+                        <h3 data-translate="data-protection">Protection des Données</h3>
+                        <p>Vos données personnelles sont protégées selon les normes les plus strictes de l'industrie.</p>
+                    </div>
+                    <div class="securite-item">
+                        <h3 data-translate="secure-transactions">Transactions Sécurisées</h3>
+                        <p>Toutes nos transactions sont cryptées et surveillées 24/7 pour votre sécurité.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    {% include 'cookie-banner.html' %}
+    {% include 'footer.html' %}
+
+    <!-- Bouton WhatsApp flottant -->
+    <div class="whatsapp-floating">
+        <a href="https://wa.me/15142295522" target="_blank" class="btn-whatsapp" aria-label="Contactez-nous sur WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/cookies.js"></script>
+    <script src="/static/js/translator.js"></script>
+</body>
+</html> 

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar - Transfert d'argent vers l'Afrique</title>
+    <link rel="stylesheet" href="/static/css/style.css?v=1">
+    <link rel="stylesheet" href="/static/css/calculator.css">
+    <link rel="stylesheet" href="/static/css/whatsapp-buttons.css?v=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', {
+            'analytics_storage': 'denied' // Par défaut, les cookies sont désactivés
+        });
+    </script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="/images/Logo1.png" alt="Enviar Logo" style="height: 40px;">
+            </a>
+            <nav class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="/" class="active" data-translate="nav-home">Accueil</a></li>
+                    <li><a href="/fonctionnement" data-translate="nav-how-it-works">Fonctionnement</a></li>
+                    <li><a href="/a-propos" data-translate="nav-about">À propos</a></li>
+                    <li><a href="/contact" data-translate="nav-contact">Contact</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <select class="language-selector">
+                        <option value="fr">🇫🇷 FR</option>
+                        <option value="en">🇨🇦 EN</option>
+                    </select>
+                </div>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-title">
+                    <h1 data-translate="hero-title">Envoyez de l'argent vers la Guinée en toute simplicité</h1>
+                    <p data-translate="hero-subtitle">Des transferts rapides, sécurisés et économiques vers vos proches en Guinée</p>
+                </div>
+                <div class="hero-right">
+                    <div class="calculator-container">
+                        <div class="taux-change">
+                            <div data-translate="current-rates">Taux de change actuels :</div>
+                            <div id="taux-change-display">
+                                <img src="/static/images/flags/canada.png" alt="Canada" class="flag-icon" style="vertical-align:middle;"> 1 CAD = <span id="taux-cad-gnf">{{ "%.0f"|format(taux_cad_gnf) }}</span> GNF <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon" style="vertical-align:middle;">
+                            </div>
+                        </div>
+                        <form id="calculator-form">
+                            <div class="form-group">
+                                <label for="pays-depart" data-translate="send-country">Pays d'envoi</label>
+                                <div class="custom-select" id="custom-pays-depart">
+                                    <div class="selected-option" data-value="canada">
+                                        <img src="/static/images/flags/canada.png" alt="Canada" class="flag-icon"> Canada
+                                    </div>
+                                    <div class="options-list">
+                                        <div class="option" data-value="canada">
+                                            <img src="/static/images/flags/canada.png" alt="Canada" class="flag-icon"> Canada
+                                        </div>
+                                        <div class="option" data-value="guinee">
+                                            <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> Guinée
+                                        </div>
+                                        <div class="option" data-value="senegal">
+                                            <img src="/static/images/flags/senegal.png" alt="Sénégal" class="flag-icon"> Sénégal
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="pays-depart" id="pays-depart" value="canada">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="montant" data-translate="amount">Montant à envoyer</label>
+                                <input type="number" id="montant" name="montant" min="1" step="1" required data-translate-placeholder="amount">
+                                <span id="devise-montant"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="pays-destination" data-translate="receive-country">Pays de réception</label>
+                                <div class="custom-select" id="custom-pays-destination">
+                                    <div class="selected-option" data-value="guinee">
+                                        <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> Guinée
+                                    </div>
+                                    <div class="options-list">
+                                        <div class="option" data-value="guinee">
+                                            <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> Guinée
+                                        </div>
+                                        <div class="option" data-value="senegal">
+                                            <img src="/static/images/flags/senegal.png" alt="Sénégal" class="flag-icon"> Sénégal
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="pays-destination" id="pays-destination" value="guinee">
+                                </div>
+                            </div>
+                            <button type="submit" class="cta-button" data-translate="calculate">Calculer</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="hero-infos">
+                    <div class="hero-features">
+                        <div class="feature-item">
+                            <i class="fas fa-bolt"></i>
+                            <span data-translate="instant-transfers">Transferts instantanés</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span data-translate="secure">100% sécurisé</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span data-translate="low-fees">Frais réduits</span>
+                        </div>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">1M+</span>
+                            <span class="stat-label" data-translate="transfers">Transferts</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">3</span>
+                            <span class="stat-label">pays</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label" data-translate="support">Support</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal pour les résultats -->
+        <div id="resultat-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2 data-translate="result-title">Résultat du calcul</h2>
+                <div class="resultat-calcul">
+                    <div class="resultat-item">
+                        <span id="taux-jour" data-translate="day-rate">Taux du jour : --</span>
+                    </div>
+                    <div class="resultat-item">
+                        <span data-translate="amount-to-send">Montant à envoyer :</span>
+                        <span id="montant-envoyer">--</span>
+                    </div>
+                    <div class="resultat-item">
+                        <span data-translate="fees">Frais à payer :</span>
+                        <span id="frais">--</span>
+                    </div>
+                    <div class="resultat-item">
+                        <span data-translate="total-to-pay">Total à payer :</span>
+                        <span id="total-payer">--</span>
+                    </div>
+                    <div class="resultat-item">
+                        <span data-translate="total-to-receive">Total à recevoir :</span>
+                        <span id="montant-recu">--</span>
+                    </div>
+                    <div class="contact-button">
+                        <button onclick="showContactForm()" class="cta-button" data-translate="lets-go">C'est parti</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulaire de contact (initialement caché) -->
+        <div id="contact-form-container" style="display: none;">
+            <div class="calculator-container">
+                <h2 data-translate="contact-title">Contactez-nous pour finaliser votre transfert</h2>
+                
+                <!-- Résumé du transfert -->
+                <div class="transfer-summary">
+                    <h3>Résumé de votre transfert</h3>
+                    <div class="summary-item">
+                        <span>Envoi :</span>
+                        <span id="summary-envoi">--</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Frais :</span>
+                        <span id="summary-frais">--</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Total :</span>
+                        <span id="summary-total">--</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Réception :</span>
+                        <span id="summary-reception">--</span>
+                    </div>
+                </div>
+                
+                <form id="contact-form">
+                    <h3 data-translate="your-info">Vos informations</h3>
+                    <div class="form-group">
+                        <label for="nom" data-translate="full-name">Nom complet</label>
+                        <input type="text" id="nom" name="nom" required data-translate-placeholder="full-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="telephone" data-translate="phone">Téléphone</label>
+                        <input type="tel" id="telephone" name="telephone" required data-translate-placeholder="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="email" data-translate="email">Email</label>
+                        <input type="email" id="email" name="email" required data-translate-placeholder="email">
+                    </div>
+                    
+                    <h3 data-translate="beneficiary-info">Informations du bénéficiaire</h3>
+                    <div class="form-group">
+                        <label for="beneficiaire-nom" data-translate="beneficiary-name">Nom complet du bénéficiaire</label>
+                        <input type="text" id="beneficiaire-nom" name="beneficiaire-nom" required data-translate-placeholder="beneficiary-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="beneficiaire-telephone" data-translate="beneficiary-phone">Téléphone du bénéficiaire</label>
+                        <input type="tel" id="beneficiaire-telephone" name="beneficiaire-telephone" required data-translate-placeholder="beneficiary-phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="beneficiaire-adresse" data-translate="beneficiary-address">Adresse du bénéficiaire</label>
+                        <input type="text" id="beneficiaire-adresse" name="beneficiaire-adresse" required data-translate-placeholder="beneficiary-address">
+                    </div>
+                    <div class="form-group">
+                        <label for="message" data-translate="message">Message (optionnel)</label>
+                        <textarea id="message" name="message" rows="3" data-translate-placeholder="message"></textarea>
+                    </div>
+                    <button type="submit" class="cta-button" data-translate="send-request">Envoyer la demande</button>
+                </form>
+            </div>
+        </div>
+
+        <section class="avantages">
+            <div class="container">
+                <h2 data-translate="avantages-title">Pourquoi choisir Enviar ?</h2>
+                <div class="avantages-grid">
+                    <div class="avantage-card">
+                        <i class="fas fa-rocket"></i>
+                        <h3 data-translate="avantage-rapidite">Rapidité</h3>
+                        <p data-translate="avantage-rapidite-desc">Transferts instantanés vers vos proches en Guinée</p>
+                    </div>
+                    <div class="avantage-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3 data-translate="avantage-securite">Sécurité</h3>
+                        <p data-translate="avantage-securite-desc">Transactions 100% sécurisées et conformes aux réglementations</p>
+                    </div>
+                    <div class="avantage-card">
+                        <i class="fas fa-dollar-sign"></i>
+                        <h3 data-translate="avantage-tarifs">Tarifs compétitifs</h3>
+                        <p data-translate="avantage-tarifs-desc">Les meilleurs taux de change et les frais les plus bas du marché</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="process">
+            <div class="container">
+                <h2 data-translate="process-title">Comment ça marche ?</h2>
+                <div class="process-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3 data-translate="step-1-title">Calculez votre transfert</h3>
+                        <p data-translate="step-1-desc">Utilisez notre calculateur pour connaître le montant exact que votre bénéficiaire recevra</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3 data-translate="step-2-title">Contactez-nous</h3>
+                        <p data-translate="step-2-desc">Envoyez-nous un message sur WhatsApp avec les détails de votre transfert</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3 data-translate="step-3-title">Recevez votre argent</h3>
+                        <p data-translate="step-3-desc">Votre bénéficiaire reçoit l'argent instantanément après confirmation</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Pays desservis -->
+        <section class="pays-desservis">
+            <div class="container">
+                <h2 data-translate="served-countries">Principaux pays</h2>
+                <div class="pays-grid">
+                    <div class="pays-card">
+                        <img src="/static/images/flags/canada.png" alt="Canada" class="flag-icon"> <span data-translate="canada">Canada</span>
+                    </div>
+                    <div class="pays-card">
+                        <img src="/static/images/flags/guinee.png" alt="Guinée" class="flag-icon"> <span data-translate="guinea">Guinée</span>
+                    </div>
+                    <div class="pays-card">
+                        <img src="/static/images/flags/senegal.png" alt="Sénégal" class="flag-icon"> <span data-translate="senegal">Sénégal</span>
+                    </div>
+                    <div class="pays-card">
+                        <img src="/static/images/flags/Sierraleone.jpg" alt="Sierra Leone" class="flag-icon"> <span data-translate="sierra-leone">Sierra Leone</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq">
+            <div class="container">
+                <h2 data-translate="faq-title">Questions fréquentes</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h3 data-translate="faq-1-question">Combien de temps prend un transfert ?</h3>
+                        <p data-translate="faq-1-answer">La plupart de nos transferts sont instantanés. Dans certains cas, le délai peut aller jusqu'à 24 heures selon le pays de destination.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 data-translate="faq-2-question">Quels documents sont nécessaires ?</h3>
+                        <p data-translate="faq-2-answer">Une pièce d'identité valide (passeport ou carte d'identité) et un justificatif de domicile de moins de 3 mois.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 data-translate="faq-3-question">Comment mon bénéficiaire reçoit-il l'argent ?</h3>
+                        <p data-translate="faq-3-answer">Votre bénéficiaire peut retirer l'argent dans l'un de nos points de retrait partenaires ou recevoir directement sur son compte bancaire.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    {% include 'cookie-banner.html' %}
+    {% include 'footer.html' %}
+
+    <!-- Bouton WhatsApp flottant -->
+    <div class="whatsapp-floating">
+        <a href="https://wa.me/15142295522" target="_blank" class="btn-whatsapp" aria-label="Contactez-nous sur WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <script src="/static/js/translator.js"></script>
+    <script src="/static/js/calculator.js?v=2"></script>
+    <script src="/static/js/main.js"></script>
+    
+    <script>
+    // Custom select with flags
+    function setupCustomSelect(selectId) {
+        const customSelect = document.getElementById(selectId);
+        const selected = customSelect.querySelector('.selected-option');
+        const optionsList = customSelect.querySelector('.options-list');
+        const options = optionsList.querySelectorAll('.option');
+        const hiddenInput = customSelect.querySelector('input[type="hidden"]');
+
+        // Ouvre/ferme le menu
+        selected.addEventListener('click', function(e) {
+            e.stopPropagation();
+            customSelect.classList.toggle('open');
+        });
+
+        // Sélection d'une option
+        options.forEach(option => {
+            option.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Met à jour l'affichage
+                selected.innerHTML = option.innerHTML;
+                selected.setAttribute('data-value', option.getAttribute('data-value'));
+                // Met à jour la valeur cachée
+                hiddenInput.value = option.getAttribute('data-value');
+                // Ferme le menu
+                customSelect.classList.remove('open');
+            });
+        });
+
+        // Ferme le menu si clic en dehors
+        document.addEventListener('click', function(e) {
+            customSelect.classList.remove('open');
+        });
+    }
+
+    // Initialiser les sélecteurs quand le DOM est chargé
+    document.addEventListener('DOMContentLoaded', function() {
+        setupCustomSelect('custom-pays-depart');
+        setupCustomSelect('custom-pays-destination');
+    });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,1331 @@
+.calculator-container {
+    background: white;
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.taux-change {
+    background: #f8f9fa;
+    padding: 1em;
+    border-radius: 5px;
+    margin-bottom: 1.5em;
+    text-align: center;
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 1.5em;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.cta-button {
+    background: #25D366;
+    color: white;
+    padding: 1em 2em;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background: #128C7E;
+}
+
+.resultat-calcul {
+    margin-top: 2em;
+    padding: 2em;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.resultat-calcul h3 {
+    margin-bottom: 1.5em;
+    color: #333;
+    text-align: center;
+    font-size: 1.4em;
+}
+
+.resultat-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1em;
+    padding: 1em;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.resultat-item span:first-child {
+    font-weight: 500;
+    color: #666;
+}
+
+.resultat-item span:last-child {
+    font-weight: bold;
+    color: #333;
+}
+
+.contact-button {
+    margin-top: 2em;
+    text-align: center;
+}
+
+.contact-button .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 1em 2em;
+    font-size: 1.1em;
+}
+
+#contact-form-container {
+    margin-top: 2em;
+}
+
+#contact-form-container h2 {
+    text-align: center;
+    margin-bottom: 1.5em;
+}
+
+#contact-form-container h3 {
+    margin: 1.5em 0 1em;
+    color: #333;
+}
+
+/* Styles pour le résumé du transfert */
+.transfer-summary {
+    background: #f8f9fa;
+    padding: 1.5em;
+    border-radius: 8px;
+    margin-bottom: 2em;
+    border: 1px solid #e9ecef;
+}
+
+.transfer-summary h3 {
+    text-align: center;
+    margin-bottom: 1.5em;
+    color: #333;
+    font-size: 1.2em;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8em;
+    margin-bottom: 0.5em;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.summary-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Styles pour les sections du récapitulatif */
+.summary-section {
+    border-top: 1px solid #e9ecef;
+    padding-top: 1.5em;
+}
+
+.summary-section h3 {
+    color: #25D366;
+    margin-bottom: 1em;
+    font-size: 1.1em;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.summary-section .summary-item {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    margin-bottom: 0.5em;
+}
+
+.summary-section .summary-item span:first-child {
+    color: #495057;
+    font-weight: 500;
+}
+
+.summary-section .summary-item span:last-child {
+    color: #333;
+    font-weight: 600;
+}
+
+.summary-item span:first-child {
+    font-weight: 500;
+    color: #666;
+}
+
+.summary-item span:last-child {
+    font-weight: bold;
+    color: #25D366;
+    font-size: 1.1em;
+}
+
+.summary-item:last-child span:last-child {
+    color: #128C7E;
+    font-size: 1.2em;
+}
+
+#whatsapp-button-container {
+    text-align: center;
+    margin-top: 2em;
+}
+
+#whatsapp-button-container h2 {
+    margin-bottom: 1em;
+}
+
+#whatsapp-button-container p {
+    margin-bottom: 2em;
+    color: #666;
+}
+
+.btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    background: #25D366;
+    color: white;
+    padding: 1em 2em;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1.1em;
+}
+
+.btn-whatsapp:hover {
+    background: #128C7E;
+}
+
+@media (max-width: 768px) {
+    .calculator-container {
+        padding: 0.5em;
+        margin: 0.7em 0.2em;
+    }
+    .resultat-calcul {
+        padding: 0.5em;
+        margin-top: 0.5em;
+    }
+    .resultat-item {
+        padding: 0.3em 0.1em;
+        gap: 0.1em;
+        justify-content: flex-start;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .resultat-item span:first-child {
+        text-align: left;
+    }
+
+    .resultat-item span:last-child {
+        align-self: flex-end;
+        margin-top: 0.2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .calculator-container {
+        padding: 0.3em;
+        margin: 0.3em 0.05em;
+    }
+    .resultat-calcul {
+        padding: 0.3em;
+        margin-top: 0.3em;
+    }
+    .resultat-item {
+        padding: 0.15em 0.05em;
+        gap: 0.05em;
+        justify-content: flex-start;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .resultat-item span:first-child {
+        text-align: left;
+        font-size: 0.9em;
+    }
+
+    .resultat-item span:last-child {
+        align-self: flex-end;
+        margin-top: 0.1em;
+        font-size: 1.05em;
+    }
+}
+
+/* Styles pour la fenêtre modale */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+.close-modal {
+    position: absolute;
+    right: 1.5rem;
+    top: 1rem;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-modal:hover {
+    color: #333;
+}
+
+.modal h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.modal .resultat-calcul {
+    margin-top: 1rem;
+}
+
+.modal .resultat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    background: #f8f9fa;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.modal .resultat-item:hover {
+    background: #f0f0f0;
+}
+
+.modal .resultat-item span:first-child {
+    font-weight: 500;
+    color: #666;
+}
+
+.modal .resultat-item span:last-child {
+    font-weight: bold;
+    color: #333;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.5px;
+}
+
+/* Style spécial pour le taux de change */
+.modal .resultat-item:first-child span:last-child {
+    color: #25D366;
+    font-size: 1.1em;
+}
+
+/* Style spécial pour le montant à recevoir */
+.modal .resultat-item:nth-last-child(2) span:last-child {
+    color: #128C7E;
+    font-size: 1.1em;
+}
+
+.modal .contact-button {
+    margin-top: 2em;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.modal .contact-button .cta-button {
+    display: inline-block;
+    padding: 0.8em 2em;
+    font-size: 1.1em;
+    font-weight: 600;
+    background-color: #25D366;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 auto;
+    text-decoration: none;
+    min-width: 160px;
+    box-shadow: none !important;
+}
+
+.modal .contact-button .cta-button:hover {
+    background-color: #128C7E;
+    transform: translateY(-1px);
+    box-shadow: none !important;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Styles responsifs pour la modal */
+@media (max-width: 768px) {
+    .modal-content {
+        margin: 5% auto;
+        padding: 1.5rem;
+        width: 95%;
+        max-width: none;
+    }
+
+    .close-modal {
+        right: 1rem;
+        top: 0.5rem;
+        font-size: 1.8rem;
+    }
+
+    .modal h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+
+    .modal .resultat-item {
+        padding: 0.8rem;
+        flex-direction: column;
+        gap: 0.3rem;
+        text-align: left;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    .modal .resultat-item span:first-child {
+        font-size: 0.9rem;
+        color: #666;
+    }
+
+    .modal .resultat-item span:last-child {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .modal .contact-button {
+        margin-top: 1.5rem;
+    }
+
+    .modal .contact-button .cta-button {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1rem;
+    }
+}
+
+/* Styles pour le formulaire de transfert */
+.transfert-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.steps-progress {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+    position: relative;
+    padding: 0 1rem;
+}
+
+.steps-progress::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    height: 2px;
+    background: #e0e0e0;
+    z-index: 1;
+}
+
+.step {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.step-number {
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 1.2rem !important;
+    font-weight: bold !important;
+    color: #fff !important;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    line-height: 1;
+}
+
+.step-number i,
+.step-number svg {
+    display: none !important;
+}
+
+/* Amélioration de l'état actif et complété sur desktop */
+.step.active .step-number {
+    background-color: #25D366;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+}
+
+.step.active .step-title {
+    color: #25D366;
+    font-weight: 600;
+}
+
+.step.completed .step-number {
+    background-color: #128C7E;
+    transform: scale(1.05);
+}
+
+.step.completed .step-title {
+    color: #128C7E;
+    font-weight: 500;
+}
+
+.step-title {
+    font-size: 1rem;
+    color: #666;
+    margin-top: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.form-step {
+    display: none;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 10px;
+    animation: fadeIn 0.5s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.form-step.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-buttons .prev-step,
+.form-buttons .next-step {
+    flex: 1 1 0;
+    padding: 1em 2em;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+
+.form-buttons .prev-step {
+    background: #f5f5f5;
+    color: #333;
+}
+
+.form-buttons .prev-step:hover {
+    background: #e0e0e0;
+}
+
+.form-buttons button[type="submit"].cta-button {
+    flex: 1 1 0;
+    padding: 1em 2em;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    background: #25D366;
+    color: white;
+    transition: background 0.3s, color 0.3s;
+}
+
+.form-buttons button[type="submit"].cta-button:hover {
+    background: #128C7E;
+}
+
+.confirmation-summary {
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1em;
+    padding: 1em;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.summary-item span:first-child {
+    font-weight: 500;
+    color: #666;
+}
+
+.summary-item span:last-child {
+    font-weight: bold;
+    color: #333;
+    font-size: 1.1em;
+}
+
+/* Style pour les montants importants */
+span#summary-total {
+    color: #25D366 !important;
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+/* Style pour les champs en lecture seule */
+input[readonly] {
+    background-color: #f8f9fa;
+    font-weight: 500;
+    color: #333;
+}
+
+#montant-display,
+#montant-recu-display,
+#total-display {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #25D366;
+}
+
+input.error {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.field-error {
+    color: #dc3545;
+    font-size: 0.8em;
+    margin-top: 0.25em;
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Styles responsifs */
+@media (max-width: 768px) {
+    .transfert-container {
+        padding: 1rem;
+    }
+    
+    .steps-progress {
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 0;
+        margin: 0 -0.5rem 2rem -0.5rem;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    
+    .steps-progress::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .steps-progress::before {
+        display: none;
+    }
+    
+    .step {
+        flex: 0 0 auto;
+        width: 80px;
+        margin: 0 0.25rem;
+        padding: 0.25rem;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+    
+    .step-number {
+        width: 32px;
+        height: 32px;
+        font-size: 1.1rem;
+        margin-bottom: 0.25rem;
+        transition: all 0.3s ease;
+    }
+    
+    .step-title {
+        font-size: 0.8rem;
+        white-space: nowrap;
+        margin-top: 0.25rem;
+        transition: color 0.3s ease;
+    }
+    
+    /* Amélioration de l'état actif et complété sur mobile */
+    .step.active .step-number {
+        background-color: #25D366;
+        transform: scale(1.1);
+        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+    }
+    
+    .step.active .step-title {
+        color: #25D366;
+        font-weight: 600;
+    }
+    
+    .step.completed .step-number {
+        background-color: #128C7E;
+        transform: scale(1.05);
+    }
+    
+    .step.completed .step-title {
+        color: #128C7E;
+        font-weight: 500;
+    }
+    
+    .form-step {
+        padding: 1rem;
+    }
+    
+    .form-group {
+        max-width: 100%;
+    }
+    
+    .form-buttons {
+        max-width: 100%;
+        flex-direction: column;
+    }
+    
+    .confirmation-summary {
+        max-width: 100%;
+        padding: 1rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.2em;
+    }
+
+    .form-group label {
+        font-size: 0.95em;
+        margin-bottom: 0.4em;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 0.8em;
+        font-size: 1em;
+        height: 44px; /* Meilleure ergonomie tactile */
+    }
+
+    .form-group textarea {
+        height: auto;
+        min-height: 100px;
+    }
+
+    .form-buttons button,
+    .form-buttons a {
+        width: 100%;
+        padding: 1em;
+        font-size: 1em;
+        height: 48px; /* Meilleure ergonomie tactile */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+    
+    .form-buttons .cta-button {
+        background-color: #25D366;
+        color: white;
+    }
+    
+    .form-buttons .cta-button:hover {
+        background-color: #128C7E;
+        transform: translateY(-1px);
+    }
+    
+    .form-buttons .prev-step {
+        background-color: #f5f5f5;
+        color: #333;
+        border: 1px solid #ddd;
+    }
+    
+    .form-buttons .prev-step:hover {
+        background-color: #e0e0e0;
+    }
+
+    .summary-item {
+        padding: 0.8em;
+        margin-bottom: 0.8em;
+        justify-content: flex-start;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3em;
+    }
+
+    .summary-item span:first-child {
+        font-size: 0.95em;
+    }
+
+    .summary-item span:last-child {
+        font-size: 1.05em;
+        align-self: flex-end;
+        margin-top: 0.2em;
+    }
+
+    .summary-section {
+        margin-top: 1.5em;
+        padding-top: 1em;
+    }
+
+    .summary-section h3 {
+        font-size: 1em;
+        margin-bottom: 0.8em;
+    }
+
+    .summary-section .summary-item {
+        padding: 0.6em;
+        margin-bottom: 0.4em;
+    }
+
+    #whatsapp-preview {
+        font-size: 0.9em;
+        padding: 0.8em;
+    }
+
+    #copy-message {
+        padding: 0.5em 1em;
+        font-size: 0.9em;
+    }
+}
+
+/* Améliorations pour les très petits écrans */
+@media (max-width: 480px) {
+    .transfert-container {
+        margin: 0.5rem;
+        padding: 0.8rem;
+    }
+
+    .steps-progress {
+        margin: 0 -0.25rem 1.5rem -0.25rem;
+    }
+
+    .step {
+        width: 70px;
+        margin: 0 0.15rem;
+        padding: 0.15rem;
+        position: relative;
+    }
+
+    .step-number {
+        width: 28px;
+        height: 28px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .step-title {
+        font-size: 0.75rem;
+        transition: color 0.3s ease;
+    }
+    
+    /* Amélioration de l'état actif et complété sur très petits écrans */
+    .step.active .step-number {
+        background-color: #25D366;
+        transform: scale(1.15);
+        box-shadow: 0 3px 12px rgba(37, 211, 102, 0.4);
+    }
+    
+    .step.active .step-title {
+        color: #25D366;
+        font-weight: 600;
+    }
+    
+    .step.completed .step-number {
+        background-color: #128C7E;
+        transform: scale(1.08);
+    }
+    
+    .step.completed .step-title {
+        color: #128C7E;
+        font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 16px; /* Évite le zoom automatique sur iOS */
+    }
+
+    .summary-item {
+        flex-direction: column;
+        gap: 0.5em;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .summary-item span:first-child {
+        font-size: 0.9em;
+        text-align: left;
+    }
+
+    .summary-item span:last-child {
+        font-size: 1.1em;
+        color: #25D366;
+        align-self: flex-end;
+        margin-top: 0.2em;
+    }
+
+    /* Styles spécifiques pour la modal sur très petits écrans */
+    .modal-content {
+        margin: 2% auto;
+        padding: 1rem;
+        width: 98%;
+    }
+
+    .modal h2 {
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .modal .resultat-item {
+        padding: 0.6rem;
+        margin-bottom: 0.3rem;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 0.2rem;
+    }
+
+    .modal .resultat-item span:first-child {
+        font-size: 0.85rem;
+        text-align: left;
+    }
+
+    .modal .resultat-item span:last-child {
+        font-size: 1rem;
+        align-self: flex-end;
+        margin-top: 0.1rem;
+    }
+
+    .modal .contact-button .cta-button {
+        padding: 0.8rem;
+        font-size: 0.95rem;
+    }
+
+    .close-modal {
+        right: 0.8rem;
+        top: 0.3rem;
+        font-size: 1.5rem;
+    }
+}
+
+.modal #taux-jour {
+    display: block;
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #25D366;
+    margin-bottom: 0.5em;
+}
+
+/* Amélioration de l'affichage du taux sur mobile */
+@media (max-width: 768px) {
+    .modal #taux-jour {
+        font-size: 1.2em;
+        margin-bottom: 0.8em;
+        padding: 0.5em;
+        background: #f0f8f0;
+        border-radius: 5px;
+        border: 1px solid #25D366;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal #taux-jour {
+        font-size: 1.1em;
+        margin-bottom: 0.6em;
+        padding: 0.4em;
+    }
+}
+
+@media (min-width: 1024px) {
+    .transfert-container {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 40px 60px;
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        gap: 48px;
+    }
+    .steps-progress {
+        flex: 0 0 220px;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        margin-right: 40px;
+        margin-bottom: 0;
+        max-width: 220px;
+        padding: 0;
+        height: 100%;
+    }
+    .form-step {
+        flex: 1 1 0;
+        max-width: 520px;
+        min-width: 350px;
+        margin: 0;
+        padding: 2.5rem 2.5rem 2.5rem 0;
+        background: transparent;
+        box-shadow: none;
+    }
+    .confirmation-summary {
+        max-width: 520px;
+    }
+}
+
+/* Réduction des marges pour les titres et sous-titres du formulaire */
+.form-step h2,
+.form-step h3 {
+    margin-top: 0;
+    margin-bottom: 0.7em;
+    line-height: 1.2;
+}
+
+@media (min-width: 900px) {
+  .transfert-layout {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .steps-progress {
+    flex-direction: column;
+    align-items: flex-end;
+    min-width: 180px;
+    margin-bottom: 0;
+    margin-right: 0;
+    margin-top: 40px;
+    height: auto;
+  }
+  .form-step {
+    padding: 3.5rem 3rem 3rem 3rem;
+    margin: 0 0 0 0;
+    min-width: 480px;
+    max-width: 650px;
+  }
+  .confirmation-summary {
+    padding: 2.5rem 2rem 2rem 2rem;
+    margin-bottom: 2.5rem;
+  }
+  .form-group {
+    margin-bottom: 2.5rem;
+  }
+  .form-buttons {
+    margin-top: 2.5rem;
+    gap: 2rem;
+  }
+  .form-group input,
+  .form-group textarea {
+    padding: 1.2em;
+    font-size: 1.08em;
+  }
+  .form-step[data-step="4"] h2 {
+    text-align: center;
+  }
+}
+
+@media (max-width: 899px) {
+  .transfert-layout {
+    display: block;
+  }
+  .steps-progress {
+    flex-direction: row;
+    align-items: flex-start;
+    min-width: 0;
+    margin-bottom: 3rem;
+    margin-right: 0;
+    margin-top: 0;
+    height: auto;
+  }
+} 
+
+.step-number {
+    color: #fff !important;
+    background-color: var(--primary-color);
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.step.active .step-number,
+.step.completed .step-number {
+    color: #fff !important;
+} 
+
+@media (max-width: 768px) {
+    .steps-progress {
+        display: none !important;
+    }
+} 
+
+@media (max-width: 768px) {
+    .taux-change {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5em;
+        margin-bottom: 1em;
+    }
+    .taux-change #taux-change-display {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4em;
+        font-size: 1em;
+        flex-wrap: wrap;
+    }
+    .taux-change #taux-change-display img.flag-icon {
+        width: 1.5em;
+        height: 1.5em;
+        margin: 0 0.1em;
+    }
+    .taux-change #taux-change-display span {
+        font-size: 1em;
+        font-weight: 600;
+    }
+}
+
+@media (max-width: 768px) {
+    .taux-change #taux-change-display {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4em;
+        font-size: 0.92em;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .taux-change #taux-change-display {
+        font-size: 0.85em;
+        gap: 0.2em;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        overflow-x: auto;
+    }
+} 
+
+@media (max-width: 768px) {
+    .modal .contact-button {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        margin-top: 1.5em;
+        margin-bottom: 1em;
+        width: 100%;
+    }
+    .modal .contact-button .cta-button {
+        display: inline-block !important;
+        width: auto !important;
+        min-width: 160px;
+        max-width: 80%;
+        padding: 0.8em 1.8em;
+        font-size: 1em;
+        border-radius: 8px;
+        text-align: center;
+        background-color: #25D366;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        box-shadow: none !important;
+    }
+    .modal .contact-button .cta-button:hover {
+        background-color: #128C7E;
+        transform: translateY(-1px);
+        box-shadow: none !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal .contact-button .cta-button {
+        min-width: 140px;
+        max-width: 85%;
+        padding: 0.9em 1.6em;
+        font-size: 1em;
+        border-radius: 8px;
+        font-weight: 600;
+        box-shadow: none !important;
+    }
+} 
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 98vw !important;
+    max-width: 98vw !important;
+    padding: 0.2em 0.1em !important;
+    box-sizing: border-box;
+  }
+  .modal .resultat-calcul {
+    padding: 0.2em 0.1em !important;
+    margin-top: 0.2em;
+  }
+  .modal .resultat-item {
+    padding: 0.1em 0.05em !important;
+    gap: 0.05em;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+  .modal .resultat-item span:first-child {
+    font-size: 0.95em;
+    white-space: nowrap;
+    flex: 1 1 40%;
+  }
+  .modal .resultat-item span:last-child {
+    font-size: 1.15em;
+    font-weight: bold;
+    color: #25D366;
+    word-break: break-all;
+    text-align: right;
+    margin-left: auto;
+    flex: 1 1 60%;
+    min-width: 0;
+  }
+}
+@media (max-width: 480px) {
+  .modal-content {
+    width: 99vw !important;
+    max-width: 99vw !important;
+    padding: 0.1em 0.02em !important;
+  }
+  .modal .resultat-calcul {
+    padding: 0.1em 0.02em !important;
+  }
+  .modal .resultat-item {
+    padding: 0.05em 0.01em !important;
+    gap: 0.01em;
+  }
+  .modal .resultat-item span:first-child {
+    font-size: 0.9em;
+  }
+  .modal .resultat-item span:last-child {
+    font-size: 1.08em;
+  }
+} 
